@@ -1,10 +1,10 @@
-#include "menus/menu.h"
+#include "menu.h"
 #include <stdio.h>
 
 
 int main(void)
 {
-	menua();
+	menuPrinci();
 
 	return 0;
 }
