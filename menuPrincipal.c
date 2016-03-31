@@ -41,7 +41,7 @@ int registrarse(){
     printf("\n");
 
     AbrirFichero("usuario.dat", "w");
-    //EscribirEnFichero(usuario, nombre, contrasenya);
+    EscribirEnFichero(usuario, nombre, contrasenya);
     CerrarFichero(usuario);
 
     leerUsuarios();
@@ -49,12 +49,12 @@ int registrarse(){
     return 0;
 }
 
-/*int leerUsuarios(){
+int leerUsuarios(){
     FILE *archivo;
     char caracteres[100];
 
     AbrirFichero("usuario.dat", "w");
     LeerDesdeFichero(usuario);
-}*/
+}
 
 

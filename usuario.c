@@ -8,32 +8,43 @@ void AbrirFichero(const char *filename, const char *mode){
 	FILE* fichero;
     fichero = fopen(filename, mode);
 
-    /*if(fichero == null){
+    if(fichero == NULL){
     	printf("\nError de apertura del fichero\n");
-    }*/
+    }
 }
 
-int CerrarFichero(FILE* fichero){
+void CerrarFichero(FILE* fichero){
 
-	return fclose (fichero);
+	fclose (fichero);
 }
 
-/*int EscribirEnFichero (FILE *fichero, const char nombre[], const char contrasenya[]){
+void EscribirEnFichero (FILE *fichero, const char nombre[], const char contrasenya[]){
 
-	fputs(nombre, fichero);
-	fputs (contrasenya, fichero);
+	//fputs(nombre, fichero);
+	//fputs (contrasenya, fichero);
 	fprintf(fichero, nombre, contrasenya);
 
-	return 0;
 }
 
-int LeerDesdeFichero (FILE *fichero){
+void LeerDesdeFichero (FILE *fichero){
 	char caracteres[100];
-	
 	int i = 0;
-	for (i=0; i<5; i++){
-		caracteres[i] = fgetc(fichero);
+	while ((caracteres[i]=fgetc(fichero))!=EOF){
 		printf("%s\n", caracteres[i]);
+		i++;
 	}
+
+	/*int j=0;
+	while (! feof(fichero)){
+		fscanf(fichero,"%s", caracteres[j]);
+		printf("%s\n", caracteres[j]);
+		j++;
+	}
+
+	int k=0;
+	for (k=0; k<5; k++){
+		caracteres[k] = fgetc(fichero);
+		printf("%s\n", caracteres[k]);
+	}*/
 	
-}*/
+}
