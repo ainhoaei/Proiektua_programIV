@@ -1,8 +1,9 @@
-#include "menu.h"
 #include <stdio.h>
+#include "menu.h"
+
 
 //MENU LOGIN
-void menua()
+int menua()
 {
 
 
@@ -38,6 +39,8 @@ void menua()
     	}
 
     } while (opc != 5);
+
+    return 0;
 }
 
 
