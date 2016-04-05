@@ -47,12 +47,14 @@ int menua()
 //MENU DIARIO
 int diario(){
     int opcion;
+    int total = 0;
     do{
         printf("Seleccione la accion a realizar:\n1. Apuntar nota\n2. Ver notas\n3. Eliminar nota\n4. Atras \n");
         scanf("%d",&opcion);
 
         switch(opcion){
-            case 1: printf("opc 1.\n"); break;
+            case 1: printf("opc 1.\n"); 
+                   total ++; break;
             case 2: printf("opc 2.\n"); break;
             case 3: printf("opc 3\n"); break;
             case 4: printf("\n"); break;
@@ -68,19 +70,22 @@ int diario(){
 //MENU TAREAS
 int tarea(){
     int opcion;
+    int total = 0;
     do{
-        printf("Seleccione la accion a realizar:\n1. Ver tareas a realizar\n2. Modificar tarea\n3. Eliminar tarea\n4. Atras \n");
+        printf("Seleccione la accion a realizar:\n1. Introducir tarea\n2. Ver tareas a realizar\n3. Modificar tarea\n4. Eliminar tarea\n5. Atras \n");
         scanf("%d",&opcion);
 
         switch(opcion){
-            case 1: printf("opc 1.\n"); break;
+            case 1: printf("opc 1.\n"); 
+                    total ++; break;
             case 2: printf("opc 2.\n"); break;
             case 3: printf("opc 3\n"); break;
-            case 4: printf("\n"); break;
+            case 4: printf("opc 3\n"); break;
+            case 5: printf("\n"); break;
             default: printf("Numero erroneo. Introduzca de nuevo.\n"); break;
         }
 
-    }while( opcion != 4 );
+    }while( opcion != 5 );
 
     return 0;
 }
@@ -89,12 +94,14 @@ int tarea(){
 //MENU CONTACTOS
 int contactos(){
     int opcion;
+    int total = 0;
     do{
         printf("Seleccione la accion a realizar:\n1. Anyadir contactos\n2. Ver contactos\n3. Eliminar contacto\n4. Atras \n");
         scanf("%d",&opcion);
 
         switch(opcion){
-            case 1: printf("opc 1.\n"); break;
+            case 1: printf("opc 1.\n"); 
+                    total ++; break;
             case 2: printf("opc 2.\n"); break;
             case 3: printf("opc 3\n"); break;
             case 4: printf("\n"); break;
@@ -110,12 +117,14 @@ int contactos(){
 //MENU RECORDATORIOS
 int recordatorios(){
     int opcion;
+    int total = 0;
     do{
         printf("Seleccione la accion a realizar:\n1. Anyadir recordatorio\n2. Eliminar recordatorio\n3. Atras \n");
         scanf("%d",&opcion);
 
         switch(opcion){
-            case 1: printf("opc 1.\n"); break;
+            case 1: printf("opc 1.\n"); 
+                    total ++; break;
             case 2: printf("opc 2.\n"); break;
             case 3: printf("\n"); break;
             default: printf("Numero erroneo. Introduzca de nuevo.\n"); break;
