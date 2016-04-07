@@ -9,7 +9,7 @@ typedef struct {
 
 void AbrirFichero(const char *filename, const char* mode);
 void CerrarFichero(FILE* fichero);
-void EscribirEnFichero(FILE *fichero, const char *nombre, const char *contrasenya);
+void EscribirEnFichero(Usuario *u, int total);
 void LeerDesdeFichero(FILE *fichero);
 
 #endif

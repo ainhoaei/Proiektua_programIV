@@ -18,11 +18,11 @@ void CerrarFichero(FILE* fichero){
 	fclose (fichero);
 }
 
-void EscribirEnFichero (FILE *fichero, const char nombre[], const char contrasenya[]){
+void EscribirEnFichero (Usuario *u, int total){
 
 	//fputs(nombre, fichero);
 	//fputs (contrasenya, fichero);
-	fprintf(fichero, nombre, contrasenya);
+	//fprintf(fichero, nombre, contrasenya);
 
 }
 

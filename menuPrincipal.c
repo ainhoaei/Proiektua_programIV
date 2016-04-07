@@ -30,13 +30,12 @@ void menuPrinci()
 
 int registrarse(){
 
-    char nombre[15];
-    char contrasenya[15];
+    Usuario *usuario;
 
     printf("Escriba el nuevo nombre de usuario:\n");
-    scanf("%s",nombre);
+    //scanf("%s", usuario.nombre);
     printf("Escriba la contrasenya para el usuario:\n");
-    scanf("%s",contrasenya);
+    //scanf("%s", usuario.contrasenya);
     printf("USUARIO REGISTRADO!\n");
     printf("\n");
 
