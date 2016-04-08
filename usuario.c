@@ -5,48 +5,58 @@
 
 
 
-void AbrirFichero(const char *filename, const char *mode){
-	
-	FILE* fichero;
-    fichero = fopen(filename, mode);
+
+void AbrirFichero(FILE *fichero){
+
+    fichero = fopen("usuario.dat", "wb");
 
     if(fichero == NULL){
     	printf("\nError de apertura del fichero\n");
     }
 }
 
-void CerrarFichero(FILE* fichero){
+
+void CerrarFichero(FILE *fichero){
 
 	fclose (fichero);
 }
 
-void EscribirEnFichero (Usuario *u, int total){
+void EscribirEnFichero (FILE *fichero, Usuario *u, int total, char *w){
 
-	//fputs(nombre, fichero);
-	//fputs (contrasenya, fichero);
-	//fprintf(fichero, nombre, contrasenya);
+
+	//  EZ DET PROBRATU ONDO EGITEN DUEN
+
+
+	fputc (total, fichero);
+	fwrite (u, sizeof(Usuario), total, fichero);
+	
+	int len;
+	len = strlen (w);
+	fputc(len, fichero);
+	fwrite (w, sizeof(char), len, fichero);
+
+	
 
 }
 
-void LeerDesdeFichero (FILE *fichero){
-	char caracteres[100];
-	int i = 0;
-	while ((caracteres[i]=fgetc(fichero))!=EOF){
-		printf("%s\n", caracteres[i]);
-		i++;
-	}
+void LeerDesdeFichero (FILE *fichero, int total, char *w){
+	
 
-	/*int j=0;
-	while (! feof(fichero)){
-		fscanf(fichero,"%s", caracteres[j]);
-		printf("%s\n", caracteres[j]);
-		j++;
-	}
+	//  EZ DET PROBRATU ONDO EGITEN DUEN
 
-	int k=0;
-	for (k=0; k<5; k++){
-		caracteres[k] = fgetc(fichero);
-		printf("%s\n", caracteres[k]);
-	}*/
+
+
+	total = fgetc(fichero);
+
+	w = (char*)malloc((total+1) * sizeof(char));
+	fread (w, sizeof(char), total, fichero);
+	w[total] = '\0';
+
+	CerrarFichero(fichero);
+
+	printf("%s\n", w);
+
+	free(w);
+
 	
 }

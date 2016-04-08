@@ -25,7 +25,7 @@ void menuPrinci()
     		case 1: //menua(); 
                     break;
     		case 2: registrarse(&u[total], total); 
-                    liberarMemoria(usuario, total);
+                    liberarMemoria(u, total);
                     total ++;
                     break;
     		case 3: printf("Adios!\n"); break;
@@ -51,7 +51,7 @@ int registrarse(Usuario *usuario, int total){
     usuario->nombre = (char *)malloc((strlen(frmt_str) + 1) * sizeof  (char));
     //strlen: longitud de la cadena de frmt_str sin /0, por     //ello, le metemos un +1.
     strcpy(usuario->nombre, frmt_str); //STRING COPY
-    
+
 
     printf("Escriba la contrasenya para el usuario:\n");
     fgets(str, MAX_LENGTH, stdin);
