@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include "usuario.h"
+#include <string.h>
+#include <stdlib.h>
 
 
 

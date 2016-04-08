@@ -1,14 +1,19 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
 #include "menu.h"
 #include "usuario.h"
 
-FILE *usuario;
+
 
 //MENU PRINCIPAL
 void menuPrinci()
 {
 
+    Usuario u[50];
  	int opc = 0;
+    int total = 0;
 	
     do
     {
@@ -17,8 +22,12 @@ void menuPrinci()
     	scanf("%i",&opc);
 
     	switch(opc){
-    		case 1: menua(); break;
-    		case 2: registrarse(); break;
+    		case 1: //menua(); 
+                    break;
+    		case 2: registrarse(&u[total], total); 
+                    //registrarse2(&u[total], total);
+                    total ++;
+                    break;
     		case 3: printf("Adios!\n"); break;
     		default: printf("Numero erroneo. Introduzca de nuevo.\n"); break;
     	}
@@ -28,22 +37,70 @@ void menuPrinci()
 
 }
 
-int registrarse(){
+int registrarse(Usuario *usuario, int total){
 
-    Usuario *usuario;
+    char str[MAX_LENGTH];
+    char frmt_str[MAX_LENGTH];
 
-    printf("Escriba el nuevo nombre de usuario:\n");
-    //scanf("%s", usuario.nombre);
+    printf ("Escriba el nuevo nombre de usuario:\n");
+    fgets(str, MAX_LENGTH, stdin);
+    clear_if_needed(str);
+    sscanf(str, "%s", frmt_str); //eliminar el \n final
+    
+    //RESERVAR LA MEMORIA JUSTA PARA LA CADENA ALMACENADA
+    usuario->nombre = (char *)malloc((strlen(frmt_str) + 1) * sizeof  (char));
+    //strlen: longitud de la cadena de frmt_str sin /0, por     //ello, le metemos un +1.
+    strcpy(usuario->nombre, frmt_str); //STRING COPY
+
+    liberarMemoria(usuario, total);
+
     printf("Escriba la contrasenya para el usuario:\n");
-    //scanf("%s", usuario.contrasenya);
-    printf("USUARIO REGISTRADO!\n");
+    fgets(str, MAX_LENGTH, stdin);
+    clear_if_needed(str);
+    sscanf(str, "%s", frmt_str); //eliminar el \n final
+
+    //RESERVAR LA MEMORIA JUSTA
+    usuario->contrasenya = (char *)malloc((strlen(frmt_str)+1) * sizeof(char));
+    strcpy(usuario->contrasenya, frmt_str);
+
+    printf("USUARIO REGISTRADO! nombre: %s  contrasenya: %s\n", usuario[0].nombre, usuario[0].contrasenya);
     printf("\n");
 
-    AbrirFichero("usuario.dat", "w");
-    EscribirEnFichero(usuario, nombre, contrasenya);
-    CerrarFichero(usuario);
+    //AbrirFichero("usuario.dat", "w");
+    //EscribirEnFichero(usuario, nombre, contrasenya);
+    //CerrarFichero(usuario);
 
-    leerUsuarios();
+    //leerUsuarios();
+
+    liberarMemoria(usuario, total);
+
+    return 0;
+}
+
+int registrarse2(Usuario *usuario, int total){
+
+    char str[MAX_LENGTH];
+    char frmt_str[MAX_LENGTH];
+
+    printf("Escriba la contrasenya para el usuario:\n");
+    fgets(str, MAX_LENGTH, stdin);
+    clear_if_needed(str);
+    sscanf(str, "%s", frmt_str); //eliminar el \n final
+
+    //RESERVAR LA MEMORIA JUSTA
+    usuario->contrasenya = (char *)malloc((strlen(frmt_str)+1) * sizeof(char));
+    strcpy(usuario->contrasenya, frmt_str);
+
+    printf("USUARIO REGISTRADO! nombre: %s  contrasenya: %s\n", usuario[0].nombre, usuario[0].contrasenya);
+    printf("\n");
+
+    //AbrirFichero("usuario.dat", "w");
+    //EscribirEnFichero(usuario, nombre, contrasenya);
+    //CerrarFichero(usuario);
+
+    //leerUsuarios();
+
+    liberarMemoria(usuario, total);
 
     return 0;
 }
@@ -52,8 +109,26 @@ int leerUsuarios(){
     FILE *archivo;
     char caracteres[100];
 
-    AbrirFichero("usuario.dat", "w");
-    LeerDesdeFichero(usuario);
+    //AbrirFichero("usuario.dat", "w");
+    //LeerDesdeFichero(usuario);
 }
 
+int clear_if_needed (char *str){
 
+    if (str[strlen(str) - 1] != '\n'){
+        int c;
+        while ((c = getchar()) != EOF && c != '\n');
+    }
+
+    return 0;
+}
+
+int liberarMemoria (Usuario *u, int total){
+    int i;
+    for (i = 0; i < total; i++){
+        free(u[i].nombre);
+        free(u[i].contrasenya);
+    }
+
+    return 0;
+}

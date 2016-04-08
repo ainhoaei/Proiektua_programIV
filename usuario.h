@@ -1,9 +1,12 @@
 #ifndef USUARIO_H_
 #define USUARIO_H_
 
+
+#define MAX_LENGTH 10
+
 typedef struct {
-	char *contrasenya;
 	char *nombre;
+	char *contrasenya;
 } Usuario;
 
 
