@@ -5,7 +5,7 @@
 #include "menu.h"
 #include "usuario.h"
 
-
+FILE *file;
 
 //MENU PRINCIPAL
 void menuPrinci()
@@ -13,7 +13,7 @@ void menuPrinci()
 
     Usuario u[50];
  	int opc = 0;
-    int total = 0;
+    int total=0;
 	
     do
     {
@@ -22,10 +22,9 @@ void menuPrinci()
     	scanf("%i",&opc);
 
     	switch(opc){
-    		case 1: //menua(); 
+    		case 1: menua(); 
                     break;
     		case 2: registrarse(&u[total], total); 
-                    liberarMemoria(u, total);
                     total ++;
                     break;
     		case 3: printf("Adios!\n"); break;
@@ -35,6 +34,7 @@ void menuPrinci()
     } while (opc != 3);
 
 
+    liberarMemoria(u, total);
 }
 
 int registrarse(Usuario *usuario, int total){
@@ -42,10 +42,11 @@ int registrarse(Usuario *usuario, int total){
     char str[MAX_LENGTH];
     char frmt_str[MAX_LENGTH];
 
-    printf ("Escriba el nuevo nombre de usuario:\n");
+    printf ("Escriba el nuevo nombre de usuario: \n");
     fgets(str, MAX_LENGTH, stdin);
     clear_if_needed(str);
-    sscanf(str, "%s", frmt_str); //eliminar el \n final
+    //sscanf(str, "%s", frmt_str); //eliminar el \n final
+     
     
     //RESERVAR LA MEMORIA JUSTA PARA LA CADENA ALMACENADA
     usuario->nombre = (char *)malloc((strlen(frmt_str) + 1) * sizeof  (char));
@@ -65,11 +66,12 @@ int registrarse(Usuario *usuario, int total){
     printf("USUARIO REGISTRADO! nombre: %s  contrasenya: %s\n", usuario[0].nombre, usuario[0].contrasenya);
     printf("\n");
 
-    //AbrirFichero("usuario.dat", "w");
-    //EscribirEnFichero(usuario, nombre, contrasenya);
-    //CerrarFichero(usuario);
+    ////AbrirFichero(file);
+    //file = fopen("usuario.dat", "wb");
+    //EscribirEnFichero(file, usuario, total, str);
+    //CerrarFichero(file);
 
-    //leerUsuarios();
+    //LeerDesdeFichero(file, total, str);
 
     return 0;
 }

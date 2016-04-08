@@ -6,22 +6,25 @@
 
 
 
-void AbrirFichero(FILE *fichero){
+int AbrirFichero(FILE *fichero){
 
     fichero = fopen("usuario.dat", "wb");
 
     if(fichero == NULL){
     	printf("\nError de apertura del fichero\n");
     }
+
+    return 0;
 }
 
 
-void CerrarFichero(FILE *fichero){
+int CerrarFichero(FILE *fichero){
 
 	fclose (fichero);
+	return 0;
 }
 
-void EscribirEnFichero (FILE *fichero, Usuario *u, int total, char *w){
+int EscribirEnFichero (FILE *fichero, Usuario *u, int total, char *w){
 
 
 	//  EZ DET PROBRATU ONDO EGITEN DUEN
@@ -35,11 +38,11 @@ void EscribirEnFichero (FILE *fichero, Usuario *u, int total, char *w){
 	fputc(len, fichero);
 	fwrite (w, sizeof(char), len, fichero);
 
-	
+	return 0;
 
 }
 
-void LeerDesdeFichero (FILE *fichero, int total, char *w){
+int LeerDesdeFichero (FILE *fichero, int total, char *w){
 	
 
 	//  EZ DET PROBRATU ONDO EGITEN DUEN
@@ -58,5 +61,5 @@ void LeerDesdeFichero (FILE *fichero, int total, char *w){
 
 	free(w);
 
-	
+	return 0;
 }
