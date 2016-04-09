@@ -3,6 +3,7 @@
 
 
 #define MAX_LENGTH 10
+#define NUM_ELEMENTOS 2
 
 typedef struct {
 	char *nombre;
@@ -12,7 +13,7 @@ typedef struct {
 
 int AbrirFichero(FILE *fichero);
 int CerrarFichero(FILE* fichero);
-int EscribirEnFichero(FILE *fichero, Usuario *u, int total, char *w);
-int LeerDesdeFichero(FILE *fichero, int total, char *w);
+int EscribirEnFichero(Usuario *u, int total);
+Usuario* LeerDesdeFichero(Usuario *u, int total);
 
 #endif

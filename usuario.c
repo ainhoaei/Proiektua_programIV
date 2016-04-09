@@ -4,6 +4,20 @@
 #include <stdlib.h>
 
 
+/*char* getNombre(int i){
+	return usuario[i].nombre;
+}
+
+char* getContrasenya(int i){
+	return usuario[i].contrasenya;
+}
+*/
+void imprimir(Usuario *u, int total)
+{
+	int i = 0;
+	for (i; i<total; i++)
+		printf("\nNUM USUARIO %d:\nNombre: %s, Contrasenya: %s\n", i+1, u[i].nombre, u[i].contrasenya);
+}
 
 
 int AbrirFichero(FILE *fichero){
@@ -24,42 +38,38 @@ int CerrarFichero(FILE *fichero){
 	return 0;
 }
 
-int EscribirEnFichero (FILE *fichero, Usuario *u, int total, char *w){
+int EscribirEnFichero (Usuario *u, int total){
 
-
-	//  EZ DET PROBRATU ONDO EGITEN DUEN
-
-
+	FILE *fichero;
+	fichero = fopen("usuario.dat", "wb"); // edo ab???
 	fputc (total, fichero);
 	fwrite (u, sizeof(Usuario), total, fichero);
-	
-	int len;
-	len = strlen (w);
-	fputc(len, fichero);
-	fwrite (w, sizeof(char), len, fichero);
+
+
+	CerrarFichero(fichero);
+
+	printf("USUARIO REGISTRADO!\n");
 
 	return 0;
 
 }
 
-int LeerDesdeFichero (FILE *fichero, int total, char *w){
-	
+Usuario* LeerDesdeFichero (Usuario *u, int total){
 
-	//  EZ DET PROBRATU ONDO EGITEN DUEN
-
-
+	FILE *fichero;
+	int num_elemt;
+	fichero = fopen("usuario.dat", "rb");
 
 	total = fgetc(fichero);
+	u = (Usuario*)malloc(total * sizeof(Usuario));
+	fread(u, sizeof(Usuario), total, fichero);
 
-	w = (char*)malloc((total+1) * sizeof(char));
-	fread (w, sizeof(char), total, fichero);
-	w[total] = '\0';
+	
+	imprimir(u, total);
+	
 
 	CerrarFichero(fichero);
 
-	printf("%s\n", w);
 
-	free(w);
-
-	return 0;
+	return u;
 }
