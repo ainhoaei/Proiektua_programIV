@@ -80,7 +80,7 @@ int tarea(){
                     total ++; break;
             case 2: printf("opc 2.\n"); break;
             case 3: printf("opc 3\n"); break;
-            case 4: printf("opc 3\n"); break;
+            case 4: printf("opc 4\n"); break;
             case 5: printf("\n"); break;
             default: printf("Numero erroneo. Introduzca de nuevo.\n"); break;
         }

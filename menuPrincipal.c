@@ -94,7 +94,9 @@ int comprobarUsuarioRegistrado(Usuario *usuario, int total){
     //usuario = clone(LeerDesdeFichero(usuario, total));
     char *num;
     num = (char *)malloc ((strlen(frmt_str)+1) * sizeof(char));
-    //strncpy(usuario->nombre, LeerDesdeFichero(usuario, total)->nombre, num);
+
+    strcpy(nombre, LeerDesdeFichero(usuario, total)->nombre);
+
     //int num = LeerDesdeFichero(usuario, total);
     int i;
    // 
@@ -103,7 +105,7 @@ int comprobarUsuarioRegistrado(Usuario *usuario, int total){
         /*if ((nombre == getNombre(i)) && (contrasenya == getContrasenya(i))){
             menua();
         }*/
-        for(i=0; i<sizeof(usuario); i++){
+        for(i=0; i<sizeof(nombre); i++){
             if(usuario[i].nombre == nombre){
                 printf("SI\n");
             }
