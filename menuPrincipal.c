@@ -11,18 +11,18 @@ void menuPrinci()
 {
 
     Usuario u[50];
- 	int opc = 0;
+    int opc = 0;
     int total=0;
     FILE *fichero;
-	
+    
     do
     {
         printf("\nMENU PRINCIPAL: Seleccione una opcion \n");
-    	printf("1. Log in   2. Registrarse   3. Salir\n");
-    	scanf("%i",&opc);
+        printf("1. Log in   2. Registrarse   3. Salir\n");
+        scanf("%i",&opc);
 
-    	switch(opc){
-    		case 1: fichero = fopen("usuario.dat", "rb");
+        switch(opc){
+            case 1: fichero = fopen("usuario.txt", "rb");
                     if ( fichero == NULL )
                     {
                       printf("No hay usuarios registrados\n");
@@ -31,17 +31,18 @@ void menuPrinci()
                     {
                         //comprobarUsuarioRegistrado(u, total); 
                         //EZ DET LORTZEN USUARIOA ESISTITZEN DEN KONPROBATZEA
-                        menua();
+                        //menua();
+                        LeerDesdeFichero(u, total);
                     }
                     break;
-    		case 2: registrarse(&u[total], total); 
+            case 2: registrarse(&u[total], total); 
                     total ++;
                     EscribirEnFichero(u, total);
-                   // LeerDesdeFichero(u, total);
+                    //LeerDesdeFichero(u, total);
                     break;
-    		case 3: printf("Adios!\n"); break;
-    		default: printf("Numero erroneo. Introduzca de nuevo.\n"); break;
-    	}
+            case 3: printf("Adios!\n"); break;
+            default: printf("Numero erroneo. Introduzca de nuevo.\n"); break;
+        }
 
     } while (opc != 3);
 
@@ -91,11 +92,12 @@ int comprobarUsuarioRegistrado(Usuario *usuario, int total){
     usuario2->nombre = usuario->nombre;
     usuario2->contrasenya = usuario->contrasenya;*/
 
+
     //usuario = clone(LeerDesdeFichero(usuario, total));
     char *num;
     num = (char *)malloc ((strlen(frmt_str)+1) * sizeof(char));
 
-    strcpy(nombre, LeerDesdeFichero(usuario, total)->nombre);
+   // strcpy(nombre, LeerDesdeFichero(usuario, total)->nombre);
 
     //int num = LeerDesdeFichero(usuario, total);
     int i;
@@ -131,7 +133,7 @@ int registrarse(Usuario *usuario, int total){
     fgets(str, MAX_LENGTH, stdin);
     clear_if_needed(str);
 
-    printf ("Escriba el nuevo nombre de usuario: ");
+    printf ("Escriba el nuevo nombre de usuario: \n");
     fgets(str, MAX_LENGTH, stdin);
     clear_if_needed(str);
     sscanf(str, "%s", frmt_str); //eliminar el \n final
@@ -144,7 +146,7 @@ int registrarse(Usuario *usuario, int total){
 
     
 
-    printf("Escriba la contrasenya para el usuario:  ");
+    printf("Escriba la contrasenya para el usuario: \n");
     fgets(str, MAX_LENGTH, stdin);
     clear_if_needed(str);
     sscanf(str, "%s", frmt_str); //eliminar el \n final

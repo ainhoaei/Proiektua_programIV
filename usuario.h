@@ -14,6 +14,6 @@ typedef struct {
 int AbrirFichero(FILE *fichero);
 int CerrarFichero(FILE* fichero);
 int EscribirEnFichero(Usuario *u, int total);
-Usuario* LeerDesdeFichero(Usuario *u, int total);
+int LeerDesdeFichero(Usuario *u, int total);
 
 #endif
