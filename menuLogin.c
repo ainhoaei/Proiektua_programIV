@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <time.h>
 #include "menu.h"
 
 
@@ -53,7 +54,13 @@ int diario(){
         scanf("%d",&opcion);
 
         switch(opcion){
-            case 1: printf("opc 1.\n"); 
+            case 1: 
+                    /*time_t fecha = time(NULL);
+                    struct tm *fahora;
+                    fahora = fahora (&fecha);
+                    fputs (asctime (fahora), stdout);
+                    */
+                    printf("opc 1.\n"); 
                    total ++; break;
             case 2: printf("opc 2.\n"); break;
             case 3: printf("opc 3\n"); break;
