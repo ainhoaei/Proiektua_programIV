@@ -29,7 +29,7 @@ void menuPrinci()
                     }
                     else
                     {
-                        //comprobarUsuarioRegistrado(u, total); 
+                        //comprobarUsuarioRegistrado(&u[total], total); 
                         //EZ DET LORTZEN USUARIOA ESISTITZEN DEN KONPROBATZEA
                         //menua();
                         LeerDesdeFichero(u, total);
@@ -88,25 +88,18 @@ int comprobarUsuarioRegistrado(Usuario *usuario, int total){
     //strlen: longitud de la cadena de frmt_str sin /0, por ello, le metemos un +1.
     strcpy(contrasenya, frmt_str); //STRING COPY
 
-   /* Usuario *usuario2;
-    usuario2->nombre = usuario->nombre;
-    usuario2->contrasenya = usuario->contrasenya;*/
-
-
-    //usuario = clone(LeerDesdeFichero(usuario, total));
-    char *num;
-    num = (char *)malloc ((strlen(frmt_str)+1) * sizeof(char));
-
-   // strcpy(nombre, LeerDesdeFichero(usuario, total)->nombre);
 
     //int num = LeerDesdeFichero(usuario, total);
     int i;
+    FILE *fichero;
+    char c;
+    fichero = fopen("usuario.txt", "r");
    // 
-    while (feof((FILE*)usuario))
+   /* while (feof((FILE*)usuario))
     {
         /*if ((nombre == getNombre(i)) && (contrasenya == getContrasenya(i))){
             menua();
-        }*/
+        }
         for(i=0; i<sizeof(nombre); i++){
             if(usuario[i].nombre == nombre){
                 printf("SI\n");
@@ -115,12 +108,36 @@ int comprobarUsuarioRegistrado(Usuario *usuario, int total){
                 printf("Nombre de usuario y contrasenya incorrectas.\n");
             }
         }
+    }*/
+
+    while ((c = fgetc(fichero)) != EOF) //EOF: End Of File
+    {
+
+        if (c == '\n')
+            total++; //berez, irakurtzeko no es necesario
+
     }
-    
+
+    while ((c = fgetc(fichero)) != EOF) //EOF: End Of File
+    {
+         for(i=0; i<total; i++){
+            if(nombre == usuario[i].nombre){
+                printf("ondo!\n");
+            }
+            else{
+                printf("gaizki!\n");
+            }
+         }
+
+    }
     free(usuario);
-    //menua();
+    free(contrasenya);
+    free(nombre);
+
     return 0;
 }
+
+
 
 int registrarse(Usuario *usuario, int total){
 
@@ -155,28 +172,6 @@ int registrarse(Usuario *usuario, int total){
     usuario->contrasenya = (char *)malloc((strlen(frmt_str)+1) * sizeof(char));
     strcpy(usuario->contrasenya, frmt_str);
 
-
-    return 0;
-}
-
-
-
-int clear_if_needed (char *str){
-
-    if (str[strlen(str) - 1] != '\n'){
-        int c;
-        while ((c = getchar()) != EOF && c != '\n');
-    }
-
-    return 0;
-}
-
-int liberarMemoria (Usuario *u, int total){
-    int i;
-    for (i = 0; i < total; i++){
-        free(u[i].nombre);
-        free(u[i].contrasenya);
-    }
 
     return 0;
 }

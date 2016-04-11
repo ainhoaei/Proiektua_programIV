@@ -14,7 +14,7 @@
 }
 */
 
-int EscribirEnFichero (Usuario *u, int total){
+void EscribirEnFichero (Usuario *u, int total){
 
 	FILE *fichero;
 	fichero = fopen("usuario.txt", "a"); // edo ab???
@@ -36,13 +36,11 @@ int EscribirEnFichero (Usuario *u, int total){
 
 	printf("USUARIO REGISTRADO!\n");
 
-	return total;
-
 }
 
 
 
-int LeerDesdeFichero (Usuario *u, int total){
+void LeerDesdeFichero (Usuario *u, int total){
 
 	FILE *fichero;
 	char c;
@@ -62,8 +60,43 @@ int LeerDesdeFichero (Usuario *u, int total){
     //total-1 egiten det azkeneko \n ere kontuan hartzen duelakobestela eta linea bat gehiago 
     //kontatzen duelako
 
-	return 0;
+}
 
+void ComprobarExiste(Usuario *u, int total){
+
+    FILE *fichero;
+    char c;
+    fichero = fopen("usuario.txt", "r");
+    int i;
+
+    //leer mientras no se llegue al final del fichero EOF
+    while ((c = fgetc(fichero)) != EOF) //EOF: End Of File
+    {
+        for(i=0; i<total; i++){
+
+        }
+        if (c == '\n')
+            total++; //berez, irakurtzeko no es necesario
+        putchar(c);
+    }
+    //cerrar fichero
+    fclose(fichero);
+}
+
+void clear_if_needed (char *str){
+
+    if (str[strlen(str) - 1] != '\n'){
+        int c;
+        while ((c = getchar()) != EOF && c != '\n');
+    }
+}
+
+void liberarMemoria (Usuario *u, int total){
+    int i;
+    for (i = 0; i < total; i++){
+        free(u[i].nombre);
+        free(u[i].contrasenya);
+    }
 }
 
 /*int print(Usuario *u)

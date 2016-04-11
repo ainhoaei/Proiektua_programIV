@@ -4,109 +4,99 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define CANT_ELEMENTOS 5
+#define MAX_LENGTH_DESCP 100
+#define MAX_LENGTH 3
 
 
 /*int main(void)
 {
 	
-	Tarea *tarea;
+	Tarea tarea[100];
 
 	int opcion;
     int total;
     total = 0;
     do{
-        printf("Seleccione la accion a realizar:\n1. Introducir tarea\n2. Ver tareas a realizar\n3. Modificar tarea\n4. Eliminar tarea\n5. Atras \n");
+        printf("Seleccione la accion a realizar:\n1. Introducir tarea\n2. Ver tareas a realizar\n3. Modificar tarea (sin funcionamiento)\n4. Eliminar tarea (sin funcionamiento)\n5. Atras \n");
         scanf("%d",&opcion);
 
         switch(opcion){
             case 1: IntroducirTarea(&tarea[total], total);
 					total++; 
-					
+					EscribirEnFichero(tarea, total);
 					break;
-            case 2: 
-
-            		//EZ DU ONDO FUNTZIONATZEN!
-
-
-            LeerDesdeFichero(tarea, total);
+            case 2: LeerDesdeFichero(tarea, total);
             		break;
-            
-
-
-
-
-
             case 3: ModificarTarea(); 
             		break;
             case 4: EliminarTarea(); 
             		break;
-            case 5: printf("\n"); break;
+            case 5: break;
             default: printf("Numero erroneo. Introduzca de nuevo.\n"); break;
         }
 
     }while( opcion != 5 );
 		
-    liberarMemoria(tarea, total);
+    
 
 	return 0;
-}
-*/
+}*/
+
 
 int IntroducirTarea(Tarea *tarea, int total){
 
-	char str[MAX_LENGTH_D_M];
+	char str[MAX_LENGTH];
 
 
 //GALDETU HAU!
     printf("");
-    fgets(str, MAX_LENGTH_D_M, stdin);
+    fgets(str, MAX_LENGTH, stdin);
     clear_if_needed(str);
 
 
 	//DIA
-    int d;
+    int d = 33;
     do{
 	    printf ("FECHA (Introduzca los 2 digitos en cada apartado):\nDia: ");
-	    fgets(str, MAX_LENGTH_D_M, stdin);
+	    fgets(str, MAX_LENGTH, stdin);
 	    clear_if_needed(str);
-	    sscanf(str, "%d", &tarea->dia); //eliminar el \n final
 	   
 	    d = atoi(str); //PARA QUE NO SE PUEDA ESCRIBIR MÁS DE 31 
 
 	}while(d > 31);
+	sscanf(str, "%d", &tarea->fecha.dia); //eliminar el \n final
 
 	//MES
-	int m;
+	int m = 17;
 	do{
 	    printf("Num mes: ");
-	    fgets(str, MAX_LENGTH_D_M, stdin);
+	    fgets(str, MAX_LENGTH, stdin);
 	    clear_if_needed(str);
-	    sscanf(str, "%d", &tarea->mes);
 
 	    m = atoi(str); //PARA QUE NO SE PUEDA ESCRIBIR MÁS DE 12 
 
 	}while(m > 12);
+	sscanf(str, "%d", &tarea->fecha.mes);
 
 	//ANYO
-	int a;
+	int a = 10;
 	do{
 	    printf("Anyo: ");
-	    fgets(str, MAX_LENGTH_D_M, stdin);
+	    fgets(str, MAX_LENGTH, stdin);
 	    clear_if_needed(str);
-	    sscanf(str, "%d", &tarea->anyo);
 
 	    a = atoi (str); //PARA QUE NO SE PUEDA ESCRIBIR MENOS DE 16
 
     }while (a < 16);
-
+    sscanf(str, "%d", &tarea->fecha.anyo);
 
 
     //DESCRIPCION
     char str_descp[MAX_LENGTH_DESCP];
     char frmt_str_descp[MAX_LENGTH_DESCP];
 
-    printf("Descripcion de la tarea (maximo 50 caracteres):\n");
+    printf("Descripcion de la tarea (maximo 50 caracteres).\n");
+    printf("(Escriba los espacios mediante barrabaja( _ ). Ejemplo: comprar_pan):\n");
     fgets(str_descp, MAX_LENGTH_DESCP, stdin);
     clear_if_needed(str_descp);
     sscanf(str_descp, "%s", frmt_str_descp);
@@ -114,17 +104,10 @@ int IntroducirTarea(Tarea *tarea, int total){
     tarea->descp = (char *)malloc((strlen(frmt_str_descp) + 1) * sizeof  (char));
     //strlen: longitud de la cadena de frmt_str sin /0, por ello, le metemos un +1.
     strcpy(tarea->descp, frmt_str_descp); //STRING COPY
-
-
-    imprimir(tarea, total);
-    EscribirEnFichero(tarea, total);
+    
+    liberarMemoria(tarea, total);
 
     return 0;
-}
-
-
-int VerTareas(){
-
 }
 
 
@@ -138,94 +121,58 @@ int EliminarTarea(){
 }
 
 
-
-int imprimir(Tarea *t)
-{
-	int i = 0;
-
-		printf("\nNUM TAREA %d:\n", i+1);
-		printf("Fecha: %d/%d/%d\nDescripcion:\n", t->dia, t->mes, t->anyo);
-		
-	
-	return 0;	
-}
-
-
-int AbrirFichero(FILE *fichero){
-
-    fichero = fopen("tarea.dat", "wb");
-
-    if(fichero == NULL){
-    	printf("\nError de apertura del fichero\n");
-    }
-
-    return 0;
-}
-
-
-int CerrarFichero(FILE *fichero){
-
-	fclose (fichero);
-	return 0;
-}
-
 int EscribirEnFichero (Tarea *t, int total){
 
-	//int CANT_ELEMENTOS = 5;
 	FILE *fichero;
-	fichero = fopen("tarea.dat", "wb"); // edo ab???
-	fputc (CANT_ELEMENTOS, fichero);
-	fwrite (t, sizeof(Tarea), CANT_ELEMENTOS, fichero);
+	fichero = fopen("tarea.txt", "a");
+	
+	if(fichero == NULL){
+    	fclose(fichero);
+		fichero = fopen("tarea.txt", "w");
+		printf("ez!\n");
+    }
 
-	CerrarFichero(fichero);
+	int i;
+    for(i=0; i<total; i++)
+    {
+		fprintf(fichero, "%i/", t[i].fecha.dia);
+		fprintf(fichero, "%i/", t[i].fecha.mes);
+		fprintf(fichero, "%i\n", t[i].fecha.anyo);
+		fprintf(fichero, "%s\n", t[i].descp);
+    }
+
+
+	fclose(fichero);
 
 	printf("TAREA GUARDADA!\n");
+	printf("\n");
 
 	return 0;
 
 }
 
-
-
-
-
-
-//EZ DU ONDO FUNTZIONATZEN!
 
 int LeerDesdeFichero (Tarea *t, int total){
 
-//LEER NUMEROS
-
 	FILE *fichero;
-	int num_elemt;
-	fichero = fopen("tarea.dat", "rb");
+	char c;
+	fichero = fopen("tarea.txt", "r");
 
-	num_elemt = fgetc(fichero);
-	t = (Tarea*)malloc(num_elemt * sizeof(Tarea));
-	fread(t, sizeof(Tarea), num_elemt, fichero);
+	while ((c = fgetc(fichero)) != EOF) //EOF: End Of File
+    {
+    	
+    	if (c == '/')
+    		putchar(c);
+  
+        if (c == '\n')
+            total++; //berez, irakurtzeko no es necesario
+         
+        putchar(c);
+    }
+    //cerrar fichero
+    fclose(fichero);
 
-	
-	//IMPRIMIR
-	int i;
-	for (i=0; i<num_elemt; i++){
-		imprimir(&t[i]);
-		printf("\n");
-	}
-
-//LEER CADENA
-	char *descp;
-	num_elemt = fgetc(fichero);	
-	descp = (char*)malloc((num_elemt+1) *sizeof(char));
-	fread(descp, sizeof(char), num_elemt, fichero);
-	descp[num_elemt] = '\0';
-
-
-	CerrarFichero(fichero);
-
-	printf("%s\n", descp);
-
-	free (t);
-	free (descp);
+    printf("\n");
 
 
 	return 0;
@@ -233,21 +180,18 @@ int LeerDesdeFichero (Tarea *t, int total){
 
 
 
-int clear_if_needed (char *str){
+void clear_if_needed (char *str){
 
     if (str[strlen(str) - 1] != '\n'){
         int c;
         while ((c = getchar()) != EOF && c != '\n');
     }
-
-    return 0;
 }
 
-int liberarMemoria (Tarea *t, int total){
+void liberarMemoria (Tarea *t, int total){
     int i;
     for (i = 0; i < total; i++){
         free(t[i].descp);
     }
 
-    return 0;
 }

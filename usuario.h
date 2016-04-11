@@ -10,10 +10,9 @@ typedef struct {
 	char *contrasenya;
 } Usuario;
 
-
-int AbrirFichero(FILE *fichero);
-int CerrarFichero(FILE* fichero);
-int EscribirEnFichero(Usuario *u, int total);
-int LeerDesdeFichero(Usuario *u, int total);
+void EscribirEnFichero(Usuario *u, int total);
+void LeerDesdeFichero(Usuario *u, int total);
+void clear_if_needed (char *str);
+void liberarMemoria (Usuario *t, int total);
 
 #endif
