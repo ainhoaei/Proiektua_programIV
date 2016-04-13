@@ -26,7 +26,7 @@ void EscribirEnFichero (Usuario *u, int total){
     int i;
     for(i=0; i<total; i++)
     {
-        fprintf(fichero, "%s\n", u[i].nombre);
+        fprintf(fichero, "%s#", u[i].nombre);
        	fprintf(fichero, "%s\n", u[i].contrasenya);
     }
 
@@ -49,8 +49,12 @@ void LeerDesdeFichero (Usuario *u, int total){
 	//leer mientras no se llegue al final del fichero EOF
     while ((c = fgetc(fichero)) != EOF) //EOF: End Of File
     {
+        if (c == '#')
+            putchar(c);
+
         if (c == '\n')
             total++; //berez, irakurtzeko no es necesario
+
         putchar(c);
     }
     //cerrar fichero
@@ -62,12 +66,13 @@ void LeerDesdeFichero (Usuario *u, int total){
 
 }
 
-void ComprobarExiste(Usuario *u, int total){
+/*void ComprobarExiste(Usuario *u, int total){
 
     FILE *fichero;
     char c;
     fichero = fopen("usuario.txt", "r");
-    int i;
+    int i = 0;
+    Usuario *us;
 
     //leer mientras no se llegue al final del fichero EOF
     while ((c = fgetc(fichero)) != EOF) //EOF: End Of File
@@ -75,13 +80,13 @@ void ComprobarExiste(Usuario *u, int total){
         for(i=0; i<total; i++){
 
         }
-        if (c == '\n')
-            total++; //berez, irakurtzeko no es necesario
-        putchar(c);
+       
+           // total++; //berez, irakurtzeko no es necesario
+       // putchar(c);
     }
     //cerrar fichero
     fclose(fichero);
-}
+}*/
 
 void clear_if_needed (char *str){
 

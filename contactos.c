@@ -13,7 +13,7 @@
 
 //MENU CONTACTOS
 
-int main() // gero main en ordez contactos jarri behar da.
+/*int main() // gero main en ordez contactos jarri behar da.
 {
 
 	Contacto c[MAX_CONTACTOS];
@@ -54,7 +54,7 @@ int main() // gero main en ordez contactos jarri behar da.
     liberarMemoria(c, total);
 
     return 0;
-}
+}*/
 
 void insertarContacto(Contacto *c, int total)
 {

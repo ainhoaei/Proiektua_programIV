@@ -7,8 +7,7 @@
 #define MAX_LENGTH_DESCP 100
 #define MAX_LENGTH 3
 
-
-/*int main(void)
+int main(void)
 {
 	
 	Tarea tarea[100];
@@ -40,7 +39,7 @@
     
 
 	return 0;
-}*/
+}
 
 
 int IntroducirTarea(Tarea *tarea, int total){
@@ -95,11 +94,11 @@ int IntroducirTarea(Tarea *tarea, int total){
     char str_descp[MAX_LENGTH_DESCP];
     char frmt_str_descp[MAX_LENGTH_DESCP];
 
-    printf("Descripcion de la tarea (maximo 50 caracteres).\n");
-    printf("(Escriba los espacios mediante barrabaja( _ ). Ejemplo: comprar_pan):\n");
+    printf("Descripcion de la tarea (maximo 100 caracteres).\n");
     fgets(str_descp, MAX_LENGTH_DESCP, stdin);
     clear_if_needed(str_descp);
-    sscanf(str_descp, "%s", frmt_str_descp);
+    sscanf(str_descp, "%[^\n]s", frmt_str_descp); //%%[^\n]s -> para que deje escribir espacios
+
     //RESERVAR LA MEMORIA JUSTA PARA LA CADENA ALMACENADA
     tarea->descp = (char *)malloc((strlen(frmt_str_descp) + 1) * sizeof  (char));
     //strlen: longitud de la cadena de frmt_str sin /0, por ello, le metemos un +1.

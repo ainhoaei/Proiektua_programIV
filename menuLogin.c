@@ -7,16 +7,6 @@
 int menua()
 {
 
-
-
-
-    //LOGIN-a EGITEA FALTA DA HEMEN!!!!
-
-
-
-
-
-
 	int opc = 0;
 	char c;
 

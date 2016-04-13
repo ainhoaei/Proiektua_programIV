@@ -22,17 +22,15 @@ void menuPrinci()
         scanf("%i",&opc);
 
         switch(opc){
-            case 1: fichero = fopen("usuario.txt", "rb");
+            case 1: fichero = fopen("usuario.txt", "r");
                     if ( fichero == NULL )
                     {
                       printf("No hay usuarios registrados\n");
                     }
                     else
                     {
-                        //comprobarUsuarioRegistrado(&u[total], total); 
-                        //EZ DET LORTZEN USUARIOA ESISTITZEN DEN KONPROBATZEA
-                        //menua();
-                        LeerDesdeFichero(u, total);
+                        comprobarUsuarioRegistrado(&u[total], total); 
+                        
                     }
                     break;
             case 2: registrarse(&u[total], total); 
@@ -54,7 +52,7 @@ void menuPrinci()
 int comprobarUsuarioRegistrado(Usuario *usuario, int total){
 
 
-    // EZ DU FUNTZIONATZEN!
+    // NOMBRE DE USUARIO BAKARRIK KONPROBATZEU!
 
 
     char str[MAX_LENGTH];
@@ -90,51 +88,125 @@ int comprobarUsuarioRegistrado(Usuario *usuario, int total){
 
 
     //int num = LeerDesdeFichero(usuario, total);
-    int i;
+    
+    //IGUALAR EL NOMBRE PARA TENER EL NOMBRE
+    char *registrar;
+    registrar = nombre;
+    printf("%s\n", registrar);
+
+    //LONGITUD DEL NOMBRE
+    int longNombre = 0;
+    longNombre = largo_cadena(nombre);
+    printf("%i\n", longNombre);
+
+//////////PARA COMPROBRAR EL NOMBRE Y LA CONTRASEÑA///////////
+    //AÑADIR # AL NOMBRE
+    char *b;
+    b = "#";
+    
+    //CONCATENAR CON # Y LUEGO CON CONTRASENYA
+    strcat(strcat(registrar, b), contrasenya);
+    printf("%s\n", registrar);
+
+    //registrar = (char *)malloc((strlen(frmt_str) + 1) * sizeof  (char));
+
+    int longitud = 0;
+    longitud = largo_cadena(registrar);
+    //printf("%i\n", largo_cadena(registrar));
+
+    //registrar = (char *)malloc((longitud +1) * sizeof  (char));
+
+/////////////////////////////////////////////////////////
+
+    int i = 0;
     FILE *fichero;
     char c;
+
     fichero = fopen("usuario.txt", "r");
-   // 
-   /* while (feof((FILE*)usuario))
-    {
-        /*if ((nombre == getNombre(i)) && (contrasenya == getContrasenya(i))){
-            menua();
-        }
-        for(i=0; i<sizeof(nombre); i++){
-            if(usuario[i].nombre == nombre){
-                printf("SI\n");
-            }
-            else{
-                printf("Nombre de usuario y contrasenya incorrectas.\n");
-            }
-        }
-    }*/
+  
+    int contar = 0;
 
+//////////PARA COMPROBRAR SOLO EL NOMBRE///////////
     while ((c = fgetc(fichero)) != EOF) //EOF: End Of File
     {
-
         if (c == '\n')
-            total++; //berez, irakurtzeko no es necesario
-
+        {
+            if(i == longNombre)
+            {
+                menua();
+                return;
+            }
+            else
+            {
+                i = 0;
+            }
+        }
+        else
+        {
+            if (c != '#')
+            {
+                if(registrar[i] == c)
+                {
+                    printf("bai!\n");
+                    i++;
+                    
+                }
+                        
+            }
+        }
     }
+/////////////////////////////////////////////////////////
 
-    while ((c = fgetc(fichero)) != EOF) //EOF: End Of File
+//////////PARA COMPROBRAR EL NOMBRE Y LA CONTRASEÑA///////////
+
+    //NO FUNCIONA!
+
+   /* while ((c = fgetc(fichero)) != EOF) //EOF: End Of File
     {
-         for(i=0; i<total; i++){
-            if(nombre == usuario[i].nombre){
-                printf("ondo!\n");
+        if (c == '\n'){
+            if(contar == longitud)
+                menua();
+
+            else{
+                contar = 0;
+               // printf("ez\n");
+            }
+            
+        }
+       
+        if (c != '\n')
+        {
+            if(registrar[i] == c){
+               // printf("bai!\n");
+                contar++;
             }
             else{
-                printf("gaizki!\n");
+                contar = 0;
             }
-         }
+               
+        }
 
-    }
-    free(usuario);
+
+        i++;    
+
+    }*/
+////////////////////////////////////////////////
+
+    fclose (fichero);
     free(contrasenya);
     free(nombre);
 
     return 0;
+
+}
+
+
+/* devuelve la cantidad de caracteres en cadena sin contar el '\0' */
+int largo_cadena(char cadena[])
+{
+    int largo=0;
+    while (cadena[largo]!='\0') largo++;
+    return largo;
 }
 
 
