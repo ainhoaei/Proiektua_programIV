@@ -2,11 +2,12 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include "recordatorio.h"
 
 #define MAX_CAR 200
 #define MAX_FECHA 4
 
-int main(void){
+/*int main(void){
 	
 	setvbuf (stdout, 0, _IONBF, 0);
 
@@ -31,7 +32,7 @@ int main(void){
     }while( opcion != 3 );
 
 	return 0;
-}
+}*/
 
 
 int recordatorio(){

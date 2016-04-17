@@ -2,11 +2,12 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include "diario.h"
 
 #define MAX_CAR 200
 #define MAX_FECHA 4
 
-int main(void){
+/*int main(void){
 	
 	setvbuf (stdout, 0, _IONBF, 0);
 
@@ -31,7 +32,7 @@ int main(void){
     }while( opcion != 5 );
 
 	return 0;
-}
+}*/
 
 int verEspc(){
 
@@ -110,7 +111,7 @@ int verEspc(){
 
 		
 
-
+		//strcmp ez zuen funtzionatzen beraz horrela egin dugu
 		if(read[0]==fecha[0] && read[1]==fecha[1] && read[3]==fecha[3] && read[4]==fecha[4] && read[6]==fecha[6] && read[7]==fecha[7]){
 
 	    printf("%s", read+10);
