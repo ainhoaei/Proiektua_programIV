@@ -17,7 +17,7 @@ void comprobarUsuarioRegistrado(Usuario *usuario, int total){
     char str[MAX_LENGTH];
     char frmt_str[MAX_LENGTH];
 
-    char *nombre;
+    char nombre[100];
 
     //GALDETU HAU!
     printf("");
@@ -30,11 +30,19 @@ void comprobarUsuarioRegistrado(Usuario *usuario, int total){
     clear_if_neededC(str);
     sscanf(str, "%s", frmt_str);
 
-    nombre = (char *)malloc((strlen(frmt_str) + 1) * sizeof  (char));
+  //  nombre = (char *)malloc((strlen(frmt_str) + 1) * sizeof  (char));
     //strlen: longitud de la cadena de frmt_str sin /0, por ello, le metemos un +1.
     strcpy(nombre, frmt_str); //STRING COPY
 
+    printf ("Contrasenya de usuario: ");
+    fgets(str, MAX_LENGTH, stdin);
+    clear_if_neededC(str);
+    sscanf(str, "%s", frmt_str);
+
+    strcat(nombre,"#"); //STRING COPY
+    strcat(nombre, frmt_str); //STRING COPY
     
+    printf("%s\n",nombre);
 
     //LONGITUD DEL NOMBRE
     int longNombre = 0;
@@ -50,8 +58,34 @@ void comprobarUsuarioRegistrado(Usuario *usuario, int total){
 
     int result = 0;
 
+    char read[100];
+    char nombre2[100];
+
+    while(fgets(read, 100, fichero)) {
+
+        sscanf(read, "%s", nombre2);
+
+        printf("%s", read);
+        
+
+        //strcmp ez zuen funtzionatzen beraz horrela egin dugu
+        if(strcmp(nombre, nombre2)==0){
+
+        menua(nombre);
+        
+        }
+        
+     }
+
+
+
+
+
+
+
+
 //////////PARA COMPROBRAR SOLO EL NOMBRE///////////
-   while ((c = fgetc(fichero)) != EOF) //EOF: End Of File
+  /* while ((c = fgetc(fichero)) != EOF) //EOF: End Of File
     {
         if (c == '\n')
         {
@@ -77,11 +111,11 @@ void comprobarUsuarioRegistrado(Usuario *usuario, int total){
                         
             }
         }
-    }
+    }*/
 /////////////////////////////////////////////////////////
 
     fclose (fichero);
-    free(nombre);
+   // free(nombre);
 
 
 }
@@ -205,7 +239,7 @@ void menuPrinci()
 
 
     char *nombre;
-    nombre = "ainhoa";
+    nombre = "gorka";
     
     do
     {
