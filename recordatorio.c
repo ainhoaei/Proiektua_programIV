@@ -2,40 +2,15 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include "recordatorio.h"
+#include "menu.h"
 
 #define MAX_CAR 200
 #define MAX_FECHA 4
 
-/*int main(void){
-	
-	setvbuf (stdout, 0, _IONBF, 0);
 
 
 
-	int opcion;
-    int total;
-    total = 0;
-    
-    do{
-    	avisoRecordatorio();
-        printf("Seleccione la accion a realizar:\n1. Anyadir recordatorio\n2. Eliminar recordatorio\n3. Atras \n");
-        scanf("%d",&opcion);
-
-        switch(opcion){
-            case 1: recordatorio();break;
-            case 2: break;
-            case 3: break;
-            default: printf("Numero erroneo. Introduzca de nuevo.\n"); break;
-        }
-
-    }while( opcion != 3 );
-
-	return 0;
-}*/
-
-
-int recordatorio(){
+int recordatorio(char *nombre){
 
 	char recordatorio[MAX_CAR];
 	char str[MAX_FECHA];
@@ -47,15 +22,15 @@ int recordatorio(){
 
 	printf("");
     fgets(str, MAX_FECHA, stdin);
-    clear_if_needed(str);
+    clear_if_neededR(str);
 	//DIA
    
     int b=33;
    
     do{
-	    printf ("Añade la FECHA del recordatorio (Introduzca los 2 digitos en cada apartado):\nDia: ");
+	    printf ("Anyade la FECHA del recordatorio (Introduzca los 2 digitos en cada apartado):\nDia: ");
 	    fgets(str, MAX_FECHA, stdin);
-	    clear_if_needed(str);
+	    clear_if_neededR(str);
 	   
 	   b = atoi(str); //PARA QUE NO SE PUEDA ESCRIBIR MÁS DE 31 
 	    
@@ -68,7 +43,7 @@ int recordatorio(){
 	do{
 	    printf("Num mes: ");
 	    fgets(str, MAX_FECHA, stdin);
-	    clear_if_needed(str);
+	    clear_if_neededR(str);
 
 	    m = atoi(str); //PARA QUE NO SE PUEDA ESCRIBIR MÁS DE 12 
 
@@ -80,7 +55,7 @@ int recordatorio(){
 	do{
 	    printf("Anyo: ");
 	    fgets(str, MAX_FECHA, stdin);
-	    clear_if_needed(str);
+	    clear_if_neededR(str);
 
 	    
 	    a = atoi (str); //PARA QUE NO SE PUEDA ESCRIBIR MENOS DE 16
@@ -103,14 +78,14 @@ int recordatorio(){
 	
 	scanf(" %[^\n]s", recordatorio); //honekin espazioak kontuan hartzen ditu!!!
 	strcat(fecha,recordatorio);
-	guardar(fecha);
+	Guardar(fecha, nombre);
 
 
 }
 
 
 
-char* fecha (void)
+char* fechaActual (void)
 {
   //devulve un char con la fecha de cuando se ejecuta
 
@@ -127,18 +102,23 @@ char* fecha (void)
   return (char*)buffer;
 }
 
-int guardar(char nuevoRecordatorio[])
+int Guardar(char nuevoRecordatorio[], char *nombre)
 {
+	char *p;
+    p = "Recordatorio.txt";
+    char nombreFichero[20];
+    strcpy(nombreFichero, nombre);
+    strcat(nombreFichero, p);
+
 	
 	FILE* f;
     int c;
     
 	//abrir fichero para escritura "w"
-	f = fopen("recordatorio.txt", "a");
+	f = fopen(nombreFichero, "a");
     
 
 	//escribir en fichero un string formateado 	
-	//fprintf(f, "\n");
 
 	fprintf(f, "%s\n", nuevoRecordatorio);
 		
@@ -148,7 +128,7 @@ int guardar(char nuevoRecordatorio[])
 	return 0;
 }
 
-int clear_if_needed (char *str){
+int clear_if_neededR (char *str){
 
     if (str[strlen(str) - 1] != '\n'){
         int c;
@@ -158,11 +138,20 @@ int clear_if_needed (char *str){
     return 0;
 }
 
-int avisoRecordatorio(){
+int avisoRecordatorio(char *nombre){
+
+
+	char *p;
+    p = "Recordatorio.txt";
+    char nombreFichero[20];
+    strcpy(nombreFichero, nombre);
+    strcat(nombreFichero, p);
+
+
 
 	FILE* f;
 	char date[8];
-	strcpy(date,fecha());
+	strcpy(date,fechaActual());
     char read[MAX_CAR];
 
 	int semaforo = 0;
@@ -172,17 +161,15 @@ int avisoRecordatorio(){
 	 printf("Fecha de hoy: %s\n", date);
 
 	//abrir fichero para lectura
-	f = fopen("recordatorio.txt", "r");
+	f = fopen(nombreFichero, "r");
        
 	while(fgets(read, MAX_CAR, f)) {
 
 				//strcmp ez zuen funtzionatzen beraz horrela egin dugu
 		if(read[0]==date[0] && read[1]==date[1] && read[3]==date[3] && read[4]==date[4] && read[6]==date[6] && read[7]==date[7]){ 
 
-			//&& read[1]==date[1] && read[3]==date[3] && read[4]==date[4] && read[6]==date[6] && read[7]==date[7]){
-
-	    printf("*%s", read+10);
-	    semaforo++;
+		    printf("*%s", read+10);
+		    semaforo++;
 		
 		}
 	 }
@@ -195,4 +182,31 @@ int avisoRecordatorio(){
 	fclose(f);
 
 	return 0;
+}
+
+
+void menuRecordt(char *nombre){
+	
+	setvbuf (stdout, 0, _IONBF, 0);
+
+
+
+	int opcion;
+    int total;
+    total = 0;
+    
+    do{
+    	avisoRecordatorio(nombre);
+        printf("Seleccione la accion a realizar:\n1. Anyadir recordatorio\n2. Eliminar recordatorio (no operativo)\n3. Atras \n");
+        scanf("%d",&opcion);
+
+        switch(opcion){
+            case 1: recordatorio(nombre);break;
+            case 2: break;
+            case 3: break;
+            default: printf("Numero erroneo. Introduzca de nuevo.\n"); break;
+        }
+
+    }while( opcion != 3 );
+
 }

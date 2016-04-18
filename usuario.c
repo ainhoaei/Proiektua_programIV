@@ -1,34 +1,20 @@
 #include <stdio.h>
-#include "usuario.h"
+#include "menu.h"
 #include <string.h>
 #include <stdlib.h>
 
-/*void imprimir(Usuario *u, int total)
-{
-	int i = 0;
-	printf("total: %d\n", total);
-	for (i; i<total; i++){
-		printf("bai!\n");
-		printf("\nNUM USUARIO %d:\nNombre: %s, Contrasenya: %s\n", i+1, u[i].nombre, u[i].contrasenya);
-	}
-}
-*/
-
-void EscribirEnFichero (Usuario *u, int total){
+int EscribirEnFicheroUsuario (Usuario *u, int total){
 
 	FILE *fichero;
-	fichero = fopen("usuario.txt", "a"); // edo ab???
+	fichero = fopen("usuario.txt", "a"); 
 
 	if(fichero == NULL){
     	printf("\nError de apertura del fichero\n");
     }
 
-    int i;
-    for(i=0; i<total; i++)
-    {
-        fprintf(fichero, "%s#", u[i].nombre);
-       	fprintf(fichero, "%s\n", u[i].contrasenya);
-    }
+ 
+        fprintf(fichero, "%s#", u[total].nombre);
+       	fprintf(fichero, "%s\n", u[total].contrasenya);
 
 
     //cerrar fichero
@@ -36,11 +22,13 @@ void EscribirEnFichero (Usuario *u, int total){
 
 	printf("USUARIO REGISTRADO!\n");
 
+    return 0;
+
 }
 
 
 
-void LeerDesdeFichero (Usuario *u, int total){
+int LeerDesdeFicheroUsuario (int total){
 
 	FILE *fichero;
 	char c;
@@ -64,31 +52,13 @@ void LeerDesdeFichero (Usuario *u, int total){
     //total-1 egiten det azkeneko \n ere kontuan hartzen duelakobestela eta linea bat gehiago 
     //kontatzen duelako
 
+    return 0;
+
 }
 
-/*void ComprobarExiste(Usuario *u, int total){
 
-    FILE *fichero;
-    char c;
-    fichero = fopen("usuario.txt", "r");
-    int i = 0;
-    Usuario *us;
 
-    //leer mientras no se llegue al final del fichero EOF
-    while ((c = fgetc(fichero)) != EOF) //EOF: End Of File
-    {
-        for(i=0; i<total; i++){
-
-        }
-       
-           // total++; //berez, irakurtzeko no es necesario
-       // putchar(c);
-    }
-    //cerrar fichero
-    fclose(fichero);
-}*/
-
-void clear_if_needed (char *str){
+void clear_if_neededC (char *str){
 
     if (str[strlen(str) - 1] != '\n'){
         int c;
@@ -103,10 +73,3 @@ void liberarMemoria (Usuario *u, int total){
         free(u[i].contrasenya);
     }
 }
-
-/*int print(Usuario *u)
-{
-	printf("Nombre: %s / Contrasenya: %s\n", u->nombre, u->contrasenya);
-
-	return 0;
-}*/
