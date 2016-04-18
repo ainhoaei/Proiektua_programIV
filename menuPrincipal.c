@@ -42,7 +42,7 @@ void comprobarUsuarioRegistrado(Usuario *usuario, int total){
     strcat(nombre,"#"); //STRING COPY
     strcat(nombre, frmt_str); //STRING COPY
     
-    printf("%s\n",nombre);
+    //printf("%s\n",nombre);
 
     //LONGITUD DEL NOMBRE
     int longNombre = 0;
@@ -65,7 +65,7 @@ void comprobarUsuarioRegistrado(Usuario *usuario, int total){
 
         sscanf(read, "%s", nombre2);
 
-        printf("%s", read);
+       
         
 
         //strcmp ez zuen funtzionatzen beraz horrela egin dugu
