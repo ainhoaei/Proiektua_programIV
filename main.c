@@ -8,6 +8,8 @@
 
 int main(void)
 {
+	setvbuf (stdout, 0, _IONBF, 0);
+	
 	menuPrinci();
 
 	return 0;

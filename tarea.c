@@ -108,8 +108,6 @@ int EscribirEnFicheroTarea (Tarea *t, int total, char *nombre){
     strcat(nombreFichero, x);
     strcat(nombreFichero, p);
 
-    printf("%s\n", nombreFichero);
-
 
     FILE *fichero;
 	fichero = fopen(nombreFichero, "a");
@@ -190,7 +188,6 @@ void liberarMemoriaTarea (Tarea *t, int total){
 
 
 
-//int main(void)
 void menuTarea(char *nombre)
 {
     
@@ -223,5 +220,4 @@ void menuTarea(char *nombre)
         
     liberarMemoriaTarea(tarea, total);
 
-    //return 0;
 }

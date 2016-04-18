@@ -154,7 +154,8 @@ int avisoRecordatorio(char *nombre){
 	strcpy(date,fechaActual());
     char read[MAX_CAR];
 
-	int semaforo = 0;
+	int semaforo;
+	semaforo = 0;
 
 
 	printf("-------------------------\n", date);

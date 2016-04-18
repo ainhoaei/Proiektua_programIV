@@ -195,6 +195,9 @@ int registrarse(Usuario *usuario, int total){
 void menuPrinci()
 {
 
+    setvbuf (stdout, 0, _IONBF, 0);
+    
+
     Usuario u[50];
     int opc = 0;
     int total=0;

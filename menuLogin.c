@@ -10,6 +10,8 @@
 int menua(char *nombre)
 {
 
+    setvbuf (stdout, 0, _IONBF, 0);
+
     int opc = 0;
     char c;
 

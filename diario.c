@@ -80,7 +80,6 @@ int verEspc(char *nombre){
 
     char read[MAX_CAR];
 	FILE* f;
-        char c;
 
 	int num_lines = 0;
 
