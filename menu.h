@@ -36,7 +36,7 @@ void menuContacto();
 void menuDiario();
 void menuRecordt();
 void menuTarea();
-
+int menua(char *nombre);
 
 
 int EscribirEnFicheroUsuario(Usuario *u, int total);

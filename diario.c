@@ -7,9 +7,17 @@
 #define MAX_CAR 200
 #define MAX_FECHA 4
 
+int clear_if_neededD (char *str){
 
+    if (str[strlen(str) - 1] != '\n'){
+        int c;
+        while ((c = getchar()) != EOF && c != '\n');
+    }
 
-int verEspc(char *nombre){
+    return 0;
+}
+
+void verEspc(char *nombre){
 
 	char str[MAX_FECHA];
     char dia[MAX_FECHA];
@@ -18,7 +26,7 @@ int verEspc(char *nombre){
     char fecha[7];
     
 
-	printf("");
+	printf("\n");
     fgets(str, MAX_FECHA, stdin);
     clear_if_neededD(str);
 	//DIA
@@ -81,8 +89,6 @@ int verEspc(char *nombre){
     char read[MAX_CAR];
 	FILE* f;
 
-	int num_lines = 0;
-
 	//abrir fichero para lectura
 	f = fopen(nombreFichero, "r");
        
@@ -137,7 +143,6 @@ int guardar(char nuevaNota[], char *nombre)
     strcat(nombreFichero, p);
 	
 	FILE* f;
-    int c;
     
 	//abrir fichero para escritura "w"
 	f = fopen(nombreFichero, "a");
@@ -162,10 +167,7 @@ int guardar(char nuevaNota[], char *nombre)
 
 int apuntarNota(char *nombre){
 
-char str[MAX_CAR];
-char nota[MAX_CAR];
-
-
+	char nota[MAX_CAR];
 
 	printf("Apunte la nota de hoy:\n"); //despues de "hoy" deberia ir la fecha de hoy automaticamente
 
@@ -179,18 +181,6 @@ char nota[MAX_CAR];
 
 
 
-
-int clear_if_neededD (char *str){
-
-    if (str[strlen(str) - 1] != '\n'){
-        int c;
-        while ((c = getchar()) != EOF && c != '\n');
-    }
-
-    return 0;
-}
-
-
 int leer(char *nombre)
 {
 	char *p;
@@ -200,9 +190,7 @@ int leer(char *nombre)
     strcat(nombreFichero, p);
 
 	FILE* f;
-        char c;
-
-	int num_lines = 0;
+    char c;
 
 	//abrir fichero para lectura
 	f = fopen(nombreFichero, "r");
@@ -222,18 +210,31 @@ void menuDiario(char *nombre){
 	
 	setvbuf (stdout, 0, _IONBF, 0);
 
-
+	char *p;
+    p = "Nota.txt";
+    char nombreFichero[20];
+    strcpy(nombreFichero, nombre);
+    strcat(nombreFichero, p);
+    
+    FILE *fichero;
 
 	int opcion;
-    int total;
-    total = 0;
     do{
         printf("Seleccione la accion a realizar:\n1. Apuntar nota\n2. ver notas\n3. Ver notas de dia especifico\n4. Eliminar nota (no operativo)\n5. Atras \n");
         scanf("%d",&opcion);
 
         switch(opcion){
             case 1: apuntarNota(nombre);break;
-            case 2: leer(nombre);break;
+            case 2: fichero = fopen(nombreFichero, "r");
+                    if ( fichero == NULL )
+                    {
+                      printf("No hay notas guardadas\n");
+                    }
+                    else
+                    {
+                        leer(nombre);  
+                    }
+                    break;
             case 3: verEspc(nombre);break;
             case 4: break;
             case 5: break;

@@ -8,7 +8,7 @@
 #define NUM_ELEMENTOS 2
 
 
-void comprobarUsuarioRegistrado(Usuario *usuario, int total){
+void comprobarUsuarioRegistrado(Usuario *usuario){
 
 
     // SE COMPRUEBA EL NOMBRE DEL USUARIO
@@ -20,7 +20,7 @@ void comprobarUsuarioRegistrado(Usuario *usuario, int total){
     char nombre[100];
 
     //GALDETU HAU!
-    printf("");
+    printf("\n");
     fgets(str, MAX_LENGTH, stdin);
     clear_if_neededC(str);
 
@@ -28,10 +28,7 @@ void comprobarUsuarioRegistrado(Usuario *usuario, int total){
     printf ("Nombre de usuario: ");
     fgets(str, MAX_LENGTH, stdin);
     clear_if_neededC(str);
-    sscanf(str, "%s", frmt_str);
-
-  //  nombre = (char *)malloc((strlen(frmt_str) + 1) * sizeof  (char));
-    //strlen: longitud de la cadena de frmt_str sin /0, por ello, le metemos un +1.
+ 
     strcpy(nombre, frmt_str); //STRING COPY
 
     printf ("Contrasenya de usuario: ");
@@ -41,22 +38,10 @@ void comprobarUsuarioRegistrado(Usuario *usuario, int total){
 
     strcat(nombre,"#"); //STRING COPY
     strcat(nombre, frmt_str); //STRING COPY
-    
-    //printf("%s\n",nombre);
 
-    //LONGITUD DEL NOMBRE
-    int longNombre = 0;
-    longNombre = largo_cadena(nombre);
-
-    int i = 0;
     FILE *fichero;
-    char c;
 
     fichero = fopen("usuario.txt", "r");
-  
-    int contar = 0;
-
-    int result = 0;
 
     char read[100];
     char nombre2[100];
@@ -71,48 +56,12 @@ void comprobarUsuarioRegistrado(Usuario *usuario, int total){
         //strcmp ez zuen funtzionatzen beraz horrela egin dugu
         if(strcmp(nombre, nombre2)==0){
 
-        menua(nombre);
+            menua(nombre);
         
         }
         
      }
 
-
-
-
-
-
-
-
-//////////PARA COMPROBRAR SOLO EL NOMBRE///////////
-  /* while ((c = fgetc(fichero)) != EOF) //EOF: End Of File
-    {
-        if (c == '\n')
-        {
-            if(i == longNombre)
-            {
-                menua(nombre);
-                return;
-            }
-            else
-            {
-                i = 0;
-            }
-        }
-        else
-        {
-            if (c != '#')
-            {
-                if(nombre[i] == c)
-                {
-                    i++;
-                    
-                }
-                        
-            }
-        }
-    }*/
-/////////////////////////////////////////////////////////
 
     fclose (fichero);
    // free(nombre);
@@ -122,14 +71,14 @@ void comprobarUsuarioRegistrado(Usuario *usuario, int total){
 
 
 
-int registrarse(Usuario *usuario, int total){
+int registrarse(Usuario *usuario){
 
     char str[MAX_LENGTH];
     char frmt_str[MAX_LENGTH];
 
 
     //GALDETU HAU!
-    printf("");
+    printf("\n");
     fgets(str, MAX_LENGTH, stdin);
     clear_if_neededC(str);
 
@@ -137,17 +86,6 @@ int registrarse(Usuario *usuario, int total){
     fgets(str, MAX_LENGTH, stdin);
     clear_if_neededC(str);
     sscanf(str, "%s", frmt_str); //eliminar el \n final
-
- /* /////HAU IZANGO LITZAKE NOMBRE DE USUARIO KONPROBATZEKO///////////////
-
-
-
-   //GUARDAR EL NOMBRE EN UNA VARIABLE
-    char *nombre;
-    nombre = str;
-    nombre = (char *)malloc((strlen(frmt_str) + 1) * sizeof  (char));
-
-*/
      
     
     //RESERVAR LA MEMORIA JUSTA PARA LA CADENA ALMACENADA
@@ -166,60 +104,7 @@ int registrarse(Usuario *usuario, int total){
     usuario->contrasenya = (char *)malloc((strlen(frmt_str)+1) * sizeof(char));
     strcpy(usuario->contrasenya, frmt_str);
 
-
-    int result = 0;  //EZ BADA HURRENGOA EGINGO, HAU BORRATU BEHAR DA ETA RETURN BAITA!
- /* /////HAU IZANGO LITZAKE NOMBRE DE USUARIO KONPROBATZEKO///////////////
-
-    //LONGITUD DEL NOMBRE
-    int longNombre = 0;
-    longNombre = largo_cadena(nombre);
-
-    int i = 0;
-    FILE *fichero;
-    char c;
-
-    fichero = fopen("usuario.txt", "r");
-
-
-     
-//////////PARA COMPROBRAR SOLO EL NOMBRE///////////
-  while ((c = fgetc(fichero)) != EOF) //EOF: End Of File
-    {
-        if (c == '\n')
-        {
-            if(i == longNombre)
-            {
-                result = 1;
-                return result;
-            }
-            else
-            {
-                i = 0;
-                result = 0;
-            }
-        }
-        else
-        {
-            if (c != '#')
-            {
-                if(nombre[i] == c)
-                {
-                    i++;
-                    
-                }
-                        
-            }
-        }
-    }
-/////////////////////////////////////////////////////////
-
-    free(nombre);
-
-    fclose (fichero);
-*/
-    
-
-    return result;
+    return 0;
 }
 
 
@@ -236,10 +121,6 @@ void menuPrinci()
     int opc = 0;
     int total=0;
     FILE *fichero;
-
-
-    char *nombre;
-    nombre = "gorka";
     
     do
     {
@@ -255,12 +136,12 @@ void menuPrinci()
                     }
                     else
                     {
-                        comprobarUsuarioRegistrado(&u[total], total);
+                        comprobarUsuarioRegistrado(&u[total]);
                             
                         
                     }
                     break;
-            case 2: if(registrarse(&u[total], total)==0)
+            case 2: if(registrarse(&u[total])==0)
                     {
                         EscribirEnFicheroUsuario(u, total);
                         total ++;

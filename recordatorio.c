@@ -7,10 +7,43 @@
 #define MAX_CAR 200
 #define MAX_FECHA 4
 
+int clear_if_neededR (char *str){
+
+    if (str[strlen(str) - 1] != '\n'){
+        int c;
+        while ((c = getchar()) != EOF && c != '\n');
+    }
+
+    return 0;
+}
 
 
+int Guardar(char nuevoRecordatorio[], char *nombre)
+{
+	char *p;
+    p = "Recordatorio.txt";
+    char nombreFichero[20];
+    strcpy(nombreFichero, nombre);
+    strcat(nombreFichero, p);
 
-int recordatorio(char *nombre){
+	
+	FILE* f;
+    
+	//abrir fichero para escritura "w"
+	f = fopen(nombreFichero, "a");
+    
+
+	//escribir en fichero un string formateado 	
+
+	fprintf(f, "%s\n", nuevoRecordatorio);
+		
+	//cerrar fichero
+	fclose(f);
+
+	return 0;
+}
+
+void recordatorio(char *nombre){
 
 	char recordatorio[MAX_CAR];
 	char str[MAX_FECHA];
@@ -20,7 +53,7 @@ int recordatorio(char *nombre){
     char fecha[7];
     
 
-	printf("");
+	printf("\n");
     fgets(str, MAX_FECHA, stdin);
     clear_if_neededR(str);
 	//DIA
@@ -102,41 +135,9 @@ char* fechaActual (void)
   return (char*)buffer;
 }
 
-int Guardar(char nuevoRecordatorio[], char *nombre)
-{
-	char *p;
-    p = "Recordatorio.txt";
-    char nombreFichero[20];
-    strcpy(nombreFichero, nombre);
-    strcat(nombreFichero, p);
 
-	
-	FILE* f;
-    int c;
-    
-	//abrir fichero para escritura "w"
-	f = fopen(nombreFichero, "a");
-    
 
-	//escribir en fichero un string formateado 	
 
-	fprintf(f, "%s\n", nuevoRecordatorio);
-		
-	//cerrar fichero
-	fclose(f);
-
-	return 0;
-}
-
-int clear_if_neededR (char *str){
-
-    if (str[strlen(str) - 1] != '\n'){
-        int c;
-        while ((c = getchar()) != EOF && c != '\n');
-    }
-
-    return 0;
-}
 
 int avisoRecordatorio(char *nombre){
 
@@ -158,7 +159,7 @@ int avisoRecordatorio(char *nombre){
 	semaforo = 0;
 
 
-	printf("-------------------------\n", date);
+	printf("-------------------------\n");
 	 printf("Fecha de hoy: %s\n", date);
 
 	//abrir fichero para lectura
@@ -178,7 +179,7 @@ int avisoRecordatorio(char *nombre){
 	if(semaforo>0)printf("Tienes %i recordatorio(s)\n", semaforo);
 	if(semaforo==0)printf("No tienes recordatorios\n");
 
-	printf("-------------------------");
+	printf("-------------------------\n");
 	//cerrar fichero
 	fclose(f);
 
@@ -190,14 +191,26 @@ void menuRecordt(char *nombre){
 	
 	setvbuf (stdout, 0, _IONBF, 0);
 
-
+	char *p;
+    p = "Recordatorio.txt";
+    char nombreFichero[20];
+    strcpy(nombreFichero, nombre);
+    strcat(nombreFichero, p);
+    FILE *fichero;
 
 	int opcion;
-    int total;
-    total = 0;
     
     do{
-    	avisoRecordatorio(nombre);
+    	fichero = fopen(nombreFichero, "r");
+    	if ( fichero == NULL )
+        {
+          printf("No hay ningun recordatorio\n");
+        }
+        else
+        {
+            avisoRecordatorio(nombre);  
+        }
+    	
         printf("Seleccione la accion a realizar:\n1. Anyadir recordatorio\n2. Eliminar recordatorio (no operativo)\n3. Atras \n");
         scanf("%d",&opcion);
 

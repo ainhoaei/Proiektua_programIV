@@ -15,13 +15,13 @@ void clear_if_neededT (char *str){
     }
 }
 
-int IntroducirTarea(Tarea *tarea, int total){
+int IntroducirTarea(Tarea *tarea){
 
 	char str[MAX_LENGTH];
 
 
     //Si no hacemos esto, hace \n y salta a la siguiente, sin poder escribir nada
-    printf("");
+    printf("\n");
     fgets(str, MAX_LENGTH, stdin);
     clear_if_neededT(str);
 
@@ -82,12 +82,12 @@ int IntroducirTarea(Tarea *tarea, int total){
 }
 
 
-int ModificarTarea(){
+void ModificarTarea(){
     printf("Esta opcion no esta disponible todavia.\n");
 }
 
 
-int EliminarTarea(){
+void EliminarTarea(){
     printf("Esta opcion no esta disponible todavia.\n");
 }
 
@@ -137,7 +137,7 @@ int largo_cadena(char cadena[])
     return largo;
 }
 
-int LeerDesdeFicheroTarea (Tarea *t, int total, char *nombre){
+int LeerDesdeFicheroTarea (Tarea *t, char *nombre){
 
     char *p;
     p = "Tarea.txt";
@@ -196,17 +196,41 @@ void menuTarea(char *nombre)
     int opcion;
     int total;
     total = 0;
+    FILE *fichero;
+
+    char *x;
+    x = "Tarea";
+
+    char *p;
+    p = ".txt";
+
+    char nombreFichero[20];
+
+    strcpy(nombreFichero, nombre);
+   
+
+    strcat(nombreFichero, x);
+    strcat(nombreFichero, p);
 
     do{
         printf("Seleccione la accion a realizar:\n1. Introducir tarea\n2. Ver tareas a realizar\n3. Modificar tarea (no operativo)\n4. Eliminar tarea (no operativo)\n5. Atras \n");
         scanf("%d",&opcion);
 
         switch(opcion){
-            case 1: IntroducirTarea(&tarea[total], total); 
+            case 1: IntroducirTarea(&tarea[total]); 
                     EscribirEnFicheroTarea(tarea, total, nombre);
                     total++;
                     break;
-            case 2: LeerDesdeFicheroTarea(tarea, total, nombre);
+            case 2: fichero = fopen(nombreFichero, "r");
+                    if ( fichero == NULL )
+                    {
+                      printf("No hay tareas guardadas\n");
+                    }
+                    else
+                    {
+                        LeerDesdeFicheroTarea(tarea, nombre);  
+                    }
+
                     break;
             case 3: ModificarTarea(); 
                     break;
