@@ -4,6 +4,41 @@
 #include <stdio.h>
 #include <string.h>
 
+
+int DBConnector::chequearUsuario(char* nombre, char* contrasenya)
+//COMPRUEBA SI EL USUARIO EXISTE
+{
+	sqlite3_stmt *stmt;
+
+	char sql[] = "select nombre, contrasenya from USUARIO";
+
+	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
+	if (result != SQLITE_OK) {
+		printf("Error preparing statement (SELECT)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return result;
+	}
+
+	char nombreBD[100];
+	char contrasenyaBD[100];
+
+	do {
+		result = sqlite3_step(stmt) ;
+		if (result == SQLITE_ROW) {
+			strcpy(nombreBD, (char *)sqlite3_column_text(stmt, 0));
+			strcpy(contrasenyaBD, (char *)sqlite3_column_text(stmt, 1));
+			
+			//if(nombreBD == nombre && contrasenyaBD == contrasenya)
+			if (strcmp(nombre, nombreBD)==0 && strcmp(contrasenya, contrasenyaBD)==0)
+				return 5; 
+		}
+	} while (result == SQLITE_ROW);
+
+
+
+	return SQLITE_OK;
+}
+
 int DBConnector::mostrarUsuarios() {
 //MOSTRAR TODOS LOS USUARIOS QUE TENEMOS EN LA BD
 	sqlite3_stmt *stmt;
@@ -135,7 +170,7 @@ int DBConnector::eliminarUsuario() {
 int DBConnector::insertarUsuario(std::string nombre, std::string contrasenya) {
 	sqlite3_stmt *stmt;
 
-	char sql[] = "insert into USUARIO (nombre, contrasenya) values (?, ?)"; //INSERTATZEZUNA ? JARRI
+	char sql[] = "insert into USUARIO (id, nombre, contrasenya) values (NULL, ?, ?)"; //INSERTATZEZUNA ? JARRI
 	int result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL) ;
 	if (result != SQLITE_OK) {
 		printf("Error preparing statement (INSERT)\n");
@@ -201,5 +236,4 @@ DBConnector::~DBConnector() {
 		printf("%s\n", sqlite3_errmsg(db));
 	}	
 
-	//delete[] db; 
 }

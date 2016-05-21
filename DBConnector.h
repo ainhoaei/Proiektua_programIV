@@ -8,7 +8,7 @@
 class DBConnector {
 
 private:
-		sqlite3 *db = NULL;
+		sqlite3 *db;
 
 public:
 	int mostrarUsuarios();
@@ -16,6 +16,8 @@ public:
 	int eliminarUsuario();
 
 	int insertarUsuario(std::string nombre, std::string contrasenya);
+
+	int chequearUsuario(char* nombre, char* contrasenya);
 
 	DBConnector(std::string dbFile);
 
