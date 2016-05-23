@@ -20,13 +20,12 @@ int main ()
     int opcion;
     int total;
     total = 0;
-    FILE *fichero;
 
     string x = "Tarea.txt";
     string nombreFichero = nombre + x;
 
-   // TareaCpp tareaCpp;
-   // tareaCpp.leerFichero(nombre);
+    TareaCpp tareaCpp;
+     
 
     
 
@@ -37,6 +36,7 @@ int main ()
         switch(opcion){
             case 1: IntroducirTarea(&tarea[total]); 
                     EscribirEnFicheroTarea(tarea, total, nombre.c_str());
+                   tareaCpp.leerFichero(nombre);
                     total++;
                     break;
             case 2: //fichero = fopen(nombreFichero, "r");
