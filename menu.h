@@ -1,6 +1,10 @@
 #ifndef MENU_H_
 #define MENU_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 
 typedef struct {
 	char *nombre;
@@ -19,20 +23,10 @@ typedef struct
 	
 }Contacto;
 
-typedef struct{
-	int dia;
-	int mes;
-	int anyo;
-} Fecha;
-
-typedef struct {
-	char *descp;
-	Fecha fecha;
-} Tarea;
 
 
 void menuPrinci();
-void menuContacto();
+void menuContacto(char *nombre);
 void menuDiario();
 void menuRecordt();
 void menuTarea();
@@ -43,5 +37,9 @@ int EscribirEnFicheroUsuario(Usuario *u, int total);
 void clear_if_neededC (char *str);
 void liberarMemoria (Usuario *t, int total);
 
+#ifdef __cplusplus
+}  /* end of the 'extern "C"' block */
+#endif
 
 #endif
+

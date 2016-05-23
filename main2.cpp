@@ -2,9 +2,10 @@
 #include "DBConnector.h"
 #include "menu.h"
 #include "menuLoginCpp.h"
+#include "UsuarioCpp.h"
 #include <iostream>
 #include <stdio.h>
-#include <string.h>
+#include "string.h"
 #include <string>
 #include <stdlib.h>
 
@@ -13,13 +14,7 @@ using namespace std;
 #define MAX_LENGTH 10
 #define NUM_ELEMENTOS 2
 
-void clear_if_neededC (char *str){
 
-    if (str[strlen(str) - 1] != '\n'){
-        int c;
-        while ((c = getchar()) != EOF && c != '\n');
-    }
-}
 
 void liberarMemoria (Usuario *u, int total){
     int i;
@@ -30,30 +25,14 @@ void liberarMemoria (Usuario *u, int total){
 }
 
 
-char* insertarNombre(Usuario *usuario){
+string insertarNombre(UsuarioCpp *usuario){
 
-    char str[MAX_LENGTH];
-    char frmt_str[MAX_LENGTH];
-
-
-   /* //GALDETU HAU!
-    printf("\n");
-    fgets(str, MAX_LENGTH, stdin);
-    clear_if_neededC(str);*/
-
+    string nombre;
     cout << "Escriba el nuevo nombre de usuario: " << endl;
-    fgets(str, MAX_LENGTH, stdin);
-    clear_if_neededC(str);
-    sscanf(str, "%s", frmt_str); //eliminar el \n final
-     
-    
-    //RESERVAR LA MEMORIA JUSTA PARA LA CADENA ALMACENADA
-    usuario->nombre = (char *)malloc((strlen(frmt_str) + 1) * sizeof  (char));
-    //strlen: longitud de la cadena de frmt_str sin /0, por ello, le metemos un +1.
-    strcpy(usuario->nombre, frmt_str); //STRING COPY
+    cin >> nombre;
+    usuario->setNombre(nombre.substr(0, 9));
 
-    return usuario->nombre;
-
+    return usuario->getNombre();
 }
 
 char* insertarContransenya (Usuario *usuario){
@@ -75,11 +54,12 @@ char* insertarContransenya (Usuario *usuario){
 
 int main() {
 
+
 	DBConnector dbConnector("test.sqlite"); //INSTANCIA
 
 	Usuario u[50];
 	int total = 0; //eztakit total hau beharrezkoa dan!
-
+    UsuarioCpp usu[50];
 
 	/*int result = dbConnector.eliminarUsuario();
 	//BORRAR TODO EL CONTENIDO DE LA BD
@@ -94,6 +74,9 @@ int main() {
     char nombre[50];
     char contrasenya[50];
 
+    string nombre2;
+    string contrasenya2;
+
     menuLoginCpp login;
 
      do
@@ -103,10 +86,11 @@ int main() {
         cin >> opc;
 
         switch(opc){
-            case 1: strcpy(nombre, insertarNombre(&u[total]));
+            case 1: //strcpy(nombre, insertarNombre(&u[total]));
+                    nombre2 = insertarNombre(&usu[total]);
                     strcpy(contrasenya, insertarContransenya(&u[total]));
 
-                    result = dbConnector.chequearUsuario(nombre, contrasenya);
+                    result = dbConnector.chequearUsuario(nombre2.c_str(), contrasenya);
                     if(result == 5)
                     //SI EXISTE EL USUARIO, ENTRAR
                     {
@@ -123,17 +107,19 @@ int main() {
                     }
                     break;
 
-            case 2: strcpy(nombre, insertarNombre(&u[total]));
+            case 2: //strcpy(nombre, insertarNombre(&u[total]));
+                    nombre2 = insertarNombre(&usu[total]);
                     strcpy(contrasenya, insertarContransenya(&u[total]));
 
-                    result = dbConnector.chequearUsuario(nombre, contrasenya);
+                    result = dbConnector.chequearUsuario(nombre2.c_str(), contrasenya);
                     if(result == 5)
                     {
                        cout << "El nombre usuario y contrasenya ya existen, intentelo de nuevo" << endl;
                     }
                     if (result != 5){
                     //SI NO EXISTE EL USUARIO, INSERTAR
-                        result = dbConnector.insertarUsuario(nombre, contrasenya);
+                        contrasenya2 = contrasenya;
+                        result = dbConnector.insertarUsuario(nombre2, contrasenya);
                         total++;
                     }
 

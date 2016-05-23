@@ -2,6 +2,7 @@
 #include "menu.h"
 #include <string.h>
 #include <stdlib.h>
+#include "Tarea.h"
 
 #define MAX_LENGTH_DESCP 100
 #define MAX_LENGTH 3
@@ -92,12 +93,12 @@ void EliminarTarea(){
 }
 
 
-int EscribirEnFicheroTarea (Tarea *t, int total, char *nombre){
+int EscribirEnFicheroTarea (Tarea *t, int total, const char *nombre){
 
-	char *x;
+	char const *x;
     x = "Tarea";
 
-    char *p;
+    char const *p;
     p = ".txt";
 
     char nombreFichero[20];
@@ -137,9 +138,9 @@ int largo_cadena(char cadena[])
     return largo;
 }
 
-int LeerDesdeFicheroTarea (Tarea *t, char *nombre){
+int LeerDesdeFicheroTarea (Tarea *t, const char *nombre){
 
-    char *p;
+    char const *p; //CONST JARRIIIIIIIII!!!!!!!!!!!!!!!!!!!!!!!
     p = "Tarea.txt";
 
     char nombreFichero[20];
@@ -188,60 +189,3 @@ void liberarMemoriaTarea (Tarea *t, int total){
 
 
 
-void menuTarea(char *nombre)
-{
-    
-    Tarea tarea[100];
-
-    int opcion;
-    int total;
-    total = 0;
-    FILE *fichero;
-
-    char *x;
-    x = "Tarea";
-
-    char *p;
-    p = ".txt";
-
-    char nombreFichero[20];
-
-    strcpy(nombreFichero, nombre);
-   
-
-    strcat(nombreFichero, x);
-    strcat(nombreFichero, p);
-
-    do{
-        printf("Seleccione la accion a realizar:\n1. Introducir tarea\n2. Ver tareas a realizar\n3. Modificar tarea (no operativo)\n4. Eliminar tarea (no operativo)\n5. Atras \n");
-        scanf("%d",&opcion);
-
-        switch(opcion){
-            case 1: IntroducirTarea(&tarea[total]); 
-                    EscribirEnFicheroTarea(tarea, total, nombre);
-                    total++;
-                    break;
-            case 2: fichero = fopen(nombreFichero, "r");
-                    if ( fichero == NULL )
-                    {
-                      printf("No hay tareas guardadas\n");
-                    }
-                    else
-                    {
-                        LeerDesdeFicheroTarea(tarea, nombre);  
-                    }
-
-                    break;
-            case 3: ModificarTarea(); 
-                    break;
-            case 4: EliminarTarea(); 
-                    break;
-            case 5: break;
-            default: printf("Numero erroneo. Introduzca de nuevo.\n"); break;
-        }
-
-    }while( opcion != 5 );
-        
-    liberarMemoriaTarea(tarea, total);
-
-}

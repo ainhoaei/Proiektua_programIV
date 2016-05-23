@@ -1,8 +1,11 @@
 #include <stdio.h>
-#include <time.h>
-#include <string.h>
+#include "string.h"
 #include <stdlib.h>
 #include "menuLoginCpp.h"
+#include <iostream>
+
+using namespace std;
+
 
 
 //MENU LOGIN

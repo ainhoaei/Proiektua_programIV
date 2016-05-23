@@ -17,7 +17,7 @@ public:
 
 	int insertarUsuario(std::string nombre, std::string contrasenya);
 
-	int chequearUsuario(char* nombre, char* contrasenya);
+	int chequearUsuario(const char* nombre, char* contrasenya);
 
 	DBConnector(std::string dbFile);
 
