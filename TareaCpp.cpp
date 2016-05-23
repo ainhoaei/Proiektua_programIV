@@ -47,22 +47,24 @@ Tarea* TareaCpp::leerFichero(string nombre)
 
 	while (!ifs.eof())
 	{
-		if(i%2 == 0){
-			getline(ifs, frase);
+		getline(ifs, frase);
+
+		if(i%2 == 0)
+		{
 			tarea[i].descp = new char[frase.size()+1];
 			copy(frase.begin(), frase.end(), tarea[i].descp);
 			tarea[i].descp[frase.size()] = '\0';
 
 			cout << tarea[i].descp << '\n';
-			cout << "------------------------------" << endl;
-			numTarea++;
+			
+			cout << "--------------------------------" << endl;
+			
+			numTarea++; //cuenta las tareas que haya en el fichero
 		}
 			
-			
-
-		if(i%2 != 0){
-			getline(ifs, frase);
-
+	
+		if(i%2 != 0)
+		{
 			if(frase != "")
 			{
 				cout << "TAREA " << numTarea << ":" << endl;
@@ -76,36 +78,15 @@ Tarea* TareaCpp::leerFichero(string nombre)
 				anyo = frase.substr(6,8);
 				tarea[i].fecha.anyo = atoi(anyo.c_str());
 
-				cout << tarea[i].fecha.dia << '\n';
-				cout << dia << " y " << frase.substr(0, 1) << '\n';
-				cout << tarea[i].fecha.mes << '\n';
-				cout << mes << " y " << frase.substr(3,4) << '\n';
-				cout << tarea[i].fecha.anyo << '\n';
-				cout << anyo << " y " << frase.substr(6,7) << '\n';
-				
-				//cout << frase << '\n';
+				cout << tarea[i].fecha.dia << "/" << tarea[i].fecha.mes << "/" << tarea[i].fecha.anyo << endl;
+
 			}
 			
 		}
-			
 		
-
 		i++;
 	}
-	/*while (!ifs.eof())
-	{
-		if(i%2 == 0)
-			ifs >> tarea[i].descp;
-			
 
-		if(i%2 != 0)
-			getline(ifs, frase);
-			
-
-		//cout << tarea[i].fecha << " " << tarea[i].descp << endl;
-		i++;
-	}
-	*/
 	ifs.close();
 
 	return tarea;

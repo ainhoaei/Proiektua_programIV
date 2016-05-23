@@ -25,9 +25,6 @@ int main ()
     string nombreFichero = nombre + x;
 
     TareaCpp tareaCpp;
-     
-
-    
 
     do{
         cout <<"Seleccione la accion a realizar:\n1. Introducir tarea\n2. Ver tareas a realizar\n3. Modificar tarea (no operativo)\n4. Eliminar tarea (no operativo)\n5. Atras" << endl;
@@ -36,7 +33,7 @@ int main ()
         switch(opcion){
             case 1: IntroducirTarea(&tarea[total]); 
                     EscribirEnFicheroTarea(tarea, total, nombre.c_str());
-                   tareaCpp.leerFichero(nombre);
+                    tareaCpp.leerFichero(nombre);
                     total++;
                     break;
             case 2: //fichero = fopen(nombreFichero, "r");

@@ -113,11 +113,19 @@ int EscribirEnFicheroTarea (Tarea *t, int total, const char *nombre){
     FILE *fichero;
 	fichero = fopen(nombreFichero, "a");
 
+    int cero = 0;
 
-		fprintf(fichero, "%i/", t[total].fecha.dia);
-		fprintf(fichero, "%i/", t[total].fecha.mes);
-		fprintf(fichero, "%i\n", t[total].fecha.anyo);
-		fprintf(fichero, "%s\n", t[total].descp);
+    if(t[total].fecha.dia < 10)
+        fprintf(fichero, "%i", cero);
+	fprintf(fichero, "%i/", t[total].fecha.dia);
+
+    if(t[total].fecha.mes < 10)
+        fprintf(fichero, "%i", cero);
+	fprintf(fichero, "%i/", t[total].fecha.mes);
+
+	fprintf(fichero, "%i\n", t[total].fecha.anyo);
+
+	fprintf(fichero, "%s\n", t[total].descp);
 
 
 

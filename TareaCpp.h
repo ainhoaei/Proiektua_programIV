@@ -14,7 +14,6 @@ class TareaCpp
 		void eliminarTarea();
 		Tarea* leerFichero(std::string nombre);
 
-		//friend std::istream& operator>>(std::istream &in, Tarea &t);
 };
 
 
