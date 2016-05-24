@@ -155,7 +155,7 @@ int avisoRecordatorio(const char *nombre){
 
 
 	printf("-------------------------\n");
-	printf("Fecha de hoy: %s\n (ALARMA PROGRAMADA EN C)", date);
+	printf("Fecha de hoy: %s\n (ALARMA PROGRAMADA EN C)\n", date);
 
 	char const *p;
     p = "Recordatorio.txt";
@@ -177,8 +177,8 @@ int avisoRecordatorio(const char *nombre){
 		}
 	 }
 	
-	if(semaforo>0)printf("Tienes %i recordatorio(s)\n", semaforo);
-	if(semaforo==0)printf("No tienes recordatorios\n");
+	if(semaforo>0)printf("Tienes %i recordatorio(s) hoy\n", semaforo);
+	if(semaforo==0)printf("No tienes recordatorios para hoy\n");
 
 	printf("-------------------------\n");
 	//cerrar fichero

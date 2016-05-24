@@ -33,18 +33,97 @@ void eliminarRecordatorio(string nombre)
 
     string nomFichero= nombre + "Recordatorio.txt";
     ifstream ifs(nomFichero.c_str());
- 
+    
+    int lista=0;
+    int total=0;
+
+    //SOLO MOSTRAR DEPENDIENDO DE LA FECHA PARA ELEGIR
     while (!ifs.eof())
     {
-       
+       ++total;
     //GETLINE lee una linea como fgets
     getline(ifs, file_hdr);
 
-    cout << file_hdr << endl;
+     if(fechaCompleta == file_hdr.substr(0,8)){
+
+            cout << "["<< lista <<"] " << file_hdr << endl;
+            ++lista;
+        }
 
     }
-
     ifs.close();
+
+    cout << "["<< lista <<"] " << "Cancelar" << endl;
+
+
+   int eliminar;
+   int elegir=0;
+   string eliminarString;
+   string* todoRecord = new string[total];
+   //PASAMOS A UN ARRAY DE STRINGS PARA QUITAR LA ELEGIDA
+    do{
+         
+        cout << "Seleccione el recordatorio que quiera eliminar" << endl;
+        cin >> eliminar;
+
+        if(eliminar< lista){
+
+            ifstream ifs(nomFichero.c_str());
+            int cont=0;
+            while (!ifs.eof())
+            {
+            getline(ifs, file_hdr);
+            
+            todoRecord[cont]=file_hdr;
+            cout << todoRecord[cont] <<endl; //fuera
+            cout << "lenengo arraien ondo gordetzeu" <<elegir<<cont<<eliminar<<fechaCompleta<<file_hdr.substr(0,8)<<endl;//fuera
+            
+
+             if(fechaCompleta == file_hdr.substr(0,8)){
+                    
+                    if(elegir==eliminar){
+
+                        eliminarString = file_hdr;
+                        cout << eliminarString <<endl;//fuera
+                        cout << "hau re ondo" << endl;//fuera
+                        
+
+                    }
+                    elegir++;
+                }
+            cont++;
+
+            }
+            ifs.close();
+
+            string* finRecord = new string[total];
+
+            int e=0;
+            for(int i=0; i<cont;i++){
+
+                if(todoRecord[i]!=eliminarString){
+
+                    finRecord[e]=todoRecord[i];
+                    
+                    cout << finRecord[e] <<endl;
+                    cout << "BESTE ARRAIA" <<endl;
+                    e++;
+
+
+                }
+            }
+
+            //ESCRIBIR LO NUEVO
+            ofstream ofs(nomFichero.c_str(),  ofstream::out);
+
+            for (int i = 0; i < e; i++)
+                ofs << finRecord[i] << endl;
+
+            ofs.close();
+
+        break;
+        }
+    }while(eliminar != lista);
 
 
 }
@@ -65,7 +144,7 @@ int main ()
     avisoRecordatorio(nombre.c_str()); 
 
     do{
-        cout <<"Seleccione la accion a realizar:\n1. Anyadir recordatorio\n2. Eliminar recordatorio (c++)\n3. Atras" << endl;
+        cout <<"Seleccione la accion a realizar:\n1. Anyadir recordatorio (C)\n2. Eliminar recordatorio (c++)\n3. Atras" << endl;
        cin >> opcion;
 
        switch(opcion){
