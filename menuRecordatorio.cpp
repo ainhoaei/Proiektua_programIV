@@ -40,9 +40,10 @@ void eliminarRecordatorio(string nombre)
     //SOLO MOSTRAR DEPENDIENDO DE LA FECHA PARA ELEGIR
     while (!ifs.eof())
     {
-       ++total;
+       
     //GETLINE lee una linea como fgets
     getline(ifs, file_hdr);
+    ++total;
 
      if(fechaCompleta == file_hdr.substr(0,8)){
 
@@ -96,7 +97,7 @@ void eliminarRecordatorio(string nombre)
             }
             ifs.close();
 
-            string* finRecord = new string[total];
+            string* finRecord = new string[total-1];
 
             int e=0;
             for(int i=0; i<cont;i++){
@@ -121,11 +122,15 @@ void eliminarRecordatorio(string nombre)
 
             ofs.close();
 
+            delete finRecord;
+
         break;
         }
     }while(eliminar != lista);
 
 
+    
+    delete todoRecord;
 }
 
 int main ()
