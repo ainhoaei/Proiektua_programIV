@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include "menu.h"
+#include "recordatorio.h"
 
 #define MAX_CAR 200
 #define MAX_FECHA 4
@@ -18,9 +18,9 @@ int clear_if_neededR (char *str){
 }
 
 
-int Guardar(char nuevoRecordatorio[], char *nombre)
+int Guardar(char nuevoRecordatorio[], const char *nombre)
 {
-	char *p;
+	char const *p;
     p = "Recordatorio.txt";
     char nombreFichero[20];
     strcpy(nombreFichero, nombre);
@@ -43,7 +43,7 @@ int Guardar(char nuevoRecordatorio[], char *nombre)
 	return 0;
 }
 
-void recordatorio(char *nombre){
+void recordatorio(const char *nombre){
 
 	char recordatorio[MAX_CAR];
 	char str[MAX_FECHA];
@@ -139,15 +139,10 @@ char* fechaActual (void)
 
 
 
-int avisoRecordatorio(char *nombre){
+int avisoRecordatorio(const char *nombre){
 
 
-	char *p;
-    p = "Recordatorio.txt";
-    char nombreFichero[20];
-    strcpy(nombreFichero, nombre);
-    strcat(nombreFichero, p);
-
+	
 
 
 	FILE* f;
@@ -160,7 +155,13 @@ int avisoRecordatorio(char *nombre){
 
 
 	printf("-------------------------\n");
-	 printf("Fecha de hoy: %s\n", date);
+	printf("Fecha de hoy: %s\n (ALARMA PROGRAMADA EN C)", date);
+
+	char const *p;
+    p = "Recordatorio.txt";
+    char nombreFichero[20];
+    strcpy(nombreFichero, nombre);
+    strcat(nombreFichero, p);
 
 	//abrir fichero para lectura
 	f = fopen(nombreFichero, "r");
@@ -187,7 +188,7 @@ int avisoRecordatorio(char *nombre){
 }
 
 
-void menuRecordt(char *nombre){
+/*void menuRecordt(char *nombre){
 	
 	setvbuf (stdout, 0, _IONBF, 0);
 
@@ -223,4 +224,4 @@ void menuRecordt(char *nombre){
 
     }while( opcion != 3 );
 
-}
+}*/
