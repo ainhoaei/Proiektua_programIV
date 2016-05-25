@@ -76,8 +76,8 @@ void eliminarRecordatorio(string nombre)
             getline(ifs, file_hdr);
             
             todoRecord[cont]=file_hdr;
-            cout << todoRecord[cont] <<endl; //fuera
-            cout << "lenengo arraien ondo gordetzeu" <<elegir<<cont<<eliminar<<fechaCompleta<<file_hdr.substr(0,8)<<endl;//fuera
+           // cout << todoRecord[cont] <<endl; //fuera
+            //cout << "lenengo arraien ondo gordetzeu" <<elegir<<cont<<eliminar<<fechaCompleta<<file_hdr.substr(0,8)<<endl;//fuera
             
 
              if(fechaCompleta == file_hdr.substr(0,8)){
@@ -85,8 +85,8 @@ void eliminarRecordatorio(string nombre)
                     if(elegir==eliminar){
 
                         eliminarString = file_hdr;
-                        cout << eliminarString <<endl;//fuera
-                        cout << "hau re ondo" << endl;//fuera
+                        //cout << eliminarString <<endl;//fuera
+                        //cout << "hau re ondo" << endl;//fuera
                         
 
                     }
@@ -102,12 +102,12 @@ void eliminarRecordatorio(string nombre)
             int e=0;
             for(int i=0; i<cont;i++){
 
-                if(todoRecord[i]!=eliminarString){
+                if(todoRecord[i]!=eliminarString && todoRecord[i]!= ""){
 
                     finRecord[e]=todoRecord[i];
                     
-                    cout << finRecord[e] <<endl;
-                    cout << "BESTE ARRAIA" <<endl;
+                    // cout << finRecord[e] <<endl;
+                    //cout << "BESTE ARRAIA" <<endl;
                     e++;
 
 
@@ -123,6 +123,8 @@ void eliminarRecordatorio(string nombre)
             ofs.close();
 
             delete finRecord;
+
+            cout << "TU OPCION HA SIDO ELIMINADA ;)\n" << endl;
 
         break;
         }
