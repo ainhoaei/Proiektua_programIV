@@ -9,7 +9,7 @@ using namespace std;
 
 
 //MENU LOGIN
-int menuLoginCpp::menuaCpp(char *nombre)
+int menuLoginCpp::menuaCpp(string nombre)
 {
 
     setvbuf (stdout, 0, _IONBF, 0);

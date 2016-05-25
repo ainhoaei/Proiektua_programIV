@@ -5,7 +5,7 @@
 #include <string.h>
 
 
-int DBConnector::chequearUsuario(const char* nombre, char* contrasenya)
+int DBConnector::chequearUsuario(const char* nombre, const char* contrasenya)
 //COMPRUEBA SI EL USUARIO EXISTE
 {
 	sqlite3_stmt *stmt;
