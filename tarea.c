@@ -83,16 +83,6 @@ int IntroducirTarea(Tarea *tarea){
 }
 
 
-void ModificarTarea(){
-    printf("Esta opcion no esta disponible todavia.\n");
-}
-
-
-void EliminarTarea(){
-    printf("Esta opcion no esta disponible todavia.\n");
-}
-
-
 int EscribirEnFicheroTarea (Tarea *t, int total, const char *nombre){
 
 	char const *x;

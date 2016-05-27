@@ -34,6 +34,12 @@ int DBConnector::chequearUsuario(const char* nombre, const char* contrasenya)
 		}
 	} while (result == SQLITE_ROW);
 
+	result = sqlite3_finalize(stmt);
+	if (result != SQLITE_OK) {
+		printf("Error finalizing statement (SELECT)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return result;
+	}
 
 
 	return SQLITE_OK;
@@ -221,7 +227,7 @@ int DBConnector::insertarUsuario(std::string nombre, std::string contrasenya) {
 }
 
 DBConnector::DBConnector(std::string dbFile) {
-	this->db = NULL;
+	//this->db = NULL;
 	int result = sqlite3_open("test.sqlite", &db);
 	if (result != SQLITE_OK) {
 		printf("Error opening database\n");

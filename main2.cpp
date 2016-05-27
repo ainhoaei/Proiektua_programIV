@@ -41,17 +41,18 @@ int main() {
 
 	DBConnector dbConnector("test.sqlite"); //INSTANCIA
 
+    int result = 0;
 	int total = 0; //eztakit total hau beharrezkoa dan!
     UsuarioCpp usu[50];
 
-	/*int result = dbConnector.eliminarUsuario();
+	/*result = dbConnector.eliminarUsuario();
 	//BORRAR TODO EL CONTENIDO DE LA BD
 	if (result != SQLITE_OK) {
 		printf("Error deleting all countries\n");
 		return result;
-	}*/
-
-	int result = 0;
+	}
+    */
+	
 	int opc=0;
 
     string nombre;
@@ -62,7 +63,7 @@ int main() {
      do
     {
         cout << "\nMENU PRINCIPAL: Seleccione una opcion " << endl;
-        cout << "1. Log in   2. Registrarse   3. Salir" << endl;
+        cout << "1. Log in (C++)   2. Registrarse (C++)   3. Salir" << endl;
         cin >> opc;
 
         switch(opc){

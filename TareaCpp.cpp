@@ -63,7 +63,7 @@ int TareaCpp::getAnyo() const
 }
 
 
-istream& operator>>(istream &in, TareaCpp &t)
+/*istream& operator>>(istream &in, TareaCpp &t)
 {
 	int dia;
 	int mes;
@@ -76,7 +76,7 @@ istream& operator>>(istream &in, TareaCpp &t)
 	in >> fecha;
 	in >> descp;
 
-	cout << fecha << endl;
+	
 
 	size_t found = fecha.find("/");
 	dia = atoi(fecha.substr(0, found).c_str());
@@ -89,6 +89,7 @@ istream& operator>>(istream &in, TareaCpp &t)
 	size_t found3 = fecha3.find("\n");
 	anyo = atoi(fecha3.substr(0, found3).c_str());
 
+	cout << fecha << endl;
 	cout << descp << endl;
 
 	t.setDia(dia);
@@ -100,14 +101,15 @@ istream& operator>>(istream &in, TareaCpp &t)
 
 	return in;
 }
-
+*/
 
 
 
 ostream& operator<<(std::ostream& out, const TareaCpp& t)
 {
 	out << t.getDia() <<"/"<< t.getMes() << "/" << t.getAnyo() << endl;
-	out << t.getDescp();
+	out << t.getDescp() << endl;
+
 
 	return out;
 }

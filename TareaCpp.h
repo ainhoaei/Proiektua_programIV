@@ -32,7 +32,7 @@ class TareaCpp
 
 };
 
-std::istream& operator>>(std::istream& in, TareaCpp& t);
+//std::istream& operator>>(std::istream& in, TareaCpp& t);
 std::ostream& operator<<(std::ostream& out, const TareaCpp& t);
 
 

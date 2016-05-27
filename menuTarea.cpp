@@ -16,28 +16,82 @@ vector<TareaCpp> leerFichero(string nombre)
 {
     string x = "Tarea.txt";
     string nombreFichero = nombre + x;
-    vector<TareaCpp> vectorTarea;
-    TareaCpp tarea;
-    int i = 0;
+
+    TareaCpp *tarea = new TareaCpp[100];
+    int i = 1;
+    int numTarea = 0;
     ifstream ifs(nombreFichero.c_str());
+    vector<TareaCpp> vectorTarea;
+
     string frase;
+    string dia;
+    string mes;
+    string anyo;
 
-    while (ifs >> tarea){
+    while (!ifs.eof())
+    {
+        getline(ifs, frase);
 
-        cout << "TAREA ["<< i <<"] " << endl;
-        vectorTarea.push_back(tarea);
+        if(i%2 == 0)
+        {
+            tarea[numTarea].setDescp(frase);
+            cout << tarea[numTarea].getDescp() << endl;
+
+            vectorTarea.push_back(tarea[numTarea]);
+            cout << "-------------------------------------------------------------" << endl;
+            
+            numTarea++; //cuenta las tareas que haya en el fichero
+        }
+            
+    
+        if(i%2 != 0)
+        {
+            if(frase != "")
+            {
+                cout << "TAREA ["<< numTarea <<"] " << endl;
+
+                int dia;
+                int mes;
+                int anyo;
+                string fecha;
+                string fecha2;
+                string fecha3;
+
+                fecha = frase;
+
+                size_t found = fecha.find("/");
+                dia = atoi(fecha.substr(0, found).c_str());
+
+                fecha2 = fecha.substr(found+1,8);
+                size_t found2 = fecha2.find("/");
+                mes = atoi(fecha2.substr(0, found2).c_str());
+                
+                fecha3 = fecha2.substr(found2+1,fecha2.size());
+                size_t found3 = fecha3.find("\n");
+                anyo = atoi(fecha3.substr(0, found3).c_str());
+
+                cout << fecha << endl;
+
+                tarea[numTarea].setDia(dia);
+                tarea[numTarea].setMes(mes);
+                tarea[numTarea].setAnyo(anyo);
+
+
+            }
+            
+        }
+        
         i++;
-        cout << "-------------------------------------------------------------"<< endl; 
-
     }
 
-    cout << "Seleccione el numero ["<< i <<"] " << "para cancelar y salir" << endl; 
+    cout << "Seleccione el numero ["<< numTarea <<"] " << "para cancelar y salir" << endl; 
     cout << "-------------------------------------------------------------" << endl;
     cout << endl;
 
     ifs.close();
 
     return vectorTarea;
+
 
 }
 
@@ -46,21 +100,16 @@ void reescribirEnFichero (string nombre,  vector<TareaCpp> t)
     string x = "Tarea.txt";
     string nombreFichero = nombre + x;
 
-    ofstream ofs (nombreFichero.c_str(), ofstream::out); 
-
-    
-    for (unsigned int i=0; i<t.size(); i++)
-    {
-        ofs << t[i] << endl;
-    }
-    cout << "Cambios gudardados!" << endl;
-    cout << endl;
-
-    ofs.close();
-
-
+     ofstream ofs (nombreFichero.c_str(), ofstream::out);
 
    
+        for (unsigned int i=0; i<t.size(); i++)
+        {
+            ofs << t[i];
+        }
+        cout << "Cambios gudardados!" << endl;
+        cout << endl;
+        ofs.close();
 }
 
 void modificarTarea(string nombre)
@@ -80,30 +129,35 @@ void modificarTarea(string nombre)
     else {
         cout << "Introduzca la nuevo fecha:" << endl;
         int d = 33;
+        string dia;
         do{
             cout << "Dia: ";
-            cin >> d;
+            cin >> dia;
+            d = atoi (dia.substr(0, 2).c_str());
         }while(d > 31);
         tareaArray[resp].setDia(d);
         
         int m = 17;
+        string mes;
         do{
             cout << "Mes: ";
-            cin >> m;
-
+            cin >> mes;
+            m = atoi (mes.substr(0, 2).c_str());
         }while(m > 12);
         tareaArray[resp].setMes(m);
      
         int a = 10;
+        string anyo;
         do{
             cout << "Anyo: ";
-            cin >> a;
-
+            cin >> anyo;
+            a = atoi (anyo.substr(0, 2).c_str());
         }while (a < 16);
         tareaArray[resp].setAnyo(a);
 
         string descp;
         cout << "Introduzca la nueva descripcion: " << endl;
+        cin.getline((char*)descp.c_str(), 99);
         cin >> descp;
         tareaArray[resp].setDescp(descp);
 
@@ -123,11 +177,7 @@ void eliminarTarea(string nombre)
         cout << "Seleccione el numero de Tarea: " << endl;
         cin >> resp;
     }while (resp > tareaArray.size());
-
-    string x = "Tarea.txt";
-        string nombreFichero = nombre + x;
-     if( remove( nombreFichero.c_str() ) != 0 )
-               cout << "Error deleting file" << endl;
+     
 
     if (resp == tareaArray.size()){
         return;
@@ -151,11 +201,11 @@ void eliminarTarea(string nombre)
 }
 
 
-int main ()
-//menuTarea (string nombre)  //MAIN BEHARREN GERO HAU JARRI BEHAR DA!
+//void SubmenusCpp::menuTarea (string nombre)  //MAIN BEHARREN GERO HAU JARRI BEHAR DA!
+int main()
 {
     
-    Tarea tarea[100];
+    Tarea tarea[60];
     string nombre = "aran"; //HAU GERO KENDU IN BEHAR DA!
     int opcion;
     int total;
