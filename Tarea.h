@@ -22,6 +22,7 @@ int EscribirEnFicheroTarea (Tarea *t, int total, const char *nombre);
 int LeerDesdeFicheroTarea (Tarea *t, const char *nombre);
 
 
+
 #ifdef __cplusplus
 }  /* end of the 'extern "C"' block */
 #endif

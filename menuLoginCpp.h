@@ -1,11 +1,12 @@
-#ifndef MENULOGINCPP_H_
-#define MENULOGINCPP_H_
+#ifndef _MENULOGINCPP_H_
+#define _MENULOGINCPP_H_
 
+#include <iostream>
 
 class menuLoginCpp
 {
 	public:
-		int menuaCpp(char *nombre);
+		int menuaCpp(std::string gnombre);
 };
 
 

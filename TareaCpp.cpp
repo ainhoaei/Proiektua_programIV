@@ -9,86 +9,108 @@
 using namespace std;
 
 
-void TareaCpp::modificarTarea()
+TareaCpp::TareaCpp()
 {
 
 }
 
-void TareaCpp::eliminarTarea()
+TareaCpp::TareaCpp(int dia, int mes, int anyo, std::string descp)
 {
+	this->dia = dia;
+	this->mes = mes;
+	this->anyo = anyo;
+	this->descp = descp;
+}
 
+TareaCpp::~TareaCpp()
+{
+	
+}
+
+void TareaCpp::setDia(int dia)
+{
+	this->dia = dia;
+}
+void TareaCpp::setMes(int mes)
+{
+	this->mes = mes;
+}
+void TareaCpp::setAnyo(int anyo)
+{
+	this->anyo = anyo;
+}
+void TareaCpp::setDescp(std::string descp)
+{
+	this->descp = descp;
+}
+
+string TareaCpp::getDescp() const
+{
+	return this->descp;
+}
+
+int TareaCpp::getDia() const
+{
+	return this->dia;
+}
+int TareaCpp::getMes() const
+{
+	return this->mes;
+}
+int TareaCpp::getAnyo() const
+{
+	return this->anyo;
 }
 
 
-
-/*istream& operator>>(istream &in, Tarea &t)
+/*istream& operator>>(istream &in, TareaCpp &t)
 {
-	char c; //para leer y descartar caracteres
-	in >> t.descp >> c;
+	int dia;
+	int mes;
+	int anyo;
+	string fecha;
+	string fecha2;
+	string fecha3;
+	string descp;
+
+	in >> fecha;
+	in >> descp;
+
+	
+
+	size_t found = fecha.find("/");
+	dia = atoi(fecha.substr(0, found).c_str());
+
+	fecha2 = fecha.substr(found+1,8);
+	size_t found2 = fecha2.find("/");
+	mes = atoi(fecha2.substr(0, found2).c_str());
+	
+	fecha3 = fecha2.substr(found2+1,fecha2.size());
+	size_t found3 = fecha3.find("\n");
+	anyo = atoi(fecha3.substr(0, found3).c_str());
+
+	cout << fecha << endl;
+	cout << descp << endl;
+
+	t.setDia(dia);
+	t.setMes(mes);
+	t.setAnyo(anyo);
+	t.setDescp(descp);
+
+
+
 	return in;
 }
 */
 
 
-Tarea* TareaCpp::leerFichero(string nombre)
+
+ostream& operator<<(std::ostream& out, const TareaCpp& t)
 {
-	string x = "Tarea.txt";
-	string nombreFichero = nombre + x;
+	out << t.getDia() <<"/"<< t.getMes() << "/" << t.getAnyo() << endl;
+	out << t.getDescp() << endl;
 
-	Tarea *tarea = new Tarea[100];
-	int i = 1;
-	int numTarea = 0;
-	ifstream ifs(nombreFichero.c_str());
 
-	string frase;
-	string dia;
-	string mes;
-	string anyo;
-
-	while (!ifs.eof())
-	{
-		getline(ifs, frase);
-
-		if(i%2 == 0)
-		{
-			tarea[i].descp = new char[frase.size()+1];
-			copy(frase.begin(), frase.end(), tarea[i].descp);
-			tarea[i].descp[frase.size()] = '\0';
-
-			cout << tarea[i].descp << '\n';
-			
-			cout << "--------------------------------" << endl;
-			
-			numTarea++; //cuenta las tareas que haya en el fichero
-		}
-			
-	
-		if(i%2 != 0)
-		{
-			if(frase != "")
-			{
-				cout << "TAREA " << numTarea << ":" << endl;
-
-				dia = frase.substr(0, 2);
-				tarea[i].fecha.dia = atoi(dia.c_str());
-
-				mes = frase.substr(3,5);
-				tarea[i].fecha.mes = atoi(mes.c_str());
-				
-				anyo = frase.substr(6,8);
-				tarea[i].fecha.anyo = atoi(anyo.c_str());
-
-				cout << tarea[i].fecha.dia << "/" << tarea[i].fecha.mes << "/" << tarea[i].fecha.anyo << endl;
-
-			}
-			
-		}
-		
-		i++;
-	}
-
-	ifs.close();
-
-	return tarea;
-
+	return out;
 }
+

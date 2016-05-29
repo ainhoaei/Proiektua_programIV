@@ -11,19 +11,6 @@
 
 using namespace std;
 
-#define MAX_LENGTH 10
-#define NUM_ELEMENTOS 2
-
-
-
-void liberarMemoria (Usuario *u, int total){
-    int i;
-    for (i = 0; i < total; i++){
-        free(u[i].nombre);
-        free(u[i].contrasenya);
-    }
-}
-
 
 string insertarNombre(UsuarioCpp *usuario){
 
@@ -35,62 +22,55 @@ string insertarNombre(UsuarioCpp *usuario){
     return usuario->getNombre();
 }
 
-char* insertarContransenya (Usuario *usuario){
+string insertarContransenya (UsuarioCpp *usuario){
 
-	char str[MAX_LENGTH];
-    char frmt_str[MAX_LENGTH];
+	string contrasenya;
    
     cout << "Escriba la contrasenya para el usuario: " << endl;
-    fgets(str, MAX_LENGTH, stdin);
-    clear_if_neededC(str);
-    sscanf(str, "%s", frmt_str); //eliminar el \n final
+    cin >> contrasenya;
 
-    //RESERVAR LA MEMORIA JUSTA
-    usuario->contrasenya = (char *)malloc((strlen(frmt_str)+1) * sizeof(char));
-    strcpy(usuario->contrasenya, frmt_str);
+    usuario->setContrasenya(contrasenya.substr(0, 9));
 
-    return usuario->contrasenya;
+    return usuario->getContrasenya();
 }
+
+
 
 int main() {
 
 
 	DBConnector dbConnector("test.sqlite"); //INSTANCIA
 
-	Usuario u[50];
+    int result = 0;
 	int total = 0; //eztakit total hau beharrezkoa dan!
     UsuarioCpp usu[50];
 
-	/*int result = dbConnector.eliminarUsuario();
+	/*result = dbConnector.eliminarUsuario();
 	//BORRAR TODO EL CONTENIDO DE LA BD
 	if (result != SQLITE_OK) {
 		printf("Error deleting all countries\n");
 		return result;
-	}*/
-
-	int result = 0;
+	}
+    */
+	
 	int opc=0;
 
-    char nombre[50];
-    char contrasenya[50];
-
-    string nombre2;
-    string contrasenya2;
+    string nombre;
+    string contrasenya;
 
     menuLoginCpp login;
 
      do
     {
         cout << "\nMENU PRINCIPAL: Seleccione una opcion " << endl;
-        cout << "1. Log in   2. Registrarse   3. Salir" << endl;
+        cout << "1. Log in (C++)   2. Registrarse (C++)   3. Salir" << endl;
         cin >> opc;
 
         switch(opc){
-            case 1: //strcpy(nombre, insertarNombre(&u[total]));
-                    nombre2 = insertarNombre(&usu[total]);
-                    strcpy(contrasenya, insertarContransenya(&u[total]));
+            case 1: nombre = insertarNombre(&usu[total]);
+                    contrasenya = insertarContransenya(&usu[total]);
 
-                    result = dbConnector.chequearUsuario(nombre2.c_str(), contrasenya);
+                    result = dbConnector.chequearUsuario(nombre.c_str(), contrasenya.c_str());
                     if(result == 5)
                     //SI EXISTE EL USUARIO, ENTRAR
                     {
@@ -107,19 +87,17 @@ int main() {
                     }
                     break;
 
-            case 2: //strcpy(nombre, insertarNombre(&u[total]));
-                    nombre2 = insertarNombre(&usu[total]);
-                    strcpy(contrasenya, insertarContransenya(&u[total]));
+            case 2: nombre = insertarNombre(&usu[total]);
+                    contrasenya = insertarContransenya(&usu[total]);
 
-                    result = dbConnector.chequearUsuario(nombre2.c_str(), contrasenya);
+                    result = dbConnector.chequearUsuario(nombre.c_str(), contrasenya.c_str());
                     if(result == 5)
                     {
                        cout << "El nombre usuario y contrasenya ya existen, intentelo de nuevo" << endl;
                     }
                     if (result != 5){
                     //SI NO EXISTE EL USUARIO, INSERTAR
-                        contrasenya2 = contrasenya;
-                        result = dbConnector.insertarUsuario(nombre2, contrasenya);
+                        result = dbConnector.insertarUsuario(nombre, contrasenya);
                         total++;
                     }
 
@@ -136,13 +114,12 @@ int main() {
     } while (opc != 3);
 
 
-    result = dbConnector.mostrarUsuarios();
+   /* result = dbConnector.mostrarUsuarios();
     if (result != SQLITE_OK) {
         cout << "Error getting all users"<< endl;
         return result;
     }
-
-     liberarMemoria(u, total);
+    */
 
 	return 0;
 }

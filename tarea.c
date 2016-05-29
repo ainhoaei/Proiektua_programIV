@@ -83,16 +83,6 @@ int IntroducirTarea(Tarea *tarea){
 }
 
 
-void ModificarTarea(){
-    printf("Esta opcion no esta disponible todavia.\n");
-}
-
-
-void EliminarTarea(){
-    printf("Esta opcion no esta disponible todavia.\n");
-}
-
-
 int EscribirEnFicheroTarea (Tarea *t, int total, const char *nombre){
 
 	char const *x;
@@ -113,14 +103,9 @@ int EscribirEnFicheroTarea (Tarea *t, int total, const char *nombre){
     FILE *fichero;
 	fichero = fopen(nombreFichero, "a");
 
-    int cero = 0;
 
-    if(t[total].fecha.dia < 10)
-        fprintf(fichero, "%i", cero);
 	fprintf(fichero, "%i/", t[total].fecha.dia);
 
-    if(t[total].fecha.mes < 10)
-        fprintf(fichero, "%i", cero);
 	fprintf(fichero, "%i/", t[total].fecha.mes);
 
 	fprintf(fichero, "%i\n", t[total].fecha.anyo);
@@ -137,6 +122,9 @@ int EscribirEnFicheroTarea (Tarea *t, int total, const char *nombre){
     return 0;
 
 }
+
+
+
 
 /* devuelve la cantidad de caracteres en cadena sin contar el '\0' */
 int largo_cadena(char cadena[])
