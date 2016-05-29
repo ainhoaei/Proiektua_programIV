@@ -3,6 +3,7 @@
 #include <string>
 #include <stdlib.h>
 #include "diario.h"
+#include "diarioCpp.h"
 #include <iostream>
 #include <fstream>
 
@@ -21,20 +22,19 @@ int main(){
 
 	int opcion;
     do{
-        cout << "Seleccione la accion a realizar:\n1. Apuntar nota\n2. ver notas\n3. Ver notas de dia especifico\n4. Eliminar nota (no operativo)\n5. Atras \n" << endl;
+        cout << "Seleccione la accion a realizar:\n1. Apuntar nota\n2. ver notas\n3. Ver notas de dia especifico\n4. Eliminar nota (C++)\n5. Atras \n" << endl;
         cin >> opcion;
+        ifstream ifs (nombreFichero.c_str());
 
         switch(opcion){
             case 1: apuntarNota(nombre.c_str());break;
-            case 2: //fichero = fopen(nombreFichero.c_str(), "r");
-                    //if ( fichero == NULL )
-                    //{
-                    //  cout <<"No hay notas guardadas\n"<<endl;
-                    //}
-                    //else
-                    //{
+            case 2: if(ifs == NULL) {
+                     cout <<"No hay notas guardadas\n"<<endl;
+                    }
+                    else
+                    {
                         leer(nombre.c_str());  
-                    //}
+                    }
                     break;
             case 3: verEspc(nombre.c_str());break;
             case 4: break;
