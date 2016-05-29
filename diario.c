@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include "menu.h"
+#include "diario.h"
 
 #define MAX_CAR 200
 #define MAX_FECHA 4
@@ -17,7 +17,7 @@ int clear_if_neededD (char *str){
     return 0;
 }
 
-void verEspc(char *nombre){
+void verEspc(const char *nombre){
 
 	char str[MAX_FECHA];
     char dia[MAX_FECHA];
@@ -79,7 +79,7 @@ void verEspc(char *nombre){
     printf("notas del dia %s:\n", fecha);
 
 
-    char *p;
+    char const *p;
     p = "Nota.txt";
     char nombreFichero[20];
     strcpy(nombreFichero, nombre);
@@ -133,10 +133,10 @@ char* fecha (void)
   return (char*)buffer;
 }
 
-int guardar(char nuevaNota[], char *nombre)
+int guardar(char nuevaNota[], const char *nombre)
 {
 
-	char *p;
+	char const *p;
     p = "Nota.txt";
     char nombreFichero[20];
     strcpy(nombreFichero, nombre);
@@ -165,7 +165,7 @@ int guardar(char nuevaNota[], char *nombre)
 
 
 
-int apuntarNota(char *nombre){
+void apuntarNota(const char *nombre){
 
 	char nota[MAX_CAR];
 
@@ -175,15 +175,15 @@ int apuntarNota(char *nombre){
 
 	guardar(nota, nombre);
 
-	return 0;
+
 
 }
 
 
 
-int leer(char *nombre)
+void leer(const char *nombre)
 {
-	char *p;
+	char const *p;
     p = "Nota.txt";
     char nombreFichero[20];
     strcpy(nombreFichero, nombre);
@@ -203,44 +203,6 @@ int leer(char *nombre)
 	//cerrar fichero
 	fclose(f);
 
-	return 0;
-}
-
-void menuDiario(char *nombre){
 	
-	setvbuf (stdout, 0, _IONBF, 0);
-
-	char *p;
-    p = "Nota.txt";
-    char nombreFichero[20];
-    strcpy(nombreFichero, nombre);
-    strcat(nombreFichero, p);
-    
-    FILE *fichero;
-
-	int opcion;
-    do{
-        printf("Seleccione la accion a realizar:\n1. Apuntar nota\n2. ver notas\n3. Ver notas de dia especifico\n4. Eliminar nota (no operativo)\n5. Atras \n");
-        scanf("%d",&opcion);
-
-        switch(opcion){
-            case 1: apuntarNota(nombre);break;
-            case 2: fichero = fopen(nombreFichero, "r");
-                    if ( fichero == NULL )
-                    {
-                      printf("No hay notas guardadas\n");
-                    }
-                    else
-                    {
-                        leer(nombre);  
-                    }
-                    break;
-            case 3: verEspc(nombre);break;
-            case 4: break;
-            case 5: break;
-            default: printf("Numero erroneo. Introduzca de nuevo.\n"); break;
-        }
-
-    }while( opcion != 5 );
-
 }
+
