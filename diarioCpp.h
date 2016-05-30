@@ -1,7 +1,6 @@
 #ifndef DIARIOCPP_H_
 #define DIARIOCPP_H_
 
-#include "diario.h"
 #include <string>
 #include <vector>
 #include <iostream>
