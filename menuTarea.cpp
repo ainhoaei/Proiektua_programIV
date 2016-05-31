@@ -4,7 +4,7 @@
 #include "TareaCpp.h"
 #include <iostream>
 #include <string>
-#include "string.h"
+#include <string.h>
 #include <vector>
 #include <fstream>
 
@@ -155,13 +155,17 @@ void modificarTarea(string nombre)
         }while (a < 16);
         tareaArray[resp].setAnyo(a);
 
-        string descp;
+        //string descp;
+        char descp[100];
         cout << "Introduzca la nueva descripcion: " << endl;
-        cin.getline((char*)descp.c_str(), 99);
-        cin >> descp;
-        tareaArray[resp].setDescp(descp);
-
-
+        cin.getline(descp, sizeof(descp));
+        if (cin.getline(descp, sizeof(descp)))
+        {
+            //cout << "bai" << endl;
+            //cout << descp << endl;
+            tareaArray[resp].setDescp(descp);
+        }
+        
 
         reescribirEnFichero(nombre, tareaArray);
     }
