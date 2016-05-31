@@ -20,7 +20,6 @@ int clear_if_neededCT (char *str){
     return 0;
 }
 
-
 void liberarMemoriaContacto(Contacto *c, int total)//HACER EL FREE PORQUE UTILIZAMOS EL  malloc
 {
 	int i;
@@ -123,16 +122,17 @@ void imprimirListado(Contacto c[], int total)
 
 
 
+
 int CerrarFichero(FILE *fichero){
 
 	fclose (fichero);
 	return 0;
 }
 
-int escribirEnFicheroContacto (Contacto *c, int total, char *nombre)
+int escribirEnFicheroContacto (Contacto *c, int total, const char *nombre)
 {
 
-	char *p;
+	char const *p;
     p = "Contacto.txt";
     char nombreFichero[20];
     strcpy(nombreFichero, nombre);
@@ -166,10 +166,10 @@ int escribirEnFicheroContacto (Contacto *c, int total, char *nombre)
 
 
 
-int leerDesdeFicheroContacto (char *nombre)
+int leerDesdeFicheroContacto (const char *nombre)
 {
 
-	char *p;
+	char const *p;
     p = "Contacto.txt";
     char nombreFichero[20];
     strcpy(nombreFichero, nombre);
@@ -201,13 +201,6 @@ void menuContacto(char *nombre)
 
 	Contacto c[MAX_CONTACTOS];
 
-	FILE *fichero;
-
-   char *p;
-    p = "Contacto.txt";
-    char nombreFichero[20];
-    strcpy(nombreFichero, nombre);
-    strcat(nombreFichero, p);
 
     int opcion;
     int total = 0;
@@ -230,16 +223,7 @@ void menuContacto(char *nombre)
 					}
 					break;
 
-            case 2: fichero = fopen(nombreFichero, "r");
-                    if ( fichero == NULL )
-                    {
-                      printf("No hay contactos guardados\n");
-                    }
-                    else
-                    {
-                        leerDesdeFicheroContacto(nombre); 
-                    }
-                     break;
+            case 2: leerDesdeFicheroContacto(nombre); break;
             case 3:  break;
             case 4: printf("\n"); break;
             default: printf("Numero erroneo. Introduzca de nuevo.\n"); break;

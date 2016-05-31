@@ -1,38 +1,43 @@
 #ifndef _CONTACTOSCPP_H_
-#define _CONTACTOSCPP_H
+#define _CONTACTOSCPP_H_
+
+#include <string>
+
+using namespace std;
 
 class contactosCpp
 {
-	protected:
+	
 
 	string nombre;
 	string apellido;
 	int num_tlf;
 
-	private:
+	public:
 
 	contactosCpp(string nombre, string apellido, int num_tlf);
+	contactosCpp();
 	virtual ~contactosCpp();
 
 	string getNombre()const;
 	string getApellido() const;
 	int getTlf() const;
 
-	virtual insertarContacto()=0;
-	virtual modificarContacto()=0;
-	virtual eliminarContacto()=0;
+	void setNombre(string nombre);
+	void setApellido(string apellido);
+	void setTlf(int tlf);
 
+	virtual int clear_if_needed (char *str);
 
+	virtual contactosCpp* meterContacto(contactosCpp *c);
+	//virtual modificarContacto()=0;
+	//virtual eliminarContacto()=0;
 
 
 };
 
-class contactoEmpresa: public contactosCpp
-{
-	string empresa;
-	string puesto;
-};
 
+/*
 class contactoConocidos: public contactosCpp
 {
 	string pueblo;
@@ -41,9 +46,10 @@ class contactoConocidos: public contactosCpp
 
 class contactoFavorito: public contactosCpp
 {
-	string helbidea;
-	string ezizena;
+	string direccion;
+	string mote;
 };
 
+*/
 #endif
 

@@ -17,7 +17,15 @@ public:
 
 	int insertarUsuario(std::string nombre, std::string contrasenya);
 
-	int chequearUsuario(const char* nombre, const char* contrasenya);
+	int insertarContactoEmp(std::string nombre, std::string apellido, int tlf, std::string empresa, std::string puesto, std::string email);
+	int insertarContactoCon(std::string nombre, std::string apellido, int tlf, std::string pueblo, int edad);
+	int insertarContactoFa(std::string nombre, std::string apellido, int tlf, std::string direccion, std::string mote);
+
+
+	int mostrarContactoEmp();
+	int eliminarContactoEmp();
+
+	int chequearUsuario(const char* nombre, char* contrasenya);
 
 	DBConnector(std::string dbFile);
 
