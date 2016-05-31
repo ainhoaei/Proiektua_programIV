@@ -365,8 +365,13 @@ int DBConnector::mostrarContactoEmp() {
 	printf("%s\n", sql);
 	*/
 
-	char sql[] = "select nombre, apellido from CONTACTOSEMP";
-	//char sql[] = "select id, nombre, apellido from CONTACTOSEMP";
+	/*
+	char  *c = "123.45";
+	int    i = (int) c; 
+*/
+
+	char sql[] = "select id, nombre, apellido from CONTACTOSEMP";
+
 
 	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
 	if (result != SQLITE_OK) {
@@ -379,21 +384,19 @@ int DBConnector::mostrarContactoEmp() {
 
 	char nombre[MAX];
 	char apellido[MAX];
-	//int id;
+	int id;
 
 	printf("\n");
 	printf("\n");
-	printf("Mostrar contactos de empresa:\n");
+	printf("Elige el ID del contacto que desea eliminar:\n");
 	do {
 		result = sqlite3_step(stmt) ;
 		if (result == SQLITE_ROW) {
-			//id = sqlite3_column_int(stmt, 0);  // PARA ENTEROS
-			strcpy(nombre, (char *) sqlite3_column_text(stmt, 0));
-			strcpy(apellido, (char *) sqlite3_column_text(stmt, 1));
-			//sscanf(stmt, "%d", &id);// hau ez dakit ola dan.
-			printf("Nombre: %s\tApellido: %s\n", nombre, apellido);
+			id = sqlite3_column_int(stmt, 0);  // PARA ENTEROS
+			strcpy(nombre, (char *) sqlite3_column_text(stmt, 1));
+			strcpy(apellido, (char *) sqlite3_column_text(stmt, 2));
 
-			//printf("Id: %d Nombre: %s  Apellido: %s\n", id, nombre, apellido);
+			printf("Id: %d Nombre: %s  Apellido: %s\n", id, nombre, apellido);
 		}
 	} while (result == SQLITE_ROW);
 
@@ -416,8 +419,6 @@ int DBConnector::verContactoEmp() {
 //MOSTRAR TODOS LOS USUARIOS QUE TENEMOS EN LA BD
 	sqlite3_stmt *stmt;
 
-	
-	
 
 	char sql[] = "select * from CONTACTOSEMP";
 	//char sql[] = "select id, nombre, apellido from CONTACTOSEMP";
@@ -433,7 +434,7 @@ int DBConnector::verContactoEmp() {
 
 	char nombre[MAX];
 	char apellido[MAX];
-	int tlf=6;
+	int tlf;
 	char empresa[MAX];
 	char puesto[MAX];
 	char email[MAX];
@@ -445,11 +446,10 @@ int DBConnector::verContactoEmp() {
 	do {
 		result = sqlite3_step(stmt) ;
 		if (result == SQLITE_ROW) {
-			//id = sqlite3_column_int(stmt, 0);  // PARA ENTEROS
+			
 			strcpy(nombre, (char *) sqlite3_column_text(stmt, 1));
 			strcpy(apellido, (char *) sqlite3_column_text(stmt, 2));
-			//sscanf(stmt, "%d", &id);// hau ez dakit ola dan.
-
+			tlf = sqlite3_column_int(stmt, 3);  // PARA ENTEROS
 			strcpy(empresa, (char *) sqlite3_column_text(stmt, 4));
 			strcpy(puesto, (char *) sqlite3_column_text(stmt, 5));
 			strcpy(email, (char *) sqlite3_column_text(stmt, 6));
