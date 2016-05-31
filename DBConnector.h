@@ -26,7 +26,7 @@ public:
 	int verContactoEmp();
 	int eliminarContactoEmp();
 
-	int chequearUsuario(const char* nombre, char* contrasenya);
+	int chequearUsuario(char* nombre, char* contrasenya);
 
 	DBConnector(std::string dbFile);
 

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "Tarea.h"
 #include "TareaCpp.h"
+#include "SubmenusCpp.h"
 #include <iostream>
 #include <string>
 #include <string.h>
@@ -11,13 +12,30 @@
 
 using namespace std;
 
-
-vector<TareaCpp> leerFichero(string nombre)
+int longitudFichero(string nombreFichero)
 {
-    string x = "Tarea.txt";
-    string nombreFichero = nombre + x;
+    ifstream ifs(nombreFichero.c_str());
+    int num_lineas = 0;
+    string frase;
 
-    TareaCpp *tarea = new TareaCpp[100];
+    while (!ifs.eof())
+    {
+        getline(ifs, frase);
+
+        num_lineas++;
+    }
+
+    ifs.close();
+
+    return (num_lineas-1)/2;
+
+
+}
+
+vector<TareaCpp> leerFichero(string nombreFichero)
+{
+
+    TareaCpp *tarea = new TareaCpp[longitudFichero(nombreFichero)];
     int i = 1;
     int numTarea = 0;
     ifstream ifs(nombreFichero.c_str());
@@ -95,11 +113,8 @@ vector<TareaCpp> leerFichero(string nombre)
 
 }
 
-void reescribirEnFichero (string nombre,  vector<TareaCpp> t)
+void reescribirEnFichero (string nombreFichero,  vector<TareaCpp> t)
 {
-    string x = "Tarea.txt";
-    string nombreFichero = nombre + x;
-
      ofstream ofs (nombreFichero.c_str(), ofstream::out);
 
    
@@ -112,10 +127,10 @@ void reescribirEnFichero (string nombre,  vector<TareaCpp> t)
         ofs.close();
 }
 
-void modificarTarea(string nombre)
+void modificarTarea(string nombreFichero)
 {
     unsigned int resp;
-    vector<TareaCpp> tareaArray = leerFichero(nombre);
+    vector<TareaCpp> tareaArray = leerFichero(nombreFichero);
     do{
         cout << "Seleccione el numero de Tarea: " << endl;
         cin >> resp;
@@ -123,10 +138,12 @@ void modificarTarea(string nombre)
 
 
 
-     if (resp == tareaArray.size()){
+    if (resp == tareaArray.size())
+    {
         return;
     }
-    else {
+    else 
+    {
         cout << "Introduzca la nuevo fecha:" << endl;
         int d = 33;
         string dia;
@@ -155,27 +172,24 @@ void modificarTarea(string nombre)
         }while (a < 16);
         tareaArray[resp].setAnyo(a);
 
-        //string descp;
         char descp[100];
         cout << "Introduzca la nueva descripcion: " << endl;
         cin.getline(descp, sizeof(descp));  //ESPAZIOK KONTUN HARTZEKO!
         if (cin.getline(descp, sizeof(descp)))
         {
-            //cout << "bai" << endl;
-            //cout << descp << endl;
             tareaArray[resp].setDescp(descp);
         }
         
 
-        reescribirEnFichero(nombre, tareaArray);
+        reescribirEnFichero(nombreFichero, tareaArray);
     }
 
 }
 
-void eliminarTarea(string nombre)
+void eliminarTarea(string nombreFichero)
 {
     unsigned int resp;
-    vector<TareaCpp> tareaArray = leerFichero(nombre);
+    vector<TareaCpp> tareaArray = leerFichero(nombreFichero);
     vector <TareaCpp> tareaAux;
     do{
         cout << "Seleccione el numero de Tarea: " << endl;
@@ -183,10 +197,12 @@ void eliminarTarea(string nombre)
     }while (resp > tareaArray.size());
      
 
-    if (resp == tareaArray.size()){
+    if (resp == tareaArray.size())
+    {
         return;
     }
-    else {
+    else 
+    {
         for (unsigned int i=0; i<tareaArray.size(); i++)
         {
             if (i != resp)
@@ -196,7 +212,7 @@ void eliminarTarea(string nombre)
 
         }
 
-        reescribirEnFichero(nombre, tareaAux);          
+        reescribirEnFichero(nombreFichero, tareaAux);          
          
 
     }
@@ -205,27 +221,25 @@ void eliminarTarea(string nombre)
 }
 
 
-//void SubmenusCpp::menuTarea (string nombre)  //MAIN BEHARREN GERO HAU JARRI BEHAR DA!
-int main()
+void SubmenusCpp::menuTarea (string nombre)  //MAIN BEHARREN GERO HAU JARRI BEHAR DA!
+//int main()
 {
     
-    Tarea tarea[60];
-    string nombre = "aran"; //HAU GERO KENDU IN BEHAR DA!
+    Tarea* tarea = new Tarea();
+    //string nombre = "aran"; //HAU GERO KENDU IN BEHAR DA!
     int opcion;
     int total;
     total = 0;
 
     string x = "Tarea.txt";
     string nombreFichero = nombre + x;
-   
+    ifstream ifs (nombreFichero.c_str());
 
-
-    TareaCpp tareaCpp;
         
     do{
         cout <<"Seleccione la accion a realizar:\n1. Introducir tarea (C)\n2. Ver tareas a realizar (C)\n3. Modificar tarea (C++)\n4. Eliminar tarea (C++)\n5. Atras" << endl;
-       cin >> opcion;
-        ifstream ifs (nombreFichero.c_str());
+        cin >> opcion;
+    
         switch(opcion){
             case 1: IntroducirTarea(&tarea[total]); 
                     EscribirEnFicheroTarea(tarea, total, nombre.c_str());
@@ -241,7 +255,7 @@ int main()
                     break;
 
             case 3: if(ifs != NULL) {
-                        modificarTarea(nombre);
+                        modificarTarea(nombreFichero);
                         cout << endl;
                     }
                     else{
@@ -250,7 +264,7 @@ int main()
                        
                     break;
             case 4: if(ifs != NULL) {
-                        eliminarTarea(nombre);
+                        eliminarTarea(nombreFichero);
                         
                        
                     }
@@ -265,5 +279,5 @@ int main()
 
     }while( opcion != 5 );
 
-    return 0;
+    //return 0;
 }

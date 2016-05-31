@@ -6,7 +6,7 @@
 class menuLoginCpp
 {
 	public:
-		int menuaCpp(std::string gnombre);
+		int menuaCpp(std::string nombre);
 };
 
 
