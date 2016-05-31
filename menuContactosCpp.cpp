@@ -83,6 +83,65 @@ int menuEmpresa()
 
 }
 
+int menuFavorito()
+{
+    DBConnector dbConnector("test.sqlite");
+    int result = 0;
+    int opc=0;
+    contactoFa f[100];
+    int total = 0;
+
+    do{
+
+        cout << "\nMENU CONTACTOS FAVORITOS: Seleccione una operacion " << endl;
+        cout << "1. Insertar Contacto  2. Ver Contacto  3. Eliminar Contacto" << endl;
+        cin >> opc;
+      
+
+        switch(opc){
+            case 1:  
+                         
+                        f->meterContacto(&e[total], total);
+                        result = dbConnector.insertarContactoEmp(f->getNombre(), f->getApellido(), f->getTlf(), f->getEmp(), f->getPu(), f->getEmail());
+                        total++;
+                    
+
+                    if ( result != SQLITE_OK) {
+                         cout << "Error inserting new data. Already exists" << endl;
+                       
+                    }
+                    
+                    break;
+            case 2:                     
+                     
+                    dbConnector.verContactoEmp();
+                    break;
+                    
+
+                      
+            case 3:  
+
+                    dbConnector.mostrarContactoEmp(); 
+                    break;
+
+                     //Elegitu borratu nahi dezun kontaktua
+                     //DBConnector::eliminarContactoEmp();
+
+            
+            default: cout << "Numero erroneo. Introduzca de nuevo."<< endl; break;
+        }
+
+    } while (opc > 3);
+
+    if (result != SQLITE_OK) {
+        cout << "Error getting all users"<< endl;
+      
+    }
+
+    return 0;
+
+}
+
 
 int main()
 {
