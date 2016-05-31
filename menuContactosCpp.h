@@ -6,7 +6,7 @@
 class menuContactosCpp
 {
 	public:
-		void menuEmpresa();
+		int menuEmpresa();
 };
 
 

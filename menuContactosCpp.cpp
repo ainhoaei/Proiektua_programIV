@@ -24,7 +24,7 @@ using namespace std;
 #define MAX_LENGTH 40
 
 
-void menuContactosCpp::menuEmpresa()
+int menuEmpresa()
 {
     DBConnector dbConnector("test.sqlite");
     int result = 0;
@@ -55,7 +55,7 @@ void menuContactosCpp::menuEmpresa()
                     break;
             case 2:                     
                      
-                    dbConnector.mostrarContactoEmp();
+                    dbConnector.verContactoEmp();
                     break;
                     
 
@@ -79,12 +79,14 @@ void menuContactosCpp::menuEmpresa()
       
     }
 
+    return 0;
+
 }
 
 
 int main()
 {
-    menuContactosCpp m;
+    
     DBConnector dbConnector("test.sqlite");
 	int result = 0;
 	int opc=0;
@@ -101,7 +103,7 @@ int main()
       
 
         switch(opc){
-            case 1:   m.menuEmpresa();
+            case 1:   menuEmpresa();
                         break;
 
             case 2:  //m.menuFavoritos();  
