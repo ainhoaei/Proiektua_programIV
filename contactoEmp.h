@@ -2,6 +2,9 @@
 #define _CONTACTOEMP_H
 
 #include "contactosCpp.h"
+#include <iostream>
+
+using namespace std;
 
 class contactoEmp: public contactosCpp
 {

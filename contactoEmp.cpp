@@ -3,6 +3,7 @@
 #include <iostream>
 #include "DBConnector.h"
 
+using namespace std;
 
 contactoEmp::contactoEmp(string nombre, string apellido, int tlf, string empresa, string puesto, string email): contactosCpp(nombre, apellido, tlf)
 {
@@ -43,7 +44,9 @@ contactoEmp* contactoEmp::meterContacto(contactoEmp *c, int total)
 	contacto->meterContacto(&contacto[total]);
 
 	c->setNombre(contacto->getNombre());
-	   	
+	c->setApellido(contacto->getApellido());
+	c->setTlf(contacto->getTlf());
+		   	
 	   	string empresa;
 		cout << "Empresa:" << endl;
 		cin >> empresa;

@@ -13,19 +13,19 @@ contactosCpp::~contactosCpp()
 
 }
 
-contactosCpp::string getNombre()const;
+string contactosCpp::getNombre()const
 {
-	this->nombre;
+	return this->nombre;
 }
 
-contactosCpp::string getApellido() const
+string contactosCpp::getApellido() const
 {
-	this->apellido;
+	return this->apellido;
 }
 
-contactosCpp::int getTlf() const
+int contactosCpp::getTlf() const
 {
-	this->tlf;
+	return this->tlf;
 }
 
 contactosCpp::insertarContacto()
