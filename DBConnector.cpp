@@ -133,6 +133,8 @@ int DBConnector::eliminarContactoEmp() {
 
 	char sql[] = "delete from CONTACTOSEMP";
 
+	//char sql[] = "delete from CONTACTOSEMP where id = %d", id ;
+
 	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
 //LE ESTAMOS PASANDO LA DIR DEL POINTER: &stmt
 
@@ -349,8 +351,18 @@ int DBConnector::mostrarContactoEmp() {
 //MOSTRAR TODOS LOS USUARIOS QUE TENEMOS EN LA BD
 	sqlite3_stmt *stmt;
 
+	/*char* idC = (char*)id;
+	char* a = "'";
+
 	//ID BAITA IKUSTEA NAHI BADEU
 	//char sql[] = "select id, nombre, apellido from CONTACTOSEMP";
+	char sql[] = "select nombre, apellido from CONTACTOSEMP where id = ";
+	strcat(sql, a);
+	strcat(sql, idC);
+	strcat(sql, a);
+	printf("%s\n", sql);
+	*/
+
 	char sql[] = "select nombre, apellido from CONTACTOSEMP";
 
 	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
@@ -376,7 +388,7 @@ int DBConnector::mostrarContactoEmp() {
 			strcpy(nombre, (char *) sqlite3_column_text(stmt, 0));
 			strcpy(apellido, (char *) sqlite3_column_text(stmt, 1));
 			//sscanf(stmt, "%d", &id);// hau ez dakit ola dan.
-			printf("Nombre: %s  Apellido: %s\n", nombre, apellido);
+			printf("Nombre: %s\tApellido: %s\n", nombre, apellido);
 
 			//printf("Id: %d Nombre: %s  Apellido: %s\n", id, nombre, apellido);
 		}
