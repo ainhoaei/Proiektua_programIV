@@ -158,7 +158,7 @@ void modificarTarea(string nombre)
         //string descp;
         char descp[100];
         cout << "Introduzca la nueva descripcion: " << endl;
-        cin.getline(descp, sizeof(descp));
+        cin.getline(descp, sizeof(descp));  //ESPAZIOK KONTUN HARTZEKO!
         if (cin.getline(descp, sizeof(descp)))
         {
             //cout << "bai" << endl;
