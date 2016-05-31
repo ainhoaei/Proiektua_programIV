@@ -1,23 +1,24 @@
 #include "contactosCpp.h"
 #include "contactoEmp.h"
-
-
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-
-
-
-#include "sqlite3.h" //IMPORTANTE
+#include "contactoFavorito.h"
 #include "DBConnector.h"
 #include "menu.h"
 #include "menuLoginCpp.h"
 #include "menuContactosCpp.h"
-#include <iostream>
+
+#include "sqlite3.h" //IMPORTANTE
+
 #include <stdio.h>
-#include "string.h"
-#include <string> 
+#include <string.h>
 #include <stdlib.h>
+#include <iostream>
+
+
+
+
+
+
+
 
 using namespace std;
 
@@ -88,7 +89,7 @@ int menuFavorito()
     DBConnector dbConnector("test.sqlite");
     int result = 0;
     int opc=0;
-    contactoFa f[100];
+    contactoFavorito f[100];
     int total = 0;
 
     do{
@@ -101,8 +102,8 @@ int menuFavorito()
         switch(opc){
             case 1:  
                          
-                        f->meterContacto(&e[total], total);
-                        result = dbConnector.insertarContactoEmp(f->getNombre(), f->getApellido(), f->getTlf(), f->getEmp(), f->getPu(), f->getEmail());
+                        f->meterContacto(&f[total], total);
+                        result = dbConnector.insertarContactoFa(f->getNombre(), f->getApellido(), f->getTlf(), f->getDir(), f->getMote());
                         total++;
                     
 
@@ -114,14 +115,14 @@ int menuFavorito()
                     break;
             case 2:                     
                      
-                    dbConnector.verContactoEmp();
+                    //dbConnector.verContactoEmp();
                     break;
                     
 
                       
             case 3:  
 
-                    dbConnector.mostrarContactoEmp(); 
+                    //dbConnector.mostrarContactoEmp(); 
                     break;
 
                      //Elegitu borratu nahi dezun kontaktua
@@ -165,7 +166,7 @@ int main()
             case 1:   menuEmpresa();
                         break;
 
-            case 2:  //m.menuFavoritos();  
+            case 2:  menuFavorito();  
                         break;
 
             default: cout << "Numero erroneo. Introduzca de nuevo."<< endl; break;
