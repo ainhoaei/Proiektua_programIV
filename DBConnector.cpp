@@ -5,7 +5,7 @@
 #include <string.h>
 
 
-int DBConnector::chequearUsuario(const char* nombre, char* contrasenya)
+int DBConnector::chequearUsuario(char* nombre, char* contrasenya)
 //COMPRUEBA SI EL USUARIO EXISTE
 {
 	sqlite3_stmt *stmt;
@@ -563,8 +563,8 @@ int DBConnector::insertarContactoFa(std::string nombre, std::string apellido, in
 
 
 DBConnector::DBConnector(std::string dbFile) {
-	this->db = NULL;
-	int result = sqlite3_open("test.sqlite", &db);
+	//this->db = NULL;
+	int result = sqlite3_open(dbFile.c_str(), &db);
 	if (result != SQLITE_OK) {
 		printf("Error opening database\n");
 

@@ -70,7 +70,7 @@ int main() {
             case 1: nombre = insertarNombre(&usu[total]);
                     contrasenya = insertarContransenya(&usu[total]);
 
-                    result = dbConnector.chequearUsuario(nombre.c_str(), contrasenya.c_str());
+                    result = dbConnector.chequearUsuario((char*)nombre.c_str(), (char*)contrasenya.c_str());
                     if(result == 5)
                     //SI EXISTE EL USUARIO, ENTRAR
                     {
@@ -90,7 +90,7 @@ int main() {
             case 2: nombre = insertarNombre(&usu[total]);
                     contrasenya = insertarContransenya(&usu[total]);
 
-                    result = dbConnector.chequearUsuario(nombre.c_str(), contrasenya.c_str());
+                    result = dbConnector.chequearUsuario((char*)nombre.c_str(), (char*)contrasenya.c_str());
                     if(result == 5)
                     {
                        cout << "El nombre usuario y contrasenya ya existen, intentelo de nuevo" << endl;
@@ -120,6 +120,7 @@ int main() {
         return result;
     }
     */
+
 
 	return 0;
 }
