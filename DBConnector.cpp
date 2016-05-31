@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#define MAX 100
+
 
 int DBConnector::chequearUsuario(const char* nombre, char* contrasenya)
 //COMPRUEBA SI EL USUARIO EXISTE
@@ -54,8 +56,8 @@ int DBConnector::mostrarUsuarios() {
 
 	printf("SQL query prepared (SELECT)\n");
 
-	char nombre[100];
-	char contrasenya[100];
+	char nombre[MAX];
+	char contrasenya[MAX];
 
 	printf("\n");
 	printf("\n");
@@ -355,7 +357,7 @@ int DBConnector::mostrarContactoEmp() {
 	char* a = "'";
 
 	//ID BAITA IKUSTEA NAHI BADEU
-	//char sql[] = "select id, nombre, apellido from CONTACTOSEMP";
+	
 	char sql[] = "select nombre, apellido from CONTACTOSEMP where id = ";
 	strcat(sql, a);
 	strcat(sql, idC);
@@ -364,6 +366,7 @@ int DBConnector::mostrarContactoEmp() {
 	*/
 
 	char sql[] = "select nombre, apellido from CONTACTOSEMP";
+	//char sql[] = "select id, nombre, apellido from CONTACTOSEMP";
 
 	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
 	if (result != SQLITE_OK) {
@@ -374,8 +377,8 @@ int DBConnector::mostrarContactoEmp() {
 
 	printf("SQL query prepared (SELECT)\n");
 
-	char nombre[100];
-	char apellido[100];
+	char nombre[MAX];
+	char apellido[MAX];
 	//int id;
 
 	printf("\n");
@@ -384,7 +387,7 @@ int DBConnector::mostrarContactoEmp() {
 	do {
 		result = sqlite3_step(stmt) ;
 		if (result == SQLITE_ROW) {
-			//id = sqlite3_column_int(stmt, 0);   PARA ENTEROS
+			//id = sqlite3_column_int(stmt, 0);  // PARA ENTEROS
 			strcpy(nombre, (char *) sqlite3_column_text(stmt, 0));
 			strcpy(apellido, (char *) sqlite3_column_text(stmt, 1));
 			//sscanf(stmt, "%d", &id);// hau ez dakit ola dan.
@@ -409,6 +412,73 @@ int DBConnector::mostrarContactoEmp() {
 	return SQLITE_OK;
 }
 
+int DBConnector::verContactoEmp() {
+//MOSTRAR TODOS LOS USUARIOS QUE TENEMOS EN LA BD
+	sqlite3_stmt *stmt;
+
+	
+	
+
+	char sql[] = "select * from CONTACTOSEMP";
+	//char sql[] = "select id, nombre, apellido from CONTACTOSEMP";
+
+	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
+	if (result != SQLITE_OK) {
+		printf("Error preparing statement (SELECT)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return result;
+	}
+
+	printf("SQL query prepared (SELECT)\n");
+
+	char nombre[MAX];
+	char apellido[MAX];
+	int tlf=6;
+	char empresa[MAX];
+	char puesto[MAX];
+	char email[MAX];
+
+	int contador=1;
+	printf("\n");
+	printf("\n");
+	printf("Mostrar contactos de empresa:\n");
+	do {
+		result = sqlite3_step(stmt) ;
+		if (result == SQLITE_ROW) {
+			//id = sqlite3_column_int(stmt, 0);  // PARA ENTEROS
+			strcpy(nombre, (char *) sqlite3_column_text(stmt, 1));
+			strcpy(apellido, (char *) sqlite3_column_text(stmt, 2));
+			//sscanf(stmt, "%d", &id);// hau ez dakit ola dan.
+
+			strcpy(empresa, (char *) sqlite3_column_text(stmt, 4));
+			strcpy(puesto, (char *) sqlite3_column_text(stmt, 5));
+			strcpy(email, (char *) sqlite3_column_text(stmt, 6));
+
+			printf("Contacto [%d] \nNombre: %s\tApellido: %s\tNumero de telefono:%d\tEmpresa:%s\tPuesto:%s\tEmail:%s\n\n\n",contador, nombre, apellido, tlf, empresa, puesto, email);
+
+			//printf("Id: %d Nombre: %s  Apellido: %s\n", id, nombre, apellido);
+		}
+
+		contador++;
+
+	} while (result == SQLITE_ROW);
+
+	printf("\n");
+	printf("\n");
+
+	result = sqlite3_finalize(stmt);
+	if (result != SQLITE_OK) {
+		printf("Error finalizing statement (SELECT)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return result;
+	}
+
+	printf("Prepared statement finalized (SELECT)\n");
+
+	return SQLITE_OK;
+}
+
+/*
 int DBConnector::insertarContactoCon(std::string nombre, std::string apellido, int tlf, std::string pueblo, int edad) {
 	sqlite3_stmt *stmt;
 
@@ -428,7 +498,7 @@ int DBConnector::insertarContactoCon(std::string nombre, std::string apellido, i
 		printf("Error binding parameters\n");
 		printf("%s\n", sqlite3_errmsg(db));
 		return result;
-	}*/
+	}
 
 	result = sqlite3_bind_text(stmt, 1, nombre.c_str(), nombre.length(), SQLITE_STATIC);
 	if (result != SQLITE_OK) {
@@ -485,6 +555,7 @@ int DBConnector::insertarContactoCon(std::string nombre, std::string apellido, i
 	return SQLITE_OK;
 }
 
+*/
 int DBConnector::insertarContactoFa(std::string nombre, std::string apellido, int tlf, std::string direccion, std::string mote) {
 	sqlite3_stmt *stmt;
 
