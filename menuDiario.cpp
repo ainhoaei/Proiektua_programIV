@@ -87,6 +87,7 @@ DiarioCpp *diario = new DiarioCpp[numNotas(nombreFichero)];
             
             num++;
         }
+
             
     
      }
