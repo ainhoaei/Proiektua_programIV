@@ -39,11 +39,11 @@ int menuEmpresa()
     do{
 
         cout << "\nMENU CONTACTOS EMPRESA: Seleccione una operacion " << endl;
-        cout << "1. Insertar Contacto  2. Ver Contacto  3. Eliminar Contacto" << endl;
+        cout << "1. Insertar Contacto  2. Ver Contacto  3. Eliminar Contacto  4. Salir"<< endl;
         cin >> opc;
       
 
-        switch(opc){
+        switch(opc){ 
             case 1:  
                          
                         e->meterContacto(&e[total], total);
@@ -71,6 +71,8 @@ int menuEmpresa()
 
                     dbConnector.eliminarContactoEmp(opcion);
                     break;
+
+             case 4:  cout << "Adios!"<< endl; break;
 
                      //Elegitu borratu nahi dezun kontaktua
                  
@@ -101,8 +103,8 @@ int menuFavorito()
     do{
 
         cout << "\nMENU CONTACTOS FAVORITOS: Seleccione una operacion " << endl;
-        cout << "1. Insertar Contacto  2. Ver Contacto  3. Eliminar Contacto" << endl;
-        cin >> opc;
+        cout << "1. Insertar Contacto  2. Ver Contacto  3. Eliminar Contacto  4. Salir" << endl;
+        cin >> opc; 
       
 
         switch(opc){
@@ -134,7 +136,7 @@ int menuFavorito()
                      //Elegitu borratu nahi dezun kontaktua
                      //DBConnector::eliminarContactoEmp();
 
-            
+            case 4:  cout << "Adios!"<< endl; break;
             default: cout << "Numero erroneo. Introduzca de nuevo."<< endl; break;
         }
 
@@ -164,7 +166,7 @@ int main()
      	
    
         cout << "\nMENU CONTACTOS: Seleccione el numero del tipo de contacto en el cual quieres realizar las operaciones " << endl;
-        cout << "1. Empresa  2. Favorito" << endl;
+        cout << "1. Empresa  2. Favorito  3. Salir" << endl;
         cin >> opc;
       
 
@@ -174,6 +176,8 @@ int main()
 
             case 2:  menuFavorito();  
                         break;
+
+            case 3:  cout << "Adios!"<< endl; break;
 
             default: cout << "Numero erroneo. Introduzca de nuevo."<< endl; break;
         }
