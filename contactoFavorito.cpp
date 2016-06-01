@@ -45,7 +45,7 @@ contactoFavorito* contactoFavorito::meterContacto(contactoFavorito *f, int total
 	   	string direccion;
 		cout << "Direccion:" << endl;
 		cin >> direccion;
-		f->direccion = direccion.substr(0,39);
+		f->direccion = direccion.substr(0,69);
 		
 
 		string mote;

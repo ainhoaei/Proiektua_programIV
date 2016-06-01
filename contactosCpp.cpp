@@ -1,24 +1,17 @@
 #include "contactosCpp.h"
 #include "contactosCpp.h"
 #include "contactoEmp.h"
+#include "DBConnector.h"
+#include "menu.h"
+#include "menuLoginCpp.h"
+#include "sqlite3.h"
 
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
-
-
-#include "sqlite3.h" //IMPORTANTE
-#include "DBConnector.h"
-#include "menu.h"
-#include "menuLoginCpp.h"
-//#include "UsuarioCpp.h"
 #include <iostream>
-#include <stdio.h>
-#include "string.h"
-#include <string>
-#include <stdlib.h>
+
 
 #define MAX_LENGTH 40
 #define MAX_TLF 30

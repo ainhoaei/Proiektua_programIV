@@ -58,7 +58,7 @@ int menuEmpresa()
                     
                     break;
             case 2:                     
-                     //dbConnector.mostrarContactoEmp(); 
+                     
                     dbConnector.verContactoEmp();
                     break;
                     
@@ -122,19 +122,18 @@ int menuFavorito()
                     
                     break;
             case 2:                     
-                     
-                    //dbConnector.verContactoEmp();
-                    break;
+                     dbConnector.verContactoFa();
                     
-
-                      
-            case 3:  
-
-                    //dbConnector.mostrarContactoEmp(); 
                     break;
+                      
+            case 3: 
+                    int opcion;
+                    dbConnector.mostrarContactoFa(); 
+                    cin>>opcion;
 
-                     //Elegitu borratu nahi dezun kontaktua
-                     //DBConnector::eliminarContactoEmp();
+                    dbConnector.eliminarContactoFa(opcion);
+
+                    break;
 
             case 4:  cout << "Adios!"<< endl; break;
             default: cout << "Numero erroneo. Introduzca de nuevo."<< endl; break;
