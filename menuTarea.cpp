@@ -5,7 +5,6 @@
 #include "SubmenusCpp.h"
 #include <iostream>
 #include <string>
-#include <string.h>
 #include <vector>
 #include <fstream>
 
@@ -233,13 +232,12 @@ void SubmenusCpp::menuTarea (string nombre)  //MAIN BEHARREN GERO HAU JARRI BEHA
 
     string x = "Tarea.txt";
     string nombreFichero = nombre + x;
-    ifstream ifs (nombreFichero.c_str());
-
         
     do{
         cout <<"Seleccione la accion a realizar:\n1. Introducir tarea (C)\n2. Ver tareas a realizar (C)\n3. Modificar tarea (C++)\n4. Eliminar tarea (C++)\n5. Atras" << endl;
         cin >> opcion;
-    
+        ifstream ifs (nombreFichero.c_str());
+
         switch(opcion){
             case 1: IntroducirTarea(&tarea[total]); 
                     EscribirEnFicheroTarea(tarea, total, nombre.c_str());

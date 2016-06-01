@@ -3,9 +3,8 @@
 #include <string>
 #include <stdlib.h>
 #include "recordatorio.h"
-//#include "RecordatorioCpp.h"
+#include "SubmenusCpp.h"
 #include <iostream>
-#include <vector>
 #include <fstream>
 
 
@@ -76,8 +75,6 @@ void eliminarRecordatorio(string nombre)
             getline(ifs, file_hdr);
             
             todoRecord[cont]=file_hdr;
-           // cout << todoRecord[cont] <<endl; //fuera
-            //cout << "lenengo arraien ondo gordetzeu" <<elegir<<cont<<eliminar<<fechaCompleta<<file_hdr.substr(0,8)<<endl;//fuera
             
 
              if(fechaCompleta == file_hdr.substr(0,8)){
@@ -85,10 +82,6 @@ void eliminarRecordatorio(string nombre)
                     if(elegir==eliminar){
 
                         eliminarString = file_hdr;
-                        //cout << eliminarString <<endl;//fuera
-                        //cout << "hau re ondo" << endl;//fuera
-                        
-
                     }
                     elegir++;
                 }
@@ -105,9 +98,7 @@ void eliminarRecordatorio(string nombre)
                 if(todoRecord[i]!=eliminarString && todoRecord[i]!= ""){
 
                     finRecord[e]=todoRecord[i];
-                    
-                    // cout << finRecord[e] <<endl;
-                    //cout << "BESTE ARRAIA" <<endl;
+
                     e++;
 
 
@@ -135,14 +126,9 @@ void eliminarRecordatorio(string nombre)
     delete todoRecord;
 }
 
-int main ()
-//menuTarea (string nombre)  //MAIN BEHARREN GERO HAU JARRI BEHAR DA!
+void SubmenusCpp::menuRecordatorio (string nombre)
 {
-    
-    string nombre = "jon"; //HAU GERO KENDU IN BEHAR DA!
-    int opcion;
-   //int total;
-    //total = 0;
+    int opcion = 0;
 
     string x = "Recordatorio.txt";
     string nombreFichero = nombre + x;
@@ -163,6 +149,5 @@ int main ()
 
     }while( opcion != 3 );
 
-    return 0;
 
 }

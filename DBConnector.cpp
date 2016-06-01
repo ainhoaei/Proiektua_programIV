@@ -37,7 +37,7 @@ int DBConnector::chequearUsuario(char* nombre, char* contrasenya)
 		}
 	} while (result == SQLITE_ROW);
 
-
+	
 
 	return SQLITE_OK;
 }
@@ -567,7 +567,7 @@ int DBConnector::insertarContactoCon(std::string nombre, std::string apellido, i
 
 	printf("SQL query prepared (INSERT)\n");
 
-	/*INT BADA!
+	//INT BADA!
 	result = sqlite3_bind_int(stmt, 1, id);
 	if (result != SQLITE_OK) {
 		printf("Error binding parameters\n");

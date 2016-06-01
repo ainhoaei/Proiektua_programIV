@@ -6,6 +6,7 @@
 #include "diarioCpp.h"
 #include <iostream>
 #include <fstream>
+#include "SubmenusCpp.h"
 
 using namespace std;
 
@@ -80,7 +81,6 @@ DiarioCpp *diario = new DiarioCpp[numNotas(nombreFichero)];
                 diario[cont].setFecha(str.substr(0, 8));
                 diario[cont].setDescp(str.substr(10));      
 
-                //cout << cont << diario[cont] << endl;   
                 cont++;  
             }
             
@@ -123,7 +123,6 @@ int opc;
 
     }while(opc > numNotas(nombreFichero) || opc<0);
 
-    //cout << numNotas(nombreFichero)<<endl;
     if(opc < numNotas(nombreFichero))reescribirNotas(nombreFichero, opc);
 
 
@@ -131,20 +130,19 @@ int opc;
 }
 
 
-int main(){
+void SubmenusCpp::menuDiario(string nombre){
 	
 	
 
-	string nombre = "jon"; //HAU GERO KENDU IN BEHAR DA!
+	//string nombre = "jon"; //HAU GERO KENDU IN BEHAR DA!
 
     string x = "Nota.txt";
     string nombreFichero = nombre + x;
-    
-    //FILE *fichero;
+
 
 	int opcion;
     do{
-        cout << "Seleccione la accion a realizar:\n1. Apuntar nota(C)\n2. ver notas(C)\n3. Ver notas de dia especifico(C)\n4. Eliminar nota (C++)\n5. Atras \n" << endl;
+        cout << "Seleccione la accion a realizar:\n1. Apuntar nota(C)\n2. ver notas(C)\n3. Ver notas de dia especifico(C)\n4. Eliminar nota (C++)\n5. Atras" << endl;
         cin >> opcion;
         ifstream ifs (nombreFichero.c_str());
 
@@ -166,8 +164,5 @@ int main(){
 
     }while( opcion != 5 );
 
-
-
-    return 0;
 
 }

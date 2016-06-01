@@ -1,13 +1,9 @@
-#include <stdio.h>
-#include <string.h>
-#include <string>
-#include <stdlib.h>
 #include "menuLoginCpp.h"
 #include <iostream>
+#include "DBConnector.h"
 #include "SubmenusCpp.h"
 
 using namespace std;
-
 
 
 //MENU LOGIN
@@ -15,6 +11,8 @@ int menuLoginCpp::menuaCpp(string nombre)
 {
 
     setvbuf (stdout, 0, _IONBF, 0);
+
+  //  DBConnector dbConnector("test.sqlite"); //INSTANCIA
 
     SubmenusCpp menu;
 
@@ -29,10 +27,12 @@ int menuLoginCpp::menuaCpp(string nombre)
         
         
         switch(opc){
-            case 1:// menuDiario(nombre); break;
-            case 2: menu.menuTarea(nombre);  break;
+            case 1: menu.menuDiario(nombre); 
+                    cout << endl; break;
+            case 2: menu.menuTarea(nombre);  
+                    cout << endl; break;
             case 3: //menuContacto(nombre); break;
-            case 4: //menuRecordt(nombre); break;
+            case 4: menu.menuRecordatorio(nombre); break;
             case 5: cout << "Has salido de tu agenda personal" << endl;
                     cout << endl;
                     break;
