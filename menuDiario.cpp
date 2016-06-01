@@ -47,7 +47,42 @@ DiarioCpp *diario = new DiarioCpp[numNotas(nombreFichero)];
             diario[num].setFecha(str.substr(0, 8));
             diario[num].setDescp(str.substr(10));
 
-           cout << diario[num] << endl;
+           cout << "[" << num << "] " << diario[num] << endl;
+            
+            num++;
+        }
+            
+    
+     }
+
+     cout << "[" << num  << "]  Cancelar" << endl;
+
+      ifs.close();
+
+ }
+
+ void reescribirNotas(string nombreFichero, int opc){
+
+DiarioCpp *diario = new DiarioCpp[numNotas(nombreFichero)];
+
+ ifstream ifs(nombreFichero.c_str());
+    string str;
+    int num=0;
+    int cont=0;
+
+    while (!ifs.eof())
+    {
+        getline(ifs, str);
+
+        if(str.substr(0,1) != "=" && str.substr(0,1) != "")
+        {
+            if (opc!=num){
+                diario[cont].setFecha(str.substr(0, 8));
+                diario[cont].setDescp(str.substr(10));      
+
+                //cout << cont << diario[cont] << endl;   
+                cont++;  
+            }
             
             num++;
         }
@@ -57,14 +92,38 @@ DiarioCpp *diario = new DiarioCpp[numNotas(nombreFichero)];
 
       ifs.close();
 
-      //Falta programar que el usuario elija y esta se elimine
+
+
+      int e = num-1;
+       ofstream ofs(nombreFichero.c_str(),  ofstream::out);
+
+            for (int i = 0; i < e; i++){
+                ofs << "========================================"<<endl;
+                ofs << diario[i];
+                //cout<<i<<endl;
+            }
+
+        ofs.close();
 
 
  }
 
 void eliminarNota(string nombreFichero){
 
-leerNota(nombreFichero);
+int opc;
+    do{
+        cout << "Elige la nota que quieras eliminar: " << endl;
+
+        leerNota(nombreFichero);
+        cin >> opc;
+
+        if(opc==numNotas(nombreFichero))break;
+
+    }while(opc > numNotas(nombreFichero) || opc<0);
+
+    //cout << numNotas(nombreFichero)<<endl;
+    if(opc < numNotas(nombreFichero))reescribirNotas(nombreFichero, opc);
+
 
 
 }
