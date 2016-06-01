@@ -33,6 +33,9 @@ int menuEmpresa()
     contactoEmp e[100];
     int total = 0;
 
+   // const char* nombre_tabla;
+    //nombre_tabla= "CONTACTOSEMP";
+
     do{
 
         cout << "\nMENU CONTACTOS EMPRESA: Seleccione una operacion " << endl;
@@ -55,19 +58,22 @@ int menuEmpresa()
                     
                     break;
             case 2:                     
-                     
+                     //dbConnector.mostrarContactoEmp(); 
                     dbConnector.verContactoEmp();
                     break;
                     
 
                       
             case 3:  
-
+                    int opcion;
                     dbConnector.mostrarContactoEmp(); 
+                    cin>>opcion;
+
+                    dbConnector.eliminarContactoEmp(opcion);
                     break;
 
                      //Elegitu borratu nahi dezun kontaktua
-                     //DBConnector::eliminarContactoEmp();
+                 
 
             
             default: cout << "Numero erroneo. Introduzca de nuevo."<< endl; break;

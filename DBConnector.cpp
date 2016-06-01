@@ -5,6 +5,7 @@
 #include <string.h>
 
 #define MAX 100
+#define ID 3
 
 
 int DBConnector::chequearUsuario(char* nombre, char* contrasenya)
@@ -128,16 +129,32 @@ int DBConnector::eliminarUsuario() {
 
 
 
-int DBConnector::eliminarContactoEmp() {
-//borra TODO el contenido
+int DBConnector::eliminarContactoEmp(int id) {
+//borra el contenido del ID que hemos seleccionado
+
+
+	//char sql[] = "delete from ? where id =?";
+
+    char sql[] = "delete from CONTACTOSEMP where id = ?";
 
 	sqlite3_stmt *stmt;
 
-	char sql[] = "delete from CONTACTOSEMP";
 
-	//char sql[] = "delete from CONTACTOSEMP where id = %d", id ;
 
 	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
+
+/*
+	result = sqlite3_bind_text(stmt, 1, nombre_tabla, strlen(nombre_tabla), 0);
+
+	if(result != SQLITE_OK)
+	{
+		printf("Error binding parameter(DELETE)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return result;
+	}
+
+*/
+
 //LE ESTAMOS PASANDO LA DIR DEL POINTER: &stmt
 
 	if (result != SQLITE_OK) {
@@ -148,6 +165,19 @@ int DBConnector::eliminarContactoEmp() {
 
 	printf("SQL query prepared (DELETE)\n");
 
+
+
+
+	result = sqlite3_bind_int(stmt, 1, id);
+
+	if(result != SQLITE_OK)
+	{
+		printf("Error binding parameter(DELETE)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return result;
+	}
+
+
 	result = sqlite3_step(stmt);
 //PARA EJECUTAR LA CONSULTA
 
@@ -156,6 +186,8 @@ int DBConnector::eliminarContactoEmp() {
 		printf("%s\n", sqlite3_errmsg(db));
 		return result;
 	}
+
+
 
 	result = sqlite3_finalize(stmt);
 	if (result != SQLITE_OK) {
@@ -353,22 +385,7 @@ int DBConnector::mostrarContactoEmp() {
 //MOSTRAR TODOS LOS USUARIOS QUE TENEMOS EN LA BD
 	sqlite3_stmt *stmt;
 
-	/*char* idC = (char*)id;
-	char* a = "'";
-
-	//ID BAITA IKUSTEA NAHI BADEU
 	
-	char sql[] = "select nombre, apellido from CONTACTOSEMP where id = ";
-	strcat(sql, a);
-	strcat(sql, idC);
-	strcat(sql, a);
-	printf("%s\n", sql);
-	*/
-
-	/*
-	char  *c = "123.45";
-	int    i = (int) c; 
-*/
 
 	char sql[] = "select id, nombre, apellido from CONTACTOSEMP";
 
@@ -380,7 +397,7 @@ int DBConnector::mostrarContactoEmp() {
 		return result;
 	}
 
-	printf("SQL query prepared (SELECT)\n");
+	//printf("SQL query prepared (SELECT)\n");
 
 	char nombre[MAX];
 	char apellido[MAX];
@@ -396,7 +413,7 @@ int DBConnector::mostrarContactoEmp() {
 			strcpy(nombre, (char *) sqlite3_column_text(stmt, 1));
 			strcpy(apellido, (char *) sqlite3_column_text(stmt, 2));
 
-			printf("Id: %d Nombre: %s  Apellido: %s\n", id, nombre, apellido);
+			printf("Id: %d\t Nombre: %s\t  Apellido: %s\n", id, nombre, apellido);
 		}
 	} while (result == SQLITE_ROW);
 
@@ -410,7 +427,7 @@ int DBConnector::mostrarContactoEmp() {
 		return result;
 	}
 
-	printf("Prepared statement finalized (SELECT)\n");
+	//printf("Prepared statement finalized (SELECT)\n");
 
 	return SQLITE_OK;
 }

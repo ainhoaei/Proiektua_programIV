@@ -24,7 +24,7 @@ public:
 
 	int mostrarContactoEmp();
 	int verContactoEmp();
-	int eliminarContactoEmp();
+	int eliminarContactoEmp(int id);
 
 	int chequearUsuario(char* nombre, char* contrasenya);
 
