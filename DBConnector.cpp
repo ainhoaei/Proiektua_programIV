@@ -654,7 +654,7 @@ int DBConnector::mostrarContactoEmp(std::string usuario) {
 			strcpy(nombre, (char *) sqlite3_column_text(stmt, 1));
 			strcpy(apellido, (char *) sqlite3_column_text(stmt, 2));
 
-			printf("Id: %d\t Nombre: %s\t  Apellido: %s\n", id, nombre, apellido);
+			printf("Id: %d\t Nombre: %s\t\t Apellido: %s\n", id, nombre, apellido);
 		}
 	} while (result == SQLITE_ROW);
 
@@ -695,8 +695,8 @@ int DBConnector::verContactoEmp(std::string usuario) {
 	sqlite3_stmt *stmt;
 
 
-	char sql[] = "select nombre, apellido, telef, empresa, puesto, email from CONTACTOSEMP where usuario = ?";
-	//char sql[] = "select id, nombre, apellido from CONTACTOSEMP";
+	char sql[] = "select nombre, apellido, telef, empresa, puesto, email from CONTACTOSEMP where usuario =?";
+	//char sql[] = "select nombre, apellido from CONTACTOSEMP where usuario =?";
 
 	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
 	if (result != SQLITE_OK) {
@@ -709,7 +709,7 @@ int DBConnector::verContactoEmp(std::string usuario) {
 
 	if(result != SQLITE_OK)
 	{
-		printf("Error binding parameter(DELETE)\n");
+		//printf("Error binding parameter(DELETE)\n");
 		printf("%s\n", sqlite3_errmsg(db));
 		return result;
 	}
@@ -728,16 +728,16 @@ int DBConnector::verContactoEmp(std::string usuario) {
 	printf("\n");
 	printf("Mostrar contactos de empresa:\n");
 	do {
-		result = sqlite3_step(stmt) ;
+		result = sqlite3_step(stmt);
 		if (result == SQLITE_ROW) {
 			
-			strcpy(nombre, (char *) sqlite3_column_text(stmt, 1));
-			strcpy(apellido, (char *) sqlite3_column_text(stmt, 2));
-			tlf = sqlite3_column_int(stmt, 3);  // PARA ENTEROS
-			strcpy(empresa, (char *) sqlite3_column_text(stmt, 4));
-			strcpy(puesto, (char *) sqlite3_column_text(stmt, 5));
-			strcpy(email, (char *) sqlite3_column_text(stmt, 6));
-
+			strcpy(nombre, (char *) sqlite3_column_text(stmt, 0));
+			strcpy(apellido, (char *) sqlite3_column_text(stmt, 1));
+			tlf = sqlite3_column_int(stmt, 2);  // PARA ENTEROS
+			strcpy(empresa, (char *) sqlite3_column_text(stmt, 3));
+			strcpy(puesto, (char *) sqlite3_column_text(stmt, 4));
+			strcpy(email, (char *) sqlite3_column_text(stmt, 5));
+			
 
 
 			printf("Contacto [%d] \nNombre: %s\tApellido: %s\tNumero de telefono:%d\tEmpresa:%s\tPuesto:%s\tEmail:%s\n\n\n",contador, nombre, apellido, tlf, empresa, puesto, email);
@@ -883,11 +883,11 @@ int DBConnector::verContactoFa(std::string usuario) {
 		result = sqlite3_step(stmt) ;
 		if (result == SQLITE_ROW) {
 			
-			strcpy(nombre, (char *) sqlite3_column_text(stmt, 1));
-			strcpy(apellido, (char *) sqlite3_column_text(stmt, 2));
-			tlf = sqlite3_column_int(stmt, 3);  // PARA ENTEROS
-			strcpy(direccion, (char *) sqlite3_column_text(stmt, 4));
-			strcpy(mote, (char *) sqlite3_column_text(stmt, 5));
+			strcpy(nombre, (char *) sqlite3_column_text(stmt, 0));
+			strcpy(apellido, (char *) sqlite3_column_text(stmt, 1));
+			tlf = sqlite3_column_int(stmt, 2);  // PARA ENTEROS
+			strcpy(direccion, (char *) sqlite3_column_text(stmt, 3));
+			strcpy(mote, (char *) sqlite3_column_text(stmt, 4));
 			
 			printf("Contacto [%d] \nNombre: %s\tApellido: %s\tNumero de telefono:%d\tDireccion:%s\tMote:%s\n\n\n",contador, nombre, apellido, tlf, direccion, mote);
 
