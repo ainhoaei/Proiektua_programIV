@@ -1,34 +1,33 @@
 #include "sqlite3.h" //IMPORTANTE
 #include "DBConnector.h"
 #include "menuLoginCpp.h"
-#include "UsuarioCpp.h"
 #include <iostream>
 #include <string>
+#include <string.h>
 #include "menuPrincipalCpp.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 using namespace std;
 
 
-string insertarNombre(UsuarioCpp *usuario){
+string insertarNombre(){
 
     string nombre;
     cout << "Escriba el nuevo nombre de usuario: " << endl;
     cin >> nombre;
-    usuario->setNombre(nombre.substr(0, 9));
 
-    return usuario->getNombre();
+    return nombre;
 }
 
-string insertarContransenya (UsuarioCpp *usuario){
+string insertarContransenya (){
 
 	string contrasenya;
    
     cout << "Escriba la contrasenya para el usuario: " << endl;
     cin >> contrasenya;
 
-    usuario->setContrasenya(contrasenya.substr(0, 9));
-
-    return usuario->getContrasenya();
+    return contrasenya;
 }
 
 
@@ -40,8 +39,6 @@ int menuPrincipalCpp::menuPrinci ()
 	DBConnector dbConnector("test.sqlite"); //INSTANCIA
 
     int result = 0;
-	int total = 0; //eztakit total hau beharrezkoa dan!
-    UsuarioCpp usu[50];
 
 	/*result = dbConnector.eliminarUsuario();
 	//BORRAR TODO EL CONTENIDO DE LA BD
@@ -64,9 +61,8 @@ int menuPrincipalCpp::menuPrinci ()
         cin >> opc;
 
         switch(opc){
-            case 1: 
-                    nombre = insertarNombre(&usu[total]);
-                    contrasenya = insertarContransenya(&usu[total]);
+            case 1: nombre = insertarNombre();
+                    contrasenya = insertarContransenya();
 
                     result = dbConnector.chequearUsuario((char*)nombre.c_str(), (char*)contrasenya.c_str());
 
@@ -83,8 +79,8 @@ int menuPrincipalCpp::menuPrinci ()
 
                     break;
 
-            case 2: nombre = insertarNombre(&usu[total]);
-                    contrasenya = insertarContransenya(&usu[total]);
+            case 2: nombre = insertarNombre();
+                    contrasenya = insertarContransenya();
 
                     result = dbConnector.chequearUsuario((char*)nombre.c_str(), (char*)contrasenya.c_str());
 
@@ -96,7 +92,6 @@ int menuPrincipalCpp::menuPrinci ()
                     {
                     //SI NO EXISTE EL USUARIO, INSERTAR
                         result = dbConnector.insertarUsuario(nombre, contrasenya);
-                        total++;
                         break;
                     }
                     
