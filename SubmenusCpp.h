@@ -11,6 +11,7 @@ class SubmenusCpp
 		void menuTarea (string nombre);
 		void menuRecordatorio (string nombre);
 		void menuDiario (string nombre);
+		void menuContacto(string nombre);
 		
 };
 

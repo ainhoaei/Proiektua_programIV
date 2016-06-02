@@ -275,7 +275,7 @@ int DBConnector::eliminarContactoEmp(int id, std::string usuario) {
 
 	//char sql[] = "delete from ? where id =?";
 
-    char sql[] = "delete from CONTACTOSEMP where id = ?, usuario = ?";
+    char sql[] = "delete from CONTACTOSEMP where id = ? and usuario = ?";
 
 	sqlite3_stmt *stmt;
 
@@ -354,7 +354,7 @@ int DBConnector::eliminarContactoFa(int id, std::string usuario) {
 //borra el contenido del ID que hemos seleccionado
 
 
-    char sql[] = "delete from CONTACTOSFA where id = ?, usuario = ?";
+    char sql[] = "delete from CONTACTOSFA where id = ? and usuario = ?";
 
 	sqlite3_stmt *stmt;
 

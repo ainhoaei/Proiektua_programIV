@@ -31,7 +31,7 @@ int menuLoginCpp::menuaCpp(string nombre)
                     cout << endl; break;
             case 2: menu.menuTarea(nombre);  
                     cout << endl; break;
-            case 3: //menuContacto(nombre); break;
+            case 3: menu.menuContacto(nombre); break;
             case 4: menu.menuRecordatorio(nombre); break;
             case 5: cout << "Has salido de tu agenda personal" << endl;
                     cout << endl;

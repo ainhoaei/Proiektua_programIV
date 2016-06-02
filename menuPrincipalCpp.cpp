@@ -3,10 +3,7 @@
 #include "menuLoginCpp.h"
 #include <iostream>
 #include <string>
-#include <string.h>
 #include "menuPrincipalCpp.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 using namespace std;
 
@@ -31,8 +28,6 @@ string insertarContransenya (){
 }
 
 
-
-//int main() {
 int menuPrincipalCpp::menuPrinci ()
 {
 
@@ -102,16 +97,6 @@ int menuPrincipalCpp::menuPrinci ()
         }
 
     } while (opc != 3);
-
-
-   /* result = dbConnector.mostrarUsuarios();
-    if (result != SQLITE_OK) {
-        cout << "Error getting all users"<< endl;
-        return result;
-    }
-    */
-    //cout << "menuPrinci bukatu" << endl;
-
 
 	return 0;
 }
