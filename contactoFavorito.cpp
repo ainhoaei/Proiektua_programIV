@@ -3,6 +3,10 @@
 #include <iostream>
 #include "DBConnector.h"
 
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
 using namespace std;
 
 contactoFavorito::contactoFavorito(string nombre, string apellido, int tlf, string direccion, string mote): contactosCpp(nombre, apellido, tlf)
@@ -42,11 +46,27 @@ contactoFavorito* contactoFavorito::meterContacto(contactoFavorito *f, int total
 	f->setApellido(contacto->getApellido());
 	f->setTlf(contacto->getTlf());
 		   	
+	   	/*
 	   	string direccion;
 		cout << "Direccion:" << endl;
 		cin >> direccion;
 		f->direccion = direccion.substr(0,69);
-		
+		*/
+
+		char dir[100];
+        cout << "Direccion: " << endl;
+        cin.getline(dir, sizeof(dir));  //ESPAZIOK KONTUN HARTZEKO!
+        if(cin.getline(dir, sizeof(dir)))
+        {
+        	f->direccion =(char *)malloc((strlen(dir) + 1) * sizeof(char)); 	
+        }
+        
+
+        string direccion(dir);
+
+        f->direccion = direccion;
+
+
 
 		string mote;
 		cout << "Mote:" << endl;
