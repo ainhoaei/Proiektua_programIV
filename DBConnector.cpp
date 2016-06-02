@@ -7,11 +7,20 @@
 #define MAX 100
 #define ID 3
 
+int DBConnector::getNum() const
+{
+	return this->num;
+}
+
+void DBConnector::setNum(int num)
+{
+	this->num = num;
+}
 
 int DBConnector::chequearUsuario(char* nombre, char* contrasenya)
-//COMPRUEBA SI EL USUARIO EXISTE
 {
 	sqlite3_stmt *stmt;
+	setNum(0);
 
 	char sql[] = "select nombre, contrasenya from USUARIO";
 
@@ -21,6 +30,8 @@ int DBConnector::chequearUsuario(char* nombre, char* contrasenya)
 		printf("%s\n", sqlite3_errmsg(db));
 		return result;
 	}
+
+	printf("SQL query prepared (SELECT)\n");
 
 	char nombreBD[100];
 	char contrasenyaBD[100];
@@ -33,15 +44,144 @@ int DBConnector::chequearUsuario(char* nombre, char* contrasenya)
 			
 			//if(nombreBD == nombre && contrasenyaBD == contrasenya)
 			if (strcmp(nombre, nombreBD)==0 && strcmp(contrasenya, contrasenyaBD)==0)
-				return 5; 
+				setNum(5);
 		}
 	} while (result == SQLITE_ROW);
 
+	result = sqlite3_finalize(stmt);
+	if (result != SQLITE_OK) {
+		printf("Error finalizing statement (SELECT)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return result;
+	}
 	
 
 	return SQLITE_OK;
 }
 
+
+/*int DBConnector::chequearNombre(std::string nombre)
+//COMPRUEBA SI EL USUARIO EXISTE
+{
+	sqlite3_stmt *stmt;
+
+	//char sql[] = "select nombre, contrasenya from USUARIO";
+	char sql[] = "select * from USUARIO where nombre = ?";
+
+	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
+	if (result != SQLITE_OK) {
+		printf("Error preparing statement (SELECT)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return result;
+	}
+
+	printf("SQL query prepared (SELECT)\n");
+
+
+	result = sqlite3_bind_text(stmt, 1, nombre.c_str(), nombre.length(), SQLITE_STATIC);
+	if(result != SQLITE_OK)
+	{
+		printf("Error binding parameter(SELECT)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return result;
+	}
+
+
+//PARA EJECUTAR LA CONSULTA
+
+	result = sqlite3_step(stmt);
+	if (result != SQLITE_DONE) {
+		printf("Error selecting data\n");
+		return result;
+	}
+//
+	char nombreBD[100];
+	char contrasenyaBD[100];
+
+	do {
+		result = sqlite3_step(stmt) ;
+		if (result == SQLITE_ROW) {
+			strcpy(nombreBD, (char *)sqlite3_column_text(stmt, 0));
+			strcpy(contrasenyaBD, (char *)sqlite3_column_text(stmt, 1));
+			
+			//if(nombreBD == nombre && contrasenyaBD == contrasenya)
+			if (strcmp(nombre, nombreBD)==0 && strcmp(contrasenya, contrasenyaBD)==0)
+				return SQLITE_OK; 
+		}
+	} while (result == SQLITE_ROW);
+//
+	result = sqlite3_finalize(stmt);
+	if (result != SQLITE_OK) {
+		printf("Error finalizing statement (SELECT)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return result;
+	}
+	
+
+	return SQLITE_OK;
+}
+
+
+int DBConnector::chequearContrasenya(std::string contrasenya)
+//COMPRUEBA SI EL USUARIO EXISTE
+{
+	sqlite3_stmt *stmt;
+
+	//char sql[] = "select nombre, contrasenya from USUARIO";
+	char sql[] = "select contrasenya from USUARIO where contrasenya = ?";
+
+	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
+	if (result != SQLITE_OK) {
+		printf("Error preparing statement (SELECT)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return result;
+	}
+
+	printf("SQL query prepared (SELECT)\n");
+
+	result = sqlite3_bind_text(stmt, 1, contrasenya.c_str(), contrasenya.length(), 0);
+	if(result != SQLITE_OK)
+	{
+		printf("Error binding parameter(SELECT)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return result;
+	}
+
+
+//PARA EJECUTAR LA CONSULTA
+
+	result = sqlite3_step(stmt);
+	if (result != SQLITE_DONE) {
+		printf("Error selecting data\n");
+		return result;
+	}
+//
+	char nombreBD[100];
+	char contrasenyaBD[100];
+
+	do {
+		result = sqlite3_step(stmt) ;
+		if (result == SQLITE_ROW) {
+			strcpy(nombreBD, (char *)sqlite3_column_text(stmt, 0));
+			strcpy(contrasenyaBD, (char *)sqlite3_column_text(stmt, 1));
+			
+			//if(nombreBD == nombre && contrasenyaBD == contrasenya)
+			if (strcmp(nombre, nombreBD)==0 && strcmp(contrasenya, contrasenyaBD)==0)
+				return SQLITE_OK; 
+		}
+	} while (result == SQLITE_ROW);
+//
+	result = sqlite3_finalize(stmt);
+	if (result != SQLITE_OK) {
+		printf("Error finalizing statement (SELECT)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return result;
+	}
+	
+
+	return SQLITE_OK;
+}
+*/
 int DBConnector::mostrarUsuarios() {
 //MOSTRAR TODOS LOS USUARIOS QUE TENEMOS EN LA BD
 	sqlite3_stmt *stmt;
@@ -339,7 +479,7 @@ int DBConnector::insertarUsuario(std::string nombre, std::string contrasenya) {
 
 	result = sqlite3_step(stmt);
 	if (result != SQLITE_DONE) {
-		printf("Error inserting new data into country table\n");
+		printf("Error inserting new data into usuario table\n");
 		return result;
 	}
 
@@ -814,7 +954,8 @@ int DBConnector::insertarContactoFa(std::string nombre, std::string apellido, in
 
 
 DBConnector::DBConnector(std::string dbFile) {
-	//this->db = NULL;
+	this->db = NULL;
+	this->num=0;
 	int result = sqlite3_open(dbFile.c_str(), &db);
 	if (result != SQLITE_OK) {
 		printf("Error opening database\n");
@@ -825,8 +966,10 @@ DBConnector::DBConnector(std::string dbFile) {
 DBConnector::~DBConnector() {
 	int result = sqlite3_close(db);
 	if (result != SQLITE_OK) {
-		printf("Error opening database\n");
+		printf("Error closing database\n");
 		printf("%s\n", sqlite3_errmsg(db));
 	}	
 
 }
+
+

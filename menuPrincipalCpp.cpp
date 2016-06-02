@@ -34,7 +34,7 @@ string insertarContransenya (UsuarioCpp *usuario){
 
 
 //int main() {
-void menuPrincipalCpp::menuPrinci ()
+int menuPrincipalCpp::menuPrinci ()
 {
 
 	DBConnector dbConnector("test.sqlite"); //INSTANCIA
@@ -57,7 +57,6 @@ void menuPrincipalCpp::menuPrinci ()
     string contrasenya;
 
     menuLoginCpp login;
-
      do
     {
         cout << "\nMENU PRINCIPAL: Seleccione una opcion " << endl;
@@ -65,44 +64,40 @@ void menuPrincipalCpp::menuPrinci ()
         cin >> opc;
 
         switch(opc){
-            case 1: nombre = insertarNombre(&usu[total]);
+            case 1: 
+                    nombre = insertarNombre(&usu[total]);
                     contrasenya = insertarContransenya(&usu[total]);
 
                     result = dbConnector.chequearUsuario((char*)nombre.c_str(), (char*)contrasenya.c_str());
-                    if(result == 5)
+
+                    if (dbConnector.getNum() == 5 && result == SQLITE_OK)
                     //SI EXISTE EL USUARIO, ENTRAR
                     {
                         login.menuaCpp(nombre);
                         break;
                     }
-                    if (result != 5){
+                    if (dbConnector.getNum() != 5){
                     //SI NO EXISTE EL USUARIO, INSERTAR
                         cout << "El nombre usuario y contrasenya incorrectas" << endl;
                     }
 
-                    if ( result != SQLITE_OK) {
-                        cout << "Error inserting new data. Already exists" << endl;
-                        //return result;
-                    }
                     break;
 
             case 2: nombre = insertarNombre(&usu[total]);
                     contrasenya = insertarContransenya(&usu[total]);
 
                     result = dbConnector.chequearUsuario((char*)nombre.c_str(), (char*)contrasenya.c_str());
-                    if(result == 5)
+
+                    if(dbConnector.getNum() == 5 && result == SQLITE_OK)
                     {
                        cout << "El nombre usuario y contrasenya ya existen, intentelo de nuevo" << endl;
                     }
-                    if (result != 5){
+                    if (dbConnector.getNum() != 5)
+                    {
                     //SI NO EXISTE EL USUARIO, INSERTAR
                         result = dbConnector.insertarUsuario(nombre, contrasenya);
                         total++;
-                    }
-
-                    if ( result != SQLITE_OK) {
-                         cout << "Error inserting new data. Already exists" << endl;
-                        //return result;
+                        break;
                     }
                     
                     break;
@@ -120,6 +115,8 @@ void menuPrincipalCpp::menuPrinci ()
         return result;
     }
     */
+    //cout << "menuPrinci bukatu" << endl;
 
-	//return 0;
+
+	return 0;
 }

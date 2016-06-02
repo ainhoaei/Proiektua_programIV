@@ -9,6 +9,7 @@ class DBConnector {
 
 private:
 		sqlite3 *db;
+		int num;
 
 public:
 	int mostrarUsuarios();
@@ -31,10 +32,14 @@ public:
 	int verContactoFa();
 	int eliminarContactoFa(int id);
 
-
-	int chequearUsuario(char* nombre, char* contrasenya);
+	int chequearUsuario (char* nombre, char* contrasenya);
+	//int chequearNombre(std::string nombre);
+	//int chequearContrasenya(std::string contrasenya);
 
 	DBConnector(std::string dbFile);
 
 	~DBConnector();
+
+	int getNum() const;
+	void setNum(int num);
 };

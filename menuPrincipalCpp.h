@@ -7,7 +7,7 @@
 class menuPrincipalCpp
 {
 	public:
-		void menuPrinci();
+		int menuPrinci();
 };
 
 
