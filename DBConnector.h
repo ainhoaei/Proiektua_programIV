@@ -20,17 +20,16 @@ public:
 
 	
 	//int insertarContactoCon(std::string nombre, std::string apellido, int tlf, std::string pueblo, int edad);
-	
-	int insertarContactoEmp(std::string nombre, std::string apellido, int tlf, std::string empresa, std::string puesto, std::string email);
-	int mostrarContactoEmp();
-	int verContactoEmp();
-	int eliminarContactoEmp(int id);
+	int insertarContactoEmp(std::string nombre, std::string apellido, int tlf, std::string empresa, std::string puesto, std::string email, std::string usuario);
+	int mostrarContactoEmp(std::string usuario);
+	int verContactoEmp(std::string usuario);
+	int eliminarContactoEmp(int id, std::string usuario);
 
 
-	int insertarContactoFa(std::string nombre, std::string apellido, int tlf, std::string direccion, std::string mote);
-	int mostrarContactoFa();
-	int verContactoFa();
-	int eliminarContactoFa(int id);
+	int insertarContactoFa(std::string nombre, std::string apellido, int tlf, std::string direccion, std::string mote, std::string usuario);
+	int mostrarContactoFa(std::string usuario);
+	int verContactoFa(std::string usuario);
+	int eliminarContactoFa(int id, std::string usuario);
 
 	int chequearUsuario (char* nombre, char* contrasenya);
 	//int chequearNombre(std::string nombre);

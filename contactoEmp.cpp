@@ -5,11 +5,12 @@
 
 using namespace std;
 
-contactoEmp::contactoEmp(string nombre, string apellido, int tlf, string empresa, string puesto, string email): contactosCpp(nombre, apellido, tlf)
+contactoEmp::contactoEmp(string nombre, string apellido, int tlf, string empresa, string puesto, string email): contactosCpp(nombre, apellido, tlf, usuario)
 {
 	this->empresa = empresa;
 	this->puesto = puesto;
 	this->email= email;
+
 }
 contactoEmp::contactoEmp(): contactosCpp()
 {
@@ -37,15 +38,17 @@ string contactoEmp::getEmail() const
 
 
 
-contactoEmp* contactoEmp::meterContacto(contactoEmp *c, int total)
+contactoEmp* contactoEmp::meterContacto(contactoEmp *c, int total, string usuario)
 {
 	contactosCpp contacto[100];
 
-	contacto->meterContacto(&contacto[total]);
+	contacto->meterContacto(&contacto[total], usuario);
 
 	c->setNombre(contacto->getNombre());
 	c->setApellido(contacto->getApellido());
 	c->setTlf(contacto->getTlf());
+	c->setUsuario(contacto->getUsuario());
+
 		   	
 	   	string empresa;
 		cout << "Empresa:" << endl;
@@ -62,6 +65,8 @@ contactoEmp* contactoEmp::meterContacto(contactoEmp *c, int total)
 		cout <<"Email:" << endl;
 		cin >> email;
 		c->email = email.substr(0,39);
+
+
 
 		return c;
 }

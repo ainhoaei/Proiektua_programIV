@@ -21,7 +21,7 @@ public:
 	virtual ~contactoEmp();
 
 	
-	virtual contactoEmp* meterContacto(contactoEmp *c, int total);
+	virtual contactoEmp* meterContacto(contactoEmp *c, int total, string usuario);
 	
 	//void modificarContacto();
 

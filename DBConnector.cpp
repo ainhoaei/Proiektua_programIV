@@ -269,13 +269,13 @@ int DBConnector::eliminarUsuario() {
 
 
 
-int DBConnector::eliminarContactoEmp(int id) {
+int DBConnector::eliminarContactoEmp(int id, std::string usuario) {
 //borra el contenido del ID que hemos seleccionado
 
 
 	//char sql[] = "delete from ? where id =?";
 
-    char sql[] = "delete from CONTACTOSEMP where id = ?";
+    char sql[] = "delete from CONTACTOSEMP where id = ?, usuario = ?";
 
 	sqlite3_stmt *stmt;
 
@@ -317,6 +317,14 @@ int DBConnector::eliminarContactoEmp(int id) {
 		return result;
 	}
 
+	result = sqlite3_bind_text(stmt, 2, usuario.c_str(), strlen(usuario.c_str()), 0);
+
+		if(result != SQLITE_OK)
+	{
+		printf("Error binding parameter(DELETE)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return result;
+	}
 
 	result = sqlite3_step(stmt);
 //PARA EJECUTAR LA CONSULTA
@@ -342,11 +350,11 @@ int DBConnector::eliminarContactoEmp(int id) {
 }
 
 
-int DBConnector::eliminarContactoFa(int id) {
+int DBConnector::eliminarContactoFa(int id, std::string usuario) {
 //borra el contenido del ID que hemos seleccionado
 
 
-    char sql[] = "delete from CONTACTOSFA where id = ?";
+    char sql[] = "delete from CONTACTOSFA where id = ?, usuario = ?";
 
 	sqlite3_stmt *stmt;
 
@@ -361,9 +369,8 @@ int DBConnector::eliminarContactoFa(int id) {
 		return result;
 	}
 
+
 	printf("SQL query prepared (DELETE)\n");
-
-
 
 
 	result = sqlite3_bind_int(stmt, 1, id);
@@ -375,6 +382,14 @@ int DBConnector::eliminarContactoFa(int id) {
 		return result;
 	}
 
+	result = sqlite3_bind_text(stmt, 2, usuario.c_str(), strlen(usuario.c_str()), 0);
+
+		if(result != SQLITE_OK)
+	{
+		printf("Error binding parameter(DELETE)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return result;
+	}
 
 	result = sqlite3_step(stmt);
 //PARA EJECUTAR LA CONSULTA
@@ -497,10 +512,10 @@ int DBConnector::insertarUsuario(std::string nombre, std::string contrasenya) {
 
 
 
-int DBConnector::insertarContactoEmp(std::string nombre, std::string apellido, int tlf, std::string empresa, std::string puesto, std::string email) {
+int DBConnector::insertarContactoEmp(std::string nombre, std::string apellido, int tlf, std::string empresa, std::string puesto, std::string email, std::string usuario) {
 	sqlite3_stmt *stmt;
 
-	char sql[] = "insert into CONTACTOSEMP (id, nombre, apellido, telef, empresa, puesto, email) values (NULL, ?, ?, ?, ?, ?, ?)"; //INSERTATZEZUNA ? JARRI
+	char sql[] = "insert into CONTACTOSEMP (id, nombre, apellido, telef, empresa, puesto, email, usuario) values (NULL, ?, ?, ?, ?, ?, ?, ?)"; //INSERTATZEZUNA ? JARRI
 	int result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL) ;
 	if (result != SQLITE_OK) {
 		printf("Error preparing statement (INSERT)\n");
@@ -560,6 +575,13 @@ int DBConnector::insertarContactoEmp(std::string nombre, std::string apellido, i
 		return result;
 	}
 
+	result = sqlite3_bind_text(stmt, 7, usuario.c_str(), usuario.length(), SQLITE_STATIC);
+	if (result != SQLITE_OK) {
+		printf("Error binding parameters\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return result;
+	}
+
 	result = sqlite3_step(stmt);
 	if (result != SQLITE_DONE) {
 		printf("Error inserting new data into country table\n");
@@ -579,18 +601,28 @@ int DBConnector::insertarContactoEmp(std::string nombre, std::string apellido, i
 }
 
 
-int DBConnector::mostrarContactoEmp() {
+int DBConnector::mostrarContactoEmp(std::string usuario) {
 //MOSTRAR TODOS LOS USUARIOS QUE TENEMOS EN LA BD
 	sqlite3_stmt *stmt;
 
 	
 
-	char sql[] = "select id, nombre, apellido from CONTACTOSEMP";
+	char sql[] = "select id, nombre, apellido from CONTACTOSEMP where usuario = ?";
+	 //char sql[] = "delete from CONTACTOSEMP where id = ?";
 
 
 	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
 	if (result != SQLITE_OK) {
 		printf("Error preparing statement (SELECT)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return result;
+	}
+
+	result = sqlite3_bind_text(stmt, 1, usuario.c_str(), strlen(usuario.c_str()), 0);
+
+	if(result != SQLITE_OK)
+	{
+		printf("Error binding parameter(DELETE)\n");
 		printf("%s\n", sqlite3_errmsg(db));
 		return result;
 	}
@@ -630,17 +662,26 @@ int DBConnector::mostrarContactoEmp() {
 	return SQLITE_OK;
 }
 
-int DBConnector::verContactoEmp() {
+int DBConnector::verContactoEmp(std::string usuario) {
 //MOSTRAR TODOS LOS USUARIOS QUE TENEMOS EN LA BD
 	sqlite3_stmt *stmt;
 
 
-	char sql[] = "select * from CONTACTOSEMP";
+	char sql[] = "select nombre, apellido, telef, empresa, puesto, email from CONTACTOSEMP where usuario = ?";
 	//char sql[] = "select id, nombre, apellido from CONTACTOSEMP";
 
 	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
 	if (result != SQLITE_OK) {
 		printf("Error preparing statement (SELECT)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return result;
+	}
+
+	result = sqlite3_bind_text(stmt, 1, usuario.c_str(), strlen(usuario.c_str()), 0);
+
+	if(result != SQLITE_OK)
+	{
+		printf("Error binding parameter(DELETE)\n");
 		printf("%s\n", sqlite3_errmsg(db));
 		return result;
 	}
@@ -771,17 +812,26 @@ int DBConnector::insertarContactoCon(std::string nombre, std::string apellido, i
 }
 
 */
-int DBConnector::verContactoFa() {
+int DBConnector::verContactoFa(std::string usuario) {
 //MOSTRAR TODOS LOS USUARIOS QUE TENEMOS EN LA BD
 	sqlite3_stmt *stmt;
 
 
-	char sql[] = "select * from CONTACTOSFA";
+	char sql[] = "select nombre, apellido, telef, direccion, mote from CONTACTOSFA where usuario = ?";
 	//char sql[] = "select id, nombre, apellido from CONTACTOSEMP";
 
 	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
 	if (result != SQLITE_OK) {
 		printf("Error preparing statement (SELECT)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return result;
+	}
+
+	result = sqlite3_bind_text(stmt, 1, usuario.c_str(), strlen(usuario.c_str()), 0);
+
+	if(result != SQLITE_OK)
+	{
+		printf("Error binding parameter(DELETE)\n");
 		printf("%s\n", sqlite3_errmsg(db));
 		return result;
 	}
@@ -833,18 +883,27 @@ int DBConnector::verContactoFa() {
 	return SQLITE_OK;
 }
 
-int DBConnector::mostrarContactoFa() {
+int DBConnector::mostrarContactoFa(std::string usuario) {
 //MOSTRAR TODOS LOS USUARIOS QUE TENEMOS EN LA BD
 	sqlite3_stmt *stmt;
 
 	
 
-	char sql[] = "select id, nombre, apellido from CONTACTOSFA";
+	char sql[] = "select id, nombre, apellido from CONTACTOSFA where usuario = ?";
 
 
 	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) ;
 	if (result != SQLITE_OK) {
 		printf("Error preparing statement (SELECT)\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return result;
+	}
+
+	result = sqlite3_bind_text(stmt, 1, usuario.c_str(), strlen(usuario.c_str()), 0);
+
+	if(result != SQLITE_OK)
+	{
+		printf("Error binding parameter(DELETE)\n");
 		printf("%s\n", sqlite3_errmsg(db));
 		return result;
 	}
@@ -883,10 +942,10 @@ int DBConnector::mostrarContactoFa() {
 
 	return SQLITE_OK;
 }
-int DBConnector::insertarContactoFa(std::string nombre, std::string apellido, int tlf, std::string direccion, std::string mote) {
+int DBConnector::insertarContactoFa(std::string nombre, std::string apellido, int tlf, std::string direccion, std::string mote, std::string usuario) {
 	sqlite3_stmt *stmt;
 
-	char sql[] = "insert into CONTACTOSFA (id, nombre, apellido, telef, direccion, mote) values (NULL, ?, ?, ?, ?, ?)"; //INSERTATZEZUNA ? JARRI
+	char sql[] = "insert into CONTACTOSFA (id, nombre, apellido, telef, direccion, mote, usuario) values (NULL, ?, ?, ?, ?, ?, ?)"; //INSERTATZEZUNA ? JARRI
 	int result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL) ;
 	if (result != SQLITE_OK) {
 		printf("Error preparing statement (INSERT)\n");
@@ -926,6 +985,13 @@ int DBConnector::insertarContactoFa(std::string nombre, std::string apellido, in
 	}
 
 	result = sqlite3_bind_text(stmt, 5, mote.c_str(), mote.length(), SQLITE_STATIC);
+	if (result != SQLITE_OK) {
+		printf("Error binding parameters\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return result;
+	}
+
+	result = sqlite3_bind_text(stmt, 6, usuario.c_str(), usuario.length(), SQLITE_STATIC);
 	if (result != SQLITE_OK) {
 		printf("Error binding parameters\n");
 		printf("%s\n", sqlite3_errmsg(db));

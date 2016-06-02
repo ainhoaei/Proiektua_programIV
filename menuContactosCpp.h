@@ -6,7 +6,8 @@
 class menuContactosCpp
 {
 	public:
-		int menuEmpresa();
+		int menuEmpresa(string usuario);
+		int menuFavorito(string usuario);
 };
 
 

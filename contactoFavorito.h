@@ -21,7 +21,7 @@ public:
 	virtual ~contactoFavorito();
 
 	
-	virtual contactoFavorito* meterContacto(contactoFavorito *f, int total);
+	virtual contactoFavorito* meterContacto(contactoFavorito *f, int total, string usuario);
 
 
 	string getDir() const;

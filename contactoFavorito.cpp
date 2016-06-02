@@ -9,7 +9,7 @@
 
 using namespace std;
 
-contactoFavorito::contactoFavorito(string nombre, string apellido, int tlf, string direccion, string mote): contactosCpp(nombre, apellido, tlf)
+contactoFavorito::contactoFavorito(string nombre, string apellido, int tlf, string direccion, string mote): contactosCpp(nombre, apellido, tlf, usuario)
 {
 	this->direccion = direccion;
 	this->mote = mote;
@@ -36,15 +36,16 @@ string contactoFavorito::getMote() const
 }
 
 
-contactoFavorito* contactoFavorito::meterContacto(contactoFavorito *f, int total)
+contactoFavorito* contactoFavorito::meterContacto(contactoFavorito *f, int total, string usuario)
 {
 	contactosCpp contacto[100];
 
-	contacto->meterContacto(&contacto[total]);
+	contacto->meterContacto(&contacto[total], usuario);
 
 	f->setNombre(contacto->getNombre());
 	f->setApellido(contacto->getApellido());
 	f->setTlf(contacto->getTlf());
+	f->setUsuario(contacto->getUsuario());
 		   	
 	   	/*
 	   	string direccion;

@@ -25,7 +25,7 @@ using namespace std;
 #define MAX_LENGTH 40
 
 
-int menuEmpresa()
+int menuEmpresa(string usuario)
 {
     DBConnector dbConnector("test.sqlite");
     int result = 0;
@@ -46,8 +46,8 @@ int menuEmpresa()
         switch(opc){ 
             case 1:  
                          
-                        e->meterContacto(&e[total], total);
-                        result = dbConnector.insertarContactoEmp(e->getNombre(), e->getApellido(), e->getTlf(), e->getEmp(), e->getPu(), e->getEmail());
+                        e->meterContacto(&e[total], total, usuario);
+                        result = dbConnector.insertarContactoEmp(e->getNombre(), e->getApellido(), e->getTlf(), e->getEmp(), e->getPu(), e->getEmail(), e->getUsuario());
                         total++;
                     
 
@@ -59,17 +59,17 @@ int menuEmpresa()
                     break;
             case 2:                     
                      
-                    dbConnector.verContactoEmp();
+                    dbConnector.verContactoEmp(usuario);
                     break;
                     
 
                       
             case 3:  
                     int opcion;
-                    dbConnector.mostrarContactoEmp(); 
+                    dbConnector.mostrarContactoEmp(usuario); 
                     cin>>opcion;
 
-                    dbConnector.eliminarContactoEmp(opcion);
+                    dbConnector.eliminarContactoEmp(opcion, usuario);
                     break;
 
              case 4:  cout << "Adios!"<< endl; break;
@@ -92,7 +92,7 @@ int menuEmpresa()
 
 }
 
-int menuFavorito()
+int menuFavorito(string usuario)
 {
     DBConnector dbConnector("test.sqlite");
     int result = 0;
@@ -110,8 +110,8 @@ int menuFavorito()
         switch(opc){
             case 1:  
                          
-                        f->meterContacto(&f[total], total);
-                        result = dbConnector.insertarContactoFa(f->getNombre(), f->getApellido(), f->getTlf(), f->getDir(), f->getMote());
+                        f->meterContacto(&f[total], total, usuario);
+                        result = dbConnector.insertarContactoFa(f->getNombre(), f->getApellido(), f->getTlf(), f->getDir(), f->getMote(), f->getUsuario());
                         total++;
                     
 
@@ -122,16 +122,16 @@ int menuFavorito()
                     
                     break;
             case 2:                     
-                     dbConnector.verContactoFa();
+                     dbConnector.verContactoFa(usuario);
                     
                     break;
                       
             case 3: 
                     int opcion;
-                    dbConnector.mostrarContactoFa(); 
+                    dbConnector.mostrarContactoFa(usuario); 
                     cin>>opcion;
 
-                    dbConnector.eliminarContactoFa(opcion);
+                    dbConnector.eliminarContactoFa(opcion, usuario);
 
                     break;
 
@@ -153,7 +153,9 @@ int menuFavorito()
 
 int main()
 {
-    
+    //gero HAU PARAMETROZ PASAKOA 
+
+    string usuario= "aran";
     DBConnector dbConnector("test.sqlite");
 	int result = 0;
 	int opc=0;
@@ -170,10 +172,10 @@ int main()
       
 
         switch(opc){
-            case 1:   menuEmpresa();
+            case 1:   menuEmpresa(usuario);
                         break;
 
-            case 2:  menuFavorito();  
+            case 2:  menuFavorito(usuario);  
                         break;
 
             case 3:  cout << "Adios!"<< endl; break;

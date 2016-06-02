@@ -17,11 +17,12 @@
 #define MAX_TLF 30
 
 
-contactosCpp::contactosCpp(string nombre, string apellido, int num_tlf)
+contactosCpp::contactosCpp(string nombre, string apellido, int num_tlf, string usuario)
 {
 	this->nombre=nombre;
 	this->apellido=apellido;
 	this->num_tlf=num_tlf;
+	this->usuario=usuario; // hau ola al da?
 
 }
 
@@ -45,8 +46,48 @@ int contactosCpp::clear_if_needed (char *str){
     return 0;
 }
 
+string contactosCpp::getNombre()const
+{
+	return this->nombre;
+}
 
-contactosCpp* contactosCpp::meterContacto (contactosCpp *c)
+string contactosCpp::getApellido() const
+{
+	return this->apellido;
+}
+
+int contactosCpp::getTlf() const
+{
+	return this->num_tlf;
+}
+
+string contactosCpp::getUsuario() const
+{
+	return this->usuario;
+}
+
+void contactosCpp::setNombre(string nombre)
+{
+	this->nombre= nombre;
+}
+
+void contactosCpp::setApellido(string apellido)
+{
+	this->apellido = apellido;
+}
+
+void contactosCpp::setTlf(int tlf)
+{
+	this->num_tlf= tlf;
+}
+
+void contactosCpp::setUsuario(string usuario)
+{
+	this->usuario = usuario;
+}
+
+
+contactosCpp* contactosCpp::meterContacto (contactosCpp *c, string usu)
 {
 		cout << "Inserte los siguientes datos: " << endl;
 	   	cout << endl;
@@ -67,6 +108,8 @@ contactosCpp* contactosCpp::meterContacto (contactosCpp *c)
 		cin >> telef;
 		c->num_tlf = atoi(telef.substr(0, 8).c_str());
 
+		c->usuario=usu;
+
 	
 
 		return c;
@@ -75,35 +118,7 @@ contactosCpp* contactosCpp::meterContacto (contactosCpp *c)
 
 
 
-string contactosCpp::getNombre()const
-{
-	return this->nombre;
-}
 
-string contactosCpp::getApellido() const
-{
-	return this->apellido;
-}
-
-int contactosCpp::getTlf() const
-{
-	return this->num_tlf;
-}
-
-void contactosCpp::setNombre(string nombre)
-{
-	this->nombre= nombre;
-}
-
-void contactosCpp::setApellido(string apellido)
-{
-	this->apellido = apellido;
-}
-
-void contactosCpp::setTlf(int tlf)
-{
-	this->num_tlf= tlf;
-}
 	
 /*
 contactosCpp::insertarContacto()
