@@ -17,6 +17,17 @@ void DBConnector::setNum(int num)
 	this->num = num;
 }
 
+int clear_if_neededCT (char *str)
+{
+
+    if (str[strlen(str) - 1] != '\n'){
+        int c;
+        while ((c = getchar()) != EOF && c != '\n');
+    }
+
+    return 0;
+}
+
 int DBConnector::chequearUsuario(char* nombre, char* contrasenya)
 {
 	sqlite3_stmt *stmt;
@@ -647,6 +658,18 @@ int DBConnector::mostrarContactoEmp(std::string usuario) {
 		}
 	} while (result == SQLITE_ROW);
 
+	int salir;
+	char str[MAX];
+
+	printf("\n");
+	printf("\n");
+
+	printf("Pulsa 0 para salir");
+	fgets(str, ID, stdin);
+	clear_if_neededCT(str);
+	sscanf(str, "%d", &salir);
+	
+
 	printf("\n");
 	printf("\n");
 
@@ -655,6 +678,11 @@ int DBConnector::mostrarContactoEmp(std::string usuario) {
 		printf("Error finalizing statement (SELECT)\n");
 		printf("%s\n", sqlite3_errmsg(db));
 		return result;
+	}
+
+	if (salir==0)
+	{
+		return -1;
 	}
 
 	//printf("Prepared statement finalized (SELECT)\n");
@@ -709,6 +737,8 @@ int DBConnector::verContactoEmp(std::string usuario) {
 			strcpy(empresa, (char *) sqlite3_column_text(stmt, 4));
 			strcpy(puesto, (char *) sqlite3_column_text(stmt, 5));
 			strcpy(email, (char *) sqlite3_column_text(stmt, 6));
+
+
 
 			printf("Contacto [%d] \nNombre: %s\tApellido: %s\tNumero de telefono:%d\tEmpresa:%s\tPuesto:%s\tEmail:%s\n\n\n",contador, nombre, apellido, tlf, empresa, puesto, email);
 
@@ -928,6 +958,18 @@ int DBConnector::mostrarContactoFa(std::string usuario) {
 		}
 	} while (result == SQLITE_ROW);
 
+
+	int salir;
+	char str[MAX];
+
+	printf("\n");
+	printf("\n");
+
+	printf("Pulsa 0 para salir");
+	fgets(str, ID, stdin);
+	clear_if_neededCT(str);
+	sscanf(str, "%d", &salir);
+
 	printf("\n");
 	printf("\n");
 
@@ -936,6 +978,11 @@ int DBConnector::mostrarContactoFa(std::string usuario) {
 		printf("Error finalizing statement (SELECT)\n");
 		printf("%s\n", sqlite3_errmsg(db));
 		return result;
+	}
+
+	if (salir==0)
+	{
+		return -1;
 	}
 
 	//printf("Prepared statement finalized (SELECT)\n");

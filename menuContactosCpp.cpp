@@ -114,11 +114,14 @@ void menuFavorito(string usuario)
 
                     break;
 
-            case 4:  break;
+            case 4:  
+                      break;
+        
+            
             default: cout << "Numero erroneo. Introduzca de nuevo."<< endl; break;
-        }
 
-    } while (opc > 3);
+        }
+        } while (opc > 4);
 
     if (result != SQLITE_OK) {
         cout << "Error getting all users"<< endl;
@@ -126,7 +129,7 @@ void menuFavorito(string usuario)
     }
 
 
-}
+    }
 
 
 void SubmenusCpp::menuContacto(string usuario)
