@@ -142,7 +142,7 @@ void SubmenusCpp::menuDiario(string nombre){
 
 	int opcion;
     do{
-        cout << "Seleccione la accion a realizar:\n1. Apuntar nota(C)\n2. ver notas(C)\n3. Ver notas de dia especifico(C)\n4. Eliminar nota (C++)\n5. Atras" << endl;
+        cout << "Seleccione la accion a realizar:\n1. Apuntar nota(C)\n2. Ver notas(C)\n3. Ver notas de dia especifico(C)\n4. Eliminar nota (C++)\n5. Atras" << endl;
         cin >> opcion;
         ifstream ifs (nombreFichero.c_str());
 

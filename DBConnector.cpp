@@ -644,6 +644,8 @@ int DBConnector::mostrarContactoEmp(std::string usuario) {
 	char apellido[MAX];
 	int id;
 
+	int i=0;
+
 	printf("\n");
 	printf("\n");
 	printf("Elige el ID del contacto que desea eliminar:\n");
@@ -655,8 +657,17 @@ int DBConnector::mostrarContactoEmp(std::string usuario) {
 			strcpy(apellido, (char *) sqlite3_column_text(stmt, 2));
 
 			printf("Id: %d\t Nombre: %s\t\t Apellido: %s\n", id, nombre, apellido);
+
+			i=1;
 		}
 	} while (result == SQLITE_ROW);
+
+
+	if(i==0)
+	{
+		printf("No se encuentra ningun contacto\n");
+	}
+
 
 	int salir;
 	char str[MAX];
@@ -724,6 +735,7 @@ int DBConnector::verContactoEmp(std::string usuario) {
 	char email[MAX];
 
 	int contador=1;
+	int i=0;
 	printf("\n");
 	printf("\n");
 	printf("Mostrar contactos de empresa:\n");
@@ -743,11 +755,18 @@ int DBConnector::verContactoEmp(std::string usuario) {
 			printf("Contacto [%d] \nNombre: %s\tApellido: %s\tNumero de telefono:%d\tEmpresa:%s\tPuesto:%s\tEmail:%s\n\n\n",contador, nombre, apellido, tlf, empresa, puesto, email);
 
 			//printf("Id: %d Nombre: %s  Apellido: %s\n", id, nombre, apellido);
+
+			i=1;
 		}
 
 		contador++;
 
 	} while (result == SQLITE_ROW);
+
+	if(i==0)
+	{
+		printf("No se encuentra ningun contacto\n");
+	}
 
 	printf("\n");
 	printf("\n");
@@ -874,7 +893,7 @@ int DBConnector::verContactoFa(std::string usuario) {
 	char direccion[MAX];
 	char mote[MAX];
 	
-
+	int i=0;
 	int contador=1;
 	printf("\n");
 	printf("\n");
@@ -892,11 +911,18 @@ int DBConnector::verContactoFa(std::string usuario) {
 			printf("Contacto [%d] \nNombre: %s\tApellido: %s\tNumero de telefono:%d\tDireccion:%s\tMote:%s\n\n\n",contador, nombre, apellido, tlf, direccion, mote);
 
 			//printf("Id: %d Nombre: %s  Apellido: %s\n", id, nombre, apellido);
+
+			i=1;
 		}
 
 		contador++;
 
 	} while (result == SQLITE_ROW);
+
+	if(i==0)
+	{
+		printf("No se encuentra ningun contacto\n");
+	}
 
 	printf("\n");
 	printf("\n");
@@ -944,6 +970,8 @@ int DBConnector::mostrarContactoFa(std::string usuario) {
 	char apellido[MAX];
 	int id;
 
+	int i=0;
+
 	printf("\n");
 	printf("\n");
 	printf("Elige el ID del contacto que desea eliminar:\n");
@@ -955,8 +983,16 @@ int DBConnector::mostrarContactoFa(std::string usuario) {
 			strcpy(apellido, (char *) sqlite3_column_text(stmt, 2));
 
 			printf("Id: %d\t Nombre: %s\t  Apellido: %s\n", id, nombre, apellido);
+
+			i=1;
 		}
 	} while (result == SQLITE_ROW);
+
+
+	if(i==0)
+	{
+		printf("No se encuentra ningun contacto\n");
+	}
 
 
 	int salir;

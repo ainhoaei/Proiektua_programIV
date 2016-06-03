@@ -32,7 +32,7 @@ void menuEmpresa(string usuario)
     do{
 
         cout << "\nMENU CONTACTOS EMPRESA: Seleccione una operacion " << endl;
-        cout << "1. Insertar Contacto  2. Ver Contacto  3. Eliminar Contacto  4. Salir"<< endl;
+        cout << "1. Insertar Contacto  2. Ver Contacto  3. Eliminar Contacto  4. Atras"<< endl;
         cin >> opc;
       
 
@@ -61,7 +61,7 @@ void menuEmpresa(string usuario)
             default: cout << "Numero erroneo. Introduzca de nuevo."<< endl; break;
         }
 
-    } while (opc > 3);
+    } while (opc > 4);
 
     if (result != SQLITE_OK) {
         cout << "Error getting all users"<< endl;
@@ -82,7 +82,7 @@ void menuFavorito(string usuario)
     do{
 
         cout << "\nMENU CONTACTOS FAVORITOS: Seleccione una operacion " << endl;
-        cout << "1. Insertar Contacto  2. Ver Contacto  3. Eliminar Contacto  4. Salir" << endl;
+        cout << "1. Insertar Contacto  2. Ver Contacto  3. Eliminar Contacto  4. Atras" << endl;
         cin >> opc; 
       
 
@@ -147,7 +147,7 @@ void SubmenusCpp::menuContacto(string usuario)
      	
    
         cout << "\nMENU CONTACTOS: Seleccione el numero del tipo de contacto en el cual quieres realizar las operaciones " << endl;
-        cout << "1. Empresa  2. Favorito  3. Salir" << endl;
+        cout << "1. Empresa  2. Favorito  3. Atras" << endl;
         cin >> opc;
       
 
