@@ -22,8 +22,7 @@ public:
 
 	
 	virtual contactoEmp* meterContacto(contactoEmp *c, int total, string usuario);
-	
-	//void modificarContacto();
+
 
 	string getEmp() const;
 	string getPu() const;

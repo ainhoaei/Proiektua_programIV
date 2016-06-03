@@ -46,33 +46,26 @@ contactoFavorito* contactoFavorito::meterContacto(contactoFavorito *f, int total
 	f->setApellido(contacto->getApellido());
 	f->setTlf(contacto->getTlf());
 	f->setUsuario(contacto->getUsuario());
-		   	
-	   	/*
-	   	string direccion;
-		cout << "Direccion:" << endl;
-		cin >> direccion;
-		f->direccion = direccion.substr(0,69);
-		*/
 
-		char dir[100];
-        cout << "Direccion: " << endl;
-        cin.getline(dir, sizeof(dir));  //ESPAZIOK KONTUN HARTZEKO!
-        if(cin.getline(dir, sizeof(dir)))
-        {
-        	f->direccion =(char *)malloc((strlen(dir) + 1) * sizeof(char)); 	
-        }
-        
+	char dir[100];
+    cout << "Direccion: " << endl;
+    cin.getline(dir, sizeof(dir));  //ESPAZIOK KONTUN HARTZEKO!
+    if(cin.getline(dir, sizeof(dir)))
+    {
+    	f->direccion =(char *)malloc((strlen(dir) + 1) * sizeof(char)); 	
+    }
+    
 
-        string direccion(dir);
+    string direccion(dir);
 
-        f->direccion = direccion;
+    f->direccion = direccion;
 
 
 
-		string mote;
-		cout << "Mote:" << endl;
-		cin >> mote;
-		f->mote = mote.substr(0,39);
+	string mote;
+	cout << "Mote:" << endl;
+	cin >> mote;
+	f->mote = mote.substr(0,39);
 
-		return f;
+	return f;
 }

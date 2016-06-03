@@ -1,6 +1,5 @@
 #include "menuLoginCpp.h"
 #include <iostream>
-#include "DBConnector.h"
 #include "SubmenusCpp.h"
 
 using namespace std;
@@ -9,10 +8,6 @@ using namespace std;
 //MENU LOGIN
 int menuLoginCpp::menuaCpp(string nombre)
 {
-
-    setvbuf (stdout, 0, _IONBF, 0);
-
-  //  DBConnector dbConnector("test.sqlite"); //INSTANCIA
 
     SubmenusCpp menu;
 

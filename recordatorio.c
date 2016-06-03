@@ -141,10 +141,6 @@ char* fechaActual (void)
 
 int avisoRecordatorio(const char *nombre){
 
-
-	
-
-
 	FILE* f;
 	char date[8];
 	strcpy(date,fechaActual());
@@ -186,42 +182,3 @@ int avisoRecordatorio(const char *nombre){
 
 	return 0;
 }
-
-
-/*void menuRecordt(char *nombre){
-	
-	setvbuf (stdout, 0, _IONBF, 0);
-
-	char *p;
-    p = "Recordatorio.txt";
-    char nombreFichero[20];
-    strcpy(nombreFichero, nombre);
-    strcat(nombreFichero, p);
-    FILE *fichero;
-
-	int opcion;
-    
-    do{
-    	fichero = fopen(nombreFichero, "r");
-    	if ( fichero == NULL )
-        {
-          printf("No hay ningun recordatorio\n");
-        }
-        else
-        {
-            avisoRecordatorio(nombre);  
-        }
-    	
-        printf("Seleccione la accion a realizar:\n1. Anyadir recordatorio\n2. Eliminar recordatorio (no operativo)\n3. Atras \n");
-        scanf("%d",&opcion);
-
-        switch(opcion){
-            case 1: recordatorio(nombre);break;
-            case 2: break;
-            case 3: break;
-            default: printf("Numero erroneo. Introduzca de nuevo.\n"); break;
-        }
-
-    }while( opcion != 3 );
-
-}*/

@@ -2,8 +2,6 @@
 #include "contactosCpp.h"
 #include "contactoEmp.h"
 #include "DBConnector.h"
-#include "menu.h"
-#include "menuLoginCpp.h"
 #include "sqlite3.h"
 
 
@@ -115,16 +113,3 @@ contactosCpp* contactosCpp::meterContacto (contactosCpp *c, string usu)
 		return c;
 
 }
-
-
-
-
-	
-/*
-contactosCpp::insertarContacto()
-{
-	
-}
-
-*/
-

@@ -4,20 +4,12 @@
 #include "DBConnector.h"
 #include "menuLoginCpp.h"
 #include "menuContactosCpp.h"
-#include "menuPrincipalCpp.h"
 #include "SubmenusCpp.h"
-
-#include "sqlite3.h" //IMPORTANTE
-
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
+#include "sqlite3.h"
 #include <iostream>
 
 
 using namespace std;
-
-#define MAX_LENGTH 40
 
 
 void menuEmpresa(string usuario)
@@ -37,7 +29,7 @@ void menuEmpresa(string usuario)
       
 
         switch(opc){ 
-            case 1:  e->meterContacto(&e[total], total, usuario);
+            case 1: e->meterContacto(&e[total], total, usuario);
                     result = dbConnector.insertarContactoEmp(e->getNombre(), e->getApellido(), e->getTlf(), e->getEmp(), e->getPu(), e->getEmail(), e->getUsuario());
                     total++;
                     if ( result != SQLITE_OK) {
@@ -87,12 +79,9 @@ void menuFavorito(string usuario)
       
 
         switch(opc){
-            case 1:  
-                         
-                        f->meterContacto(&f[total], total, usuario);
-                        result = dbConnector.insertarContactoFa(f->getNombre(), f->getApellido(), f->getTlf(), f->getDir(), f->getMote(), f->getUsuario());
-                        total++;
-                    
+            case 1: f->meterContacto(&f[total], total, usuario);
+                    result = dbConnector.insertarContactoFa(f->getNombre(), f->getApellido(), f->getTlf(), f->getDir(), f->getMote(), f->getUsuario());
+                    total++;
 
                     if ( result != SQLITE_OK) {
                          cout << "Error inserting new data. Already exists" << endl;
@@ -100,8 +89,7 @@ void menuFavorito(string usuario)
                     }
                     
                     break;
-            case 2:                     
-                     dbConnector.verContactoFa(usuario);
+            case 2: dbConnector.verContactoFa(usuario);
                     
                     break;
                       
@@ -114,14 +102,12 @@ void menuFavorito(string usuario)
 
                     break;
 
-            case 4:  
-                      break;
+            case 4:  break;
         
-            
             default: cout << "Numero erroneo. Introduzca de nuevo."<< endl; break;
 
         }
-        } while (opc > 4);
+    } while (opc > 4);
 
     if (result != SQLITE_OK) {
         cout << "Error getting all users"<< endl;
@@ -129,34 +115,28 @@ void menuFavorito(string usuario)
     }
 
 
-    }
+}
 
 
 void SubmenusCpp::menuContacto(string usuario)
 {
-    //gero HAU PARAMETROZ PASAKOA 
-
-    //string usuario= "aran";
     DBConnector dbConnector("test.sqlite");
 	int result = 0;
 	int opc=0;
 
      do{
-
-     	//Persona *p1 = new Persona("Juanito", 15); //La clase es abstracta
      	
-   
         cout << "\nMENU CONTACTOS: Seleccione el numero del tipo de contacto en el cual quieres realizar las operaciones " << endl;
         cout << "1. Empresa  2. Favorito  3. Atras" << endl;
         cin >> opc;
       
 
         switch(opc){
-            case 1:   menuEmpresa(usuario);
-                        break;
+            case 1: menuEmpresa(usuario);
+                    break;
 
-            case 2:  menuFavorito(usuario);  
-                        break;
+            case 2: menuFavorito(usuario);  
+                    break;
 
             case 3:  break;
 

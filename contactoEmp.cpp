@@ -70,19 +70,3 @@ contactoEmp* contactoEmp::meterContacto(contactoEmp *c, int total, string usuari
 
 		return c;
 }
-
-//MODIFICAR CONTACTO: ez dao konpilatuta probatzeko aber ondo iteun
-/*
-void contactoEmp::modificarContacto()
-{
-	DBConnector::mostrarContactoEmp();
-
-	int id;
-
-	cout << "Escribe el id del concacto que quieras modificar" << endl;
-	cin >> id;
-
-	
-
-}
-*/

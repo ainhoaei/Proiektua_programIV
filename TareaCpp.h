@@ -3,9 +3,7 @@
 
 #include "Tarea.h"
 #include <string>
-#include <vector>
 #include <iostream>
-#include <fstream>
 
 class TareaCpp
 {
@@ -32,7 +30,6 @@ class TareaCpp
 
 };
 
-//std::istream& operator>>(std::istream& in, TareaCpp& t);
 std::ostream& operator<<(std::ostream& out, const TareaCpp& t);
 
 

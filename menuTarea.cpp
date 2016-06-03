@@ -101,7 +101,7 @@ vector<TareaCpp> leerFichero(string nombreFichero)
         i++;
     }
 
-    cout << "Seleccione el numero ["<< numTarea <<"] " << "para cancelar y salir" << endl; 
+    cout << "["<< numTarea <<"] " << "Cancelar" << endl; 
     cout << "-------------------------------------------------------------" << endl;
     cout << endl;
 
@@ -220,12 +220,10 @@ void eliminarTarea(string nombreFichero)
 }
 
 
-void SubmenusCpp::menuTarea (string nombre)  //MAIN BEHARREN GERO HAU JARRI BEHAR DA!
-//int main()
+void SubmenusCpp::menuTarea (string nombre)
 {
     
     Tarea* tarea = new Tarea();
-    //string nombre = "aran"; //HAU GERO KENDU IN BEHAR DA!
     int opcion;
     int total;
     total = 0;
@@ -277,5 +275,4 @@ void SubmenusCpp::menuTarea (string nombre)  //MAIN BEHARREN GERO HAU JARRI BEHA
 
     }while( opcion != 5 );
 
-    //return 0;
 }

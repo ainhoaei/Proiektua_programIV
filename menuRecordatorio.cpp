@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <string.h>
 #include <string>
-#include <stdlib.h>
 #include "recordatorio.h"
 #include "SubmenusCpp.h"
 #include <iostream>
@@ -139,10 +136,18 @@ void SubmenusCpp::menuRecordatorio (string nombre)
     do{
         cout <<"Seleccione la accion a realizar:\n1. Anyadir recordatorio (C)\n2. Eliminar recordatorio (c++)\n3. Atras" << endl;
        cin >> opcion;
+       ifstream ifs (nombreFichero.c_str());
 
        switch(opcion){
             case 1: recordatorio(nombre.c_str());break;
-            case 2: eliminarRecordatorio(nombre);break;
+            case 2: if(ifs == NULL) {
+                     cout <<"No hay notas guardadas\n"<<endl;
+                    }
+                    else
+                    {
+                        eliminarRecordatorio(nombre);
+                    }
+                    break;
             case 3: break;
             default: cout<< "Numero erroneo. Introduzca de nuevo.\n" << endl;break;
         }

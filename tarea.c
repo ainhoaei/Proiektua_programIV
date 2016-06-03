@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include "menu.h"
 #include <string.h>
 #include <stdlib.h>
 #include "Tarea.h"
@@ -136,7 +135,7 @@ int largo_cadena(char cadena[])
 
 int LeerDesdeFicheroTarea (Tarea *t, const char *nombre){
 
-    char const *p; //CONST JARRIIIIIIIII!!!!!!!!!!!!!!!!!!!!!!!
+    char const *p;
     p = "Tarea.txt";
 
     char nombreFichero[20];

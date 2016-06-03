@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <string.h>
 #include <string>
-#include <stdlib.h>
 #include "diario.h"
 #include "diarioCpp.h"
 #include <iostream>
@@ -53,12 +50,11 @@ DiarioCpp *diario = new DiarioCpp[numNotas(nombreFichero)];
             num++;
         }
             
-    
      }
 
      cout << "[" << num  << "]  Cancelar" << endl;
 
-      ifs.close();
+    ifs.close();
 
  }
 
@@ -83,29 +79,23 @@ DiarioCpp *diario = new DiarioCpp[numNotas(nombreFichero)];
 
                 cont++;  
             }
-            
-            
+              
             num++;
-        }
-
-            
+        }      
     
      }
 
-      ifs.close();
+    ifs.close();
 
+    int e = num-1;
+    ofstream ofs(nombreFichero.c_str(),  ofstream::out);
 
+    for (int i = 0; i < e; i++){
+        ofs << "========================================"<<endl;
+        ofs << diario[i];
+    }
 
-      int e = num-1;
-       ofstream ofs(nombreFichero.c_str(),  ofstream::out);
-
-            for (int i = 0; i < e; i++){
-                ofs << "========================================"<<endl;
-                ofs << diario[i];
-                //cout<<i<<endl;
-            }
-
-        ofs.close();
+    ofs.close();
 
 
  }
@@ -130,11 +120,8 @@ int opc;
 }
 
 
-void SubmenusCpp::menuDiario(string nombre){
-	
-	
-
-	//string nombre = "jon"; //HAU GERO KENDU IN BEHAR DA!
+void SubmenusCpp::menuDiario(string nombre)
+{
 
     string x = "Nota.txt";
     string nombreFichero = nombre + x;
@@ -156,8 +143,22 @@ void SubmenusCpp::menuDiario(string nombre){
                         leer(nombre.c_str());  
                     }
                     break;
-            case 3: verEspc(nombre.c_str());break;
-            case 4: eliminarNota(nombreFichero);break;
+            case 3: if(ifs == NULL) {
+                        cout <<"No hay notas guardadas\n"<<endl;
+                    }
+                    else
+                    {
+                        verEspc(nombre.c_str());
+                    }
+                    break;
+            case 4: if(ifs == NULL) {
+                        cout <<"No hay notas guardadas\n"<<endl;
+                    }
+                    else
+                    {
+                        eliminarNota(nombreFichero);
+                    }
+                    break;
             case 5: break;
             default: cout <<"Numero erroneo. Introduzca de nuevo.\n"<<endl; break;
         }

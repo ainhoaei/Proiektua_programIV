@@ -129,7 +129,6 @@ char* fecha (void)
   info = localtime( &rawtime );
 
   strftime(buffer,80,"%x", info);
-  //strftime(buffer,80,"%x - %I:%M%p", info);
   return (char*)buffer;
 }
 
@@ -202,6 +201,8 @@ void leer(const char *nombre)
 	}
 	//cerrar fichero
 	fclose(f);
+
+	printf("\n");
 
 	
 }

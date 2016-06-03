@@ -1,9 +1,6 @@
 #include <string>
 #include "diarioCpp.h"
 #include <iostream>
-#include <vector>
-#include <fstream>
-#include <stdlib.h>
 
 using namespace std;
 
